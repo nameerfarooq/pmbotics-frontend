@@ -1,0 +1,29 @@
+.Heading{
+    font-size: 24pt;
+
+    font-weight: bolder;
+}
+.SubHeading{
+    font-size: 18pt;
+
+    font-weight: bold;
+}
+.BlueTxt{
+    color: #05037C;
+    background-color: white;
+}
+.GreyTxt{
+    color: grey;
+    
+
+}
+.WhiteTxt{
+    color: white;
+    background-color: #05037C;
+}
+.AddShadow{
+    box-shadow: 0px 0px 5px 5px #f0f0f0;
+}
+.MainContainerDiv{
+    padding: 3%;
+}

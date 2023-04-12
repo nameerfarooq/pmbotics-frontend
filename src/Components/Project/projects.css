@@ -1,0 +1,302 @@
+/* Screen 1 for projects */
+.ProjectsHolder {
+    display: flex;
+    flex-wrap: wrap;
+    /* margin: 10px; */
+}
+
+.ProjectsCards {
+    background-color: #05037C;
+    color: white;
+    /* padding: 20px; */
+    margin: 10px;
+    border-radius: 10px;
+    min-width: 200px;
+    width: 320px !important;
+    box-shadow: 0px 0px 5px 5px #dfdfdf;
+
+}
+
+.PNo {
+
+    background-color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: #05037C;
+    padding: 0 10px;
+    font-weight: bolder !important;
+    font-size: 150%;
+}
+
+.PTitle {
+    padding: 0 10px;
+    font-weight: 900;
+
+
+}
+
+.PDesc {
+    padding: 0 10px;
+    color: #00ffee;
+    font-size: small;
+
+
+}
+
+.PSup {
+    padding: 0 10px;
+
+}
+
+.Ps2 {
+    color: #00ffee;
+}
+
+.New-Project-btn {
+    background-color: #05037C;
+    color: white;
+    padding: 10px;
+    float: right;
+    right: 10;
+    border-radius: 20px;
+    min-width: 80px;
+    width: 120px;
+    margin-top: -5px;
+    font-weight: bold;
+
+}
+
+@media screen and (max-width: 480px) {
+    .New-Project-btn {
+        float: right;
+        right: 2;
+        border-radius: 20px;
+        width: 90px;
+        padding: 2px;
+        
+    }
+}
+
+.ProjectHeading {
+    color: #05037C;
+    font-weight: bolder;
+}
+
+.ProjectHeader {
+    background-color: rgb(255, 255, 255);
+    border-bottom: 1px solid rgb(243, 243, 243);
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    text-align: left;
+    justify-content: center;
+    /* align-items: center; */
+    line-height: 30px;
+}
+
+.projectSection1 {
+    padding: 3%;
+}
+
+/* create milestone screen */
+
+.CM-Des{
+    height: 150px !important;
+}
+
+/* ************************************************* */
+/* screen 2 'create Project' */
+/* ************************************************* */
+
+
+
+
+
+.CreateProjectScreen {
+    padding: 3%;
+    width: 50% !important;
+    margin-bottom: 2%;
+}
+
+@media screen and (max-width: 480px) {
+    .CreateProjectScreen {
+        width: 100% !important;
+    }
+}
+
+.CP-Title {
+    color: #05037C;
+    font-weight: bolder;
+}
+
+.CP-Title2 {
+    font-size: x-large;
+}
+
+.FormMainContainer {
+    margin: 2%;
+    /* width: 50%; */
+}
+
+
+.FormMainContainer>form>label {
+    color: #919191;
+    font-size: larger;
+    font-weight: bold;
+    margin: 1%;
+}
+
+.PC-btnHolder {
+    text-align: left;
+    margin-top: 2%;
+    display: flex;
+    flex-wrap: nowrap;
+
+}
+
+.PC-btn1 {
+    margin: 10px 0 0 0;
+    height: fit-content;
+    background-color: #828282;
+}
+
+.PC-btn2 {
+    width: 200px;
+    min-width: 120px;
+    margin: 10px;
+    background-color: #05037C;
+}
+
+
+/* ******************************************************* */
+/* View Projects Screen 3 */
+/* ******************************************************* */
+
+
+.ViewProjectMainDiv{
+    padding: 3%;
+    margin-bottom: 5%;
+}
+.PV-Cardholder{
+    margin: auto;
+    /* justify-content: center; */
+    display: flex;
+    flex-wrap: wrap;
+}
+.PV-Cards{
+    background-color: #ffffff;
+    color: #05037C;
+    padding: 15px 10px;
+    margin: 10px;
+    border-radius: 10px;
+    min-width: 200px;
+    width: 420px !important;
+    box-shadow: 0px 0px 5px 5px #f0f0f0;
+    text-align: center;
+}
+.PV-cards-heading{
+text-align: left;
+font-weight: bolder;
+color: #05037C;
+}
+.PV-btn{
+    background-color: #05037C;
+    color: white;
+    width: 100px;
+    border-radius: 10px;
+    font-weight: bold;
+    height: 40px;
+    border: none;
+    text-align: center;
+}
+
+.PV-cards-section{
+    margin: 5px 0px;
+    text-align: left;
+    color: #919191;
+}
+
+.PV-PTitle{
+    font-weight: bolder;
+    text-align: center;
+    margin: 2%;
+}
+
+
+
+/* ***************************************************************************** */
+/* Final Project Screen */
+/* ***************************************************************************** */
+
+
+
+ .MainContainerFP{
+    padding: 3%;
+ }
+ .FP-Card{
+    margin: 2%;
+    background-color: #dfdfdf;
+    border: none;
+    border-radius: 10px;
+
+ }
+ .FP-1{
+    padding: 2%;
+    background-color: white;
+    border-top-left-radius: 8px ;
+    border-top-right-radius: 8px;
+    margin: 0;
+
+}
+.FP-2{
+    margin: 0;
+     padding:2%;
+     border-bottom-left-radius: 8px ;
+    border-bottom-right-radius: 8px;
+
+ }
+ .GradesHolderFP{
+    padding: 3%;
+    margin: 2%;
+    background-color: #dfdfdf;
+    border: none;
+    border-radius: 10px;
+ }
+ .HeightInput{
+    height: 100px !important;
+
+}
+.widthControl{
+    width: 25% !important;
+    
+    /* margin: 0 2%; */
+}
+.widthControl2{
+    width: 35% !important;
+    
+    /* margin: 0 2%; */
+}
+@media screen and (max-width: 480px) {
+    .widthControl {
+        width: 100% !important;
+    }
+    ۔widthControl2{
+        width: 100% !important;
+
+    }
+}
+
+
+/* ************************************************************************** */
+/* edit members screen */
+/* ************************************************************************** */
+
+
+.Icons-EM{
+    width: 25px;
+}
+.Icon-btn-EM{
+    border: none;
+    margin: 0 2px;
+    background-color: transparent;
+}

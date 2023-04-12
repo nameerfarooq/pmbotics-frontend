@@ -1,0 +1,43 @@
+.MainDiv{
+    padding: 3%;
+
+}
+.Heading{
+    font-weight: bolder;
+    color: #05037C;
+
+}
+.Head{
+    background-color: white;
+    color: #05037C;
+    padding: 1%;
+    border-top-left-radius:8px ;
+    border-top-right-radius: 8px;
+}
+.SubmitCard{
+    width: 90%;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 5px #f0f0f0;
+    color: white;
+    /* padding: 1%; */
+    background-color: #05037C;
+    padding-bottom: 10px;
+}
+.Para{
+    padding: 1%;
+    color: rgb(0, 255, 229);
+}
+.SubmitFYP{
+    background-color: #05037C;
+    border: white 2px solid;
+    font-weight: bold;
+}
+.SubmitFYP:hover{
+    background-color: white;
+    color: #05037C;
+}
+
+.FormPro{
+    padding: 1%;
+}

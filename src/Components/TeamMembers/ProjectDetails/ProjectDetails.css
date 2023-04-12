@@ -1,0 +1,42 @@
+.MainDiv{
+    padding: 3%;
+}
+.ProjectTitle{
+    font-weight: bold;
+    color: #05037C;
+}
+.SupervisorName{
+    font-weight: bold;
+    color: #05037C;
+}
+.SupervisorSpan{
+    color: grey;
+    margin-right: 10px;
+}
+.GRNoCard{
+    width: 300px;
+    justify-content: center !important;
+    background-color: #05037C !important;
+    color: aqua;
+    border: none;
+    border-radius: 10px;
+    padding: 2%;
+    margin: 1%;
+}
+.GroupNO{
+    color: white;
+    margin: auto;
+    width: fit-content;
+    
+}
+.GroupNO1{
+    color: rgb(0, 255, 225);
+    font-weight: bolder;
+    font-size: 28pt;
+    
+}
+.CardsHolderDIV{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: center !important; */
+}

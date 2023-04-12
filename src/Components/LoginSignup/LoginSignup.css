@@ -1,0 +1,21 @@
+.formsHolder{
+    margin: 3% auto;
+    width: fit-content;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0px 0px 5px 5px #f0f0f0;
+    padding: 2%;
+}
+.Heading1{
+    font-weight: bolder;
+    text-align: center;
+    color: #05037C;
+    margin: 2%;
+}
+.fieldHolder{
+    display: flex;
+    flex-wrap: wrap;
+}
+.spacer{
+    width: 5px;
+}

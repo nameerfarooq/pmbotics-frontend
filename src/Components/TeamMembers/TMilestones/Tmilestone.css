@@ -1,0 +1,65 @@
+.MilestoneContainer{
+padding: 3%;
+}
+.MSHolder{
+    justify-content: center;
+}
+.MS-H-1{
+    color: #05037C;
+    font-weight: bolder;
+}
+
+
+/* milestone cards styling  */
+.MS-Card{
+    margin: 3%;
+    border-radius: 10px;
+    border: none;
+    background-color: #f7f7f7;
+    min-width: 220px;
+    width: 75% !important;
+    height: auto;
+    box-shadow: 0px 0px 5px 5px #f0f0f0;
+
+}
+.MS-Card-heading{
+    color: #05037C;
+    background-color: white;
+    font-weight: bolder;
+    padding: 5px;
+ border-top-left-radius: 8px;
+ border-top-right-radius: 8px;
+}
+.MS-Card-para{
+    padding: 5px;
+    color: rgb(75, 75, 75);
+
+}
+
+.MS-Card-btns{
+    display: flex;
+    flex-wrap: wrap;
+    /* float: right; */
+    right: 5;
+    margin: 10px;
+    padding-bottom: 10px;
+}
+
+.MS-Card-btn1{
+    border-radius: 5px;
+    color: white;
+    border: none;
+    width: 100px;
+    background-color: rgb(138, 138, 138);
+    font-weight: bold;
+}
+.MS-Card-btn2{
+    margin-left: 5px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    width: 140px;
+    height: 40px;
+    background-color: #05037C;
+    font-weight: bold;
+}

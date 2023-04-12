@@ -1,0 +1,32 @@
+.Card-Notification {
+    border-radius: 10px;
+    border: none;
+    width: 85%;
+    margin: 2%;
+}
+
+.Notification-title {
+    padding: 2%;
+    background-color: #05037C;
+    color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.Notification-desc {
+    
+    padding: 1%;
+    margin: 0;
+}
+
+.Notification-author {
+
+    padding: 1%;
+    color: #05037C;
+    margin: 0;
+}
+.Notification-time{
+    margin: 0;
+    padding: 1%;
+    color: #9c9c9c;
+}

@@ -1,0 +1,81 @@
+.MainDiv {
+
+    padding: 3%;
+}
+
+.TitleScore {
+    font-size: 22pt;
+    font-weight: bold;
+    color: #05037C;
+}
+
+.scoreCard {
+    width: 50%;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px 5px #f0f0f0;
+    /* padding: 1%; */
+    display: flex;
+    margin: 2% auto;
+
+}
+
+.ParaName{
+    padding: 2%;
+    text-align: left;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: #57004b;
+    font-size: 20pt;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    height: 60px;
+}
+.ParaName1{
+    padding: 2%;
+    text-align: left;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: #00a060;
+    font-size: 20pt;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    height: 60px;
+}
+.ParaName2{
+    padding: 2%;
+    text-align: left;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: #714200;
+    font-size: 20pt;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    border: none;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    height: 60px;
+}
+
+.ParaScore {
+    font-weight: bolder;
+    color: #05037C;
+    border: none;
+    border-radius: 8px;
+    width: 20%;
+    background-color:white;
+    font-size: 20pt;
+    text-align: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center !important;
+}

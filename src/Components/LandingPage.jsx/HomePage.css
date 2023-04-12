@@ -1,0 +1,118 @@
+.NavbarHome {
+    background-color: #05037C;
+    color: white;
+}
+
+.LinkText {
+    color: white !important;
+    text-decoration: none;
+}
+
+.LoginButton {
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    color: #05037C;
+    background-color: white;
+    width: 100px;
+    font-weight: bold;
+}
+.section2{
+    padding: 3%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+.section-2-1{
+    width: 50%;
+    min-width: 300px;
+    text-align: center;
+    margin: 2%;
+    padding-top: 5%;
+    
+}
+.section-2-2{
+    margin: 2%;
+    width: 40%;
+    min-width: 300px;
+
+}
+.mainimageHome{
+    width: 100%;
+}
+.mainimageHome2{
+    width: 70%;
+}
+.Para{
+    text-align: left;
+    /* margin-top: 5%; */
+    font-weight: bold;
+    line-height: 2;
+    color: rgb(158, 158, 158) !important;
+}
+.HeadingHome{
+    text-align: left;
+    font-size: 40pt;
+    color: #05037C;
+    font-weight: 1000;
+}
+.SignUpBTN{
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #05037C;
+    color: white;
+    width: 140px;
+    font-weight: bold;
+}
+
+.section3{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 3%;
+}
+.homeCards{
+    justify-content: center !important;
+    border-radius: 10px;
+    background-color: #05037C;
+    border: none;
+    margin: 2%;
+    width: 25%;
+    padding: 20px;
+    text-align: center;
+
+}
+.homeCardsHead{
+    text-align: center !important;
+    
+    color: white;
+    font-weight: bold;
+
+}
+.homeCardsBtn{
+    text-align: center;
+    color: #05037C;
+    background-color: white;
+    border-radius: 2px;
+    width: 140px;
+    font-weight: bold;
+    margin-top: 10px;
+    border: none;
+    font-size: larger;
+}
+.homeCardsDesc{
+    font-size: larger;
+    text-align: center;
+    color: white;
+    margin-top: 10px;
+}
+
+.WhiteTxt{
+    font-size: 18pt;
+}
+.WhiteTxt:hover{
+    color: white;
+    font-size: 18pt;
+}
