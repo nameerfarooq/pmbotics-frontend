@@ -29,7 +29,7 @@ function CreateProject() {
 
 
 
-
+console.log(supervisors)
 
     const supervisorsList = {}
     // eslint-disable-next-line

@@ -5,7 +5,7 @@ const Sidebar = () => {
   
   return (
     <aside sticky="top" className='Sidebar' >
-      <h2>Dashboard</h2>
+      <h2>UIT University</h2>
      
       <ul className='Sidebar-ul'>
       
@@ -13,6 +13,7 @@ const Sidebar = () => {
         <li>Milestones</li>
         <li>Notifications</li>
         <li>Supervisors</li>
+        <li>Students</li>
     
        
       </ul>

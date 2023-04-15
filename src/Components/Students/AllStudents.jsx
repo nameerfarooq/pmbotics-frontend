@@ -4,24 +4,33 @@ import axios from 'axios';
 import '../Project/projects.css'
 import Table from 'react-bootstrap/Table';
 
-function AllSupervisors() {
+function AllStudents() {
 
-  const [supervisors, setSupervisors] = useState([])
-  const API_URI_supervisorslist = 'https://pmbotics.herokuapp.com/alluser/?role=supervisor'
-  
+  const [students, setStudents] = useState([])
+  const API_URI_studentslist = 'https://pmbotics.herokuapp.com/alluser/?role=student'
+  // const getStudents = async () => {
+  //   try {
+  //     const fetchData = await axios.get(API_URI_studentslist, {
+
+  //     })
+  //     setStudents(fetchData.data.data)
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
   useEffect(() => {
-    const getSupervisors = async () => {
+    const getStudents = async () => {
       try {
-        const fetchData = await axios.get(API_URI_supervisorslist, {
+        const fetchData = await axios.get(API_URI_studentslist, {
   
         })
-        setSupervisors(fetchData.data.data)
+        setStudents(fetchData.data.data)
       } catch (error) {
         console.log(error)
       }
     }
-    getSupervisors()
-  }, [supervisors])
+    getStudents()
+  }, [students])
 
   
   return (
@@ -32,7 +41,7 @@ function AllSupervisors() {
 
       <div className='MainContainerFP'>
         <h2 className='Heading BlueTxt'>
-          All Supervisors
+          All Students
         </h2>
         <div>
           <Table striped bordered variant="light">
@@ -40,18 +49,18 @@ function AllSupervisors() {
               <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Faculty Id</th>
+                <th>Roll #</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
 
-              {supervisors.map((supervisor) => (
+              {students.map((student) => (
 
-                <tr key={supervisor.id}>
+                <tr key={student.rollno}>
                   <td>1</td>
-                  <td>{supervisor.name}</td>
-                  <td>{supervisor.faculty_no}</td>
+                  <td>{student.name}</td>
+                  <td>{student.rollno}</td>
                   <td>
                     <button className='Icon-btn-EM'>
                       <img alt='iconsimages' src={require('../../Images/pencil.png')} className="Icons-EM" />
@@ -66,7 +75,7 @@ function AllSupervisors() {
 
               <tr>
                 <td>
-                  6
+                  
                 </td>
                 <td colSpan={3}><button className='Icon-btn-EM'>
                   Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../Images/plus.png')} className="Icons-EM" /></span>
@@ -90,4 +99,4 @@ function AllSupervisors() {
   )
 }
 
-export default AllSupervisors
+export default AllStudents

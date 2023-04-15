@@ -27,6 +27,8 @@ import AllSupervisors from '../Supervisor/AllSupervisors'
 // eslint-disable-next-line
 
 import './style.css'
+import AllStudents from '../Students/AllStudents'
+import AddStudents from '../Students/AddStudents'
 
 function DashboardMain(props) {
 
@@ -37,7 +39,7 @@ function DashboardMain(props) {
             {/* Main Screen for projects (view and create new)  */}
             {/* **************************************************************************************** */}
             {/* <MainProjectScreen /> */}
-            <CreateProject/> 
+            {/* <CreateProject/>  */}
             {/* <ViewProject/> */}
             {/* <FinalProject/> */}
             {/* <ChangeSupervisor /> */}
@@ -52,8 +54,10 @@ function DashboardMain(props) {
             {/* <CreateMilestone/> */}
             {/* <AllNotifications/> */}
             {/* <CreateNotification/> */}
-            {/* <AllSupervisors/> */}
+            <AllSupervisors/>
             {/* <AddSupervisor/> */}
+            {/* <AllStudents/> */}
+            {/* <AddStudents/> */}
 
         </div>
     )
