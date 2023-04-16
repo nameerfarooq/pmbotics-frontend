@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import '../Project/projects.css'
 import Table from 'react-bootstrap/Table';
 
@@ -23,6 +22,21 @@ function AllSupervisors() {
     getSupervisors()
   }, [supervisors])
 
+
+  // deleting supervisors
+
+  // deleting student
+
+  const DeleteSupervisor =async (e) => {
+    await axios.delete(`https://pmbotics.herokuapp.com/deletesupervisor/${e}`)
+      .then(response => {
+        alert('Supervisor deleted successfully:', response.data);
+      })
+      .catch(error => {
+        alert('An error occurred while deleting Supervisor:', error);
+      });
+   
+  }
   
   return (
     <div>
@@ -57,7 +71,7 @@ function AllSupervisors() {
                       <img alt='iconsimages' src={require('../../Images/pencil.png')} className="Icons-EM" />
                     </button>
                     <button className='Icon-btn-EM'>
-                      <img alt='iconsimages' src={require('../../Images/delete.png')} className="Icons-EM" />
+                      <img alt='iconsimages' onClick={() => DeleteSupervisor(supervisor.id)}  src={require('../../Images/delete.png')} className="Icons-EM" />
                     </button>
                   </td>
                 </tr>

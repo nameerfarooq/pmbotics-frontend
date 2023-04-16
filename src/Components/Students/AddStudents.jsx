@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
 import '../Project/projects.css'
 import Form from 'react-bootstrap/Form';
 function AddStudents() {
+
 
 
   // Getting departments (GET API)
@@ -17,9 +17,11 @@ function AddStudents() {
 
         })
         setDepartments(fetchData.data)
+        
 
       } catch (error) {
         console.log(error)
+       
       }
     }
     getDepartments()
@@ -44,13 +46,20 @@ function AddStudents() {
     seatno: '',
     enrollmentno: '',
     phoneno: '',
-    department: ''
+    department: '1'
   });
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://pmbotics.herokuapp.com/createUser', studentData);
-      console.log(res.data);
+      await axios.post('https://pmbotics.herokuapp.com/createUser', studentData)
+      .then(response => {
+        console.log(response)
+        alert('Student Added successfully:', response.data.message);
+      })
+      .catch(error => {
+        alert('An error occurred while Adding student:', error);
+      });;
+      
       // clear form data after successful submission
       setStudentData({
         role: 'student',
@@ -61,9 +70,11 @@ function AddStudents() {
         seatno: '',
         enrollmentno: '',
         phoneno: '',
-        department: ''
+        department: '1'
       });
-    } catch (err) {
+    }
+
+    catch (err) {
       console.error(err);
     }
   };
@@ -87,31 +98,31 @@ function AddStudents() {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" className="form-control" id="email" name="email" value={studentData.email} onChange={handleChange} />
+              <input required type="email" className="form-control" id="email" name="email" value={studentData.email} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" id="password" name="password" value={studentData.password} onChange={handleChange} />
+              <input required type="password" className="form-control" id="password" name="password" value={studentData.password} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" className="form-control" id="name" name="name" value={studentData.name} onChange={handleChange} />
+              <input required type="text" className="form-control" id="name" name="name" value={studentData.name} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="faculty_no">Roll Number</label>
-              <input type="text" className="form-control" id="rollno" name="rollno" value={studentData.rollno} onChange={handleChange} />
+              <input required type="text" className="form-control" id="rollno" name="rollno" value={studentData.rollno} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="field_of_interest">Seat Number</label>
-              <input type="text" className="form-control" id="seatno" name="seatno" value={studentData.seatno} onChange={handleChange} />
+              <input required type="text" className="form-control" id="seatno" name="seatno" value={studentData.seatno} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="field_of_interest">Enrollment  Number</label>
-              <input type="text" className="form-control" id="enrollmentno" name="enrollmentno" value={studentData.enrollmentno} onChange={handleChange} />
+              <input required type="text" className="form-control" id="enrollmentno" name="enrollmentno" value={studentData.enrollmentno} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="phone_no">Phone Number</label>
-              <input type="text" className="form-control" id="phoneno" name="phoneno" value={studentData.phoneno} onChange={handleChange} />
+              <input required type="text" className="form-control" id="phoneno" name="phoneno" value={studentData.phoneno} onChange={handleChange} />
             </div>
             <div className="form-group">
             <label htmlFor="department">Department</label>

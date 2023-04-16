@@ -27,7 +27,9 @@ import AllSupervisors from '../Supervisor/AllSupervisors'
 // eslint-disable-next-line
 
 import './style.css'
+// eslint-disable-next-line
 import AllStudents from '../Students/AllStudents'
+// eslint-disable-next-line
 import AddStudents from '../Students/AddStudents'
 
 function DashboardMain(props) {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Button from 'react-bootstrap/Button';
 import '../Project/projects.css'
 import Form from 'react-bootstrap/Form';
 function AddSupervisor() {
@@ -42,7 +41,7 @@ function AddSupervisor() {
     faculty_no: '',
     field_of_interest: '',
     phone_no: '',
-    department: '',
+    department: '1',
   });
   const handleSubmit = async e => {
     e.preventDefault();
@@ -58,7 +57,7 @@ function AddSupervisor() {
         faculty_no: '',
         field_of_interest: '',
         phone_no: '',
-        department: 3
+        department: '1'
       });
     } catch (err) {
       console.error(err);
@@ -82,23 +81,23 @@ function AddSupervisor() {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" className="form-control" id="email" name="email" value={supervisorData.email} onChange={handleChange} />
+              <input required type="email" className="form-control" id="email" name="email" value={supervisorData.email} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="password">Password</label>
-              <input type="password" className="form-control" id="password" name="password" value={supervisorData.password} onChange={handleChange} />
+              <input required type="password" className="form-control" id="password" name="password" value={supervisorData.password} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="name">Name</label>
-              <input type="text" className="form-control" id="name" name="name" value={supervisorData.name} onChange={handleChange} />
+              <input required type="text" className="form-control" id="name" name="name" value={supervisorData.name} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="faculty_no">Faculty Number</label>
-              <input type="text" className="form-control" id="faculty_no" name="faculty_no" value={supervisorData.faculty_no} onChange={handleChange} />
+              <input required type="text" className="form-control" id="faculty_no" name="faculty_no" value={supervisorData.faculty_no} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="field_of_interest">Field of Interest</label>
-              <input type="text" className="form-control" id="field_of_interest" name="field_of_interest" value={supervisorData.field_of_interest} onChange={handleChange} />
+              <input required type="text" className="form-control" id="field_of_interest" name="field_of_interest" value={supervisorData.field_of_interest} onChange={handleChange} />
             </div>
             <div className="form-group">
             <label htmlFor="department">Department</label>
@@ -116,7 +115,7 @@ function AddSupervisor() {
               </div>
             <div className="form-group">
               <label htmlFor="phone_no">Phone Number</label>
-              <input type="text" className="form-control" id="phone_no" name="phone_no" value={supervisorData.phone_no} onChange={handleChange} />
+              <input required type="text" className="form-control" id="phone_no" name="phone_no" value={supervisorData.phone_no} onChange={handleChange} />
             </div>
             <button type="submit" className=" m-2 btn btn-primary">Submit</button>
           </form>
