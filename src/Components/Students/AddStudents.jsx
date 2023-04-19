@@ -17,11 +17,11 @@ function AddStudents() {
 
         })
         setDepartments(fetchData.data)
-        
+
 
       } catch (error) {
         console.log(error)
-       
+
       }
     }
     getDepartments()
@@ -50,33 +50,36 @@ function AddStudents() {
   });
   const handleSubmit = async e => {
     e.preventDefault();
-    try {
-      await axios.post('https://pmbotics.herokuapp.com/createUser', studentData)
+
+    await axios.post('https://pmbotics.herokuapp.com/createUser', studentData)
       .then(response => {
-        console.log(response)
-        alert('Student Added successfully:', response.data.message);
+        alert(JSON.stringify(response.data.message));
+        console.log(response.data.message)
+        if (response.data.message === "Success") {
+          setStudentData({
+            role: 'student',
+            email: '',
+            password: '',
+            name: '',
+            rollno: '',
+            seatno: '',
+            enrollmentno: '',
+            phoneno: '',
+            department: '1'
+          });
+        }
       })
       .catch(error => {
-        alert('An error occurred while Adding student:', error);
-      });;
-      
-      // clear form data after successful submission
-      setStudentData({
-        role: 'student',
-        email: '',
-        password: '',
-        name: '',
-        rollno: '',
-        seatno: '',
-        enrollmentno: '',
-        phoneno: '',
-        department: '1'
-      });
-    }
+        alert(error)
+        console.log(error)
 
-    catch (err) {
-      console.error(err);
-    }
+      });
+
+    // clear form data after successful submission
+
+
+
+
   };
 
 
@@ -125,7 +128,7 @@ function AddStudents() {
               <input required type="text" className="form-control" id="phoneno" name="phoneno" value={studentData.phoneno} onChange={handleChange} />
             </div>
             <div className="form-group">
-            <label htmlFor="department">Department</label>
+              <label htmlFor="department">Department</label>
               <Form.Select required id="department" name="department" value={studentData.department} onChange={handleChange} aria-label="Default select example">
 
                 {
