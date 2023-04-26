@@ -4,13 +4,13 @@ import '../Project/projects.css'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
+// import Form from 'react-bootstrap/Form';
 
 function AllSupervisors() {
   const [selectedSupervisor, setselectedSupervisor] = useState('')
   const [show, setShow] = useState(false);
-  const [supervisors, setSupervisors] = useState([])
   const [departments, setDepartments] = useState([])
+  const [supervisors, setSupervisors] = useState([])
 
 
   useEffect(() => {
@@ -66,6 +66,9 @@ function AllSupervisors() {
     await axios.delete(`https://pmbotics.herokuapp.com/deletesupervisor/${e}`)
       .then(response => {
         alert('Supervisor deleted successfully:', response.data);
+        if (response.data.message === "Successfuly deleted") {
+          setSupervisors(prevSupervisors => prevSupervisors.filter(supervisor => supervisor.id !== e))
+        }
       })
       .catch(error => {
         alert('An error occurred while deleting Supervisor:', error);
@@ -87,12 +90,15 @@ function AllSupervisors() {
   }
 
   const UpdateSupervisor = async () => {
+    // eslint-disable-next-line
     const response = await axios.patch('https://pmbotics.herokuapp.com/updatesupervisor',
       selectedSupervisor)
       .then(res => {
         console.log(res.data);
         if (res.data.message === "Success") {
-          selectedSupervisor('')
+          // setSupervisors(prevSupervisors => prevSupervisors.map(supervisor  => supervisor.id === selectedSupervisor.id ? res.data : supervisor));
+          // console.log(res.data)
+          setselectedSupervisor('')
           handleClose()
         }
       })
@@ -118,25 +124,25 @@ function AllSupervisors() {
         {/* model started for editing selected supervisor */}
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Edit Supervisor</Modal.Title>
           </Modal.Header>
 
 
 
           <Modal.Body>
             <form >
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input required type="email" className="form-control" id="email" name="email" value={selectedSupervisor.email} onChange={handleChange} />
-              </div>
-              <div className="form-group">
+              </div> */}
+              {/* <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input required type="password" className="form-control" id="password" name="password" value={selectedSupervisor.password} onChange={handleChange} />
-              </div>
-              <div className="form-group">
+              </div> */}
+              {/* <div className="form-group">
                 <label htmlFor="name">Name</label>
                 <input required type="text" className="form-control" id="name" name="name" value={selectedSupervisor.name} onChange={handleChange} />
-              </div>
+              </div> */}
               <div className="form-group">
                 <label htmlFor="faculty_no">Faculty Number</label>
                 <input required type="text" className="form-control" id="faculty_no" name="faculty_no" value={selectedSupervisor.faculty_no} onChange={handleChange} />
@@ -145,7 +151,7 @@ function AllSupervisors() {
                 <label htmlFor="field_of_interest">Field of Interest</label>
                 <input required type="text" className="form-control" id="field_of_interest" name="field_of_interest" value={selectedSupervisor.field_of_interest} onChange={handleChange} />
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label htmlFor="department">Department</label>
                 <Form.Select required id="department" name="department" value={selectedSupervisor.department} onChange={handleChange} aria-label="Default select example">
 
@@ -158,11 +164,11 @@ function AllSupervisors() {
 
 
                 </Form.Select>
-              </div>
-              <div className="form-group">
+              </div> */}
+              {/* <div className="form-group">
                 <label htmlFor="phone_no">Phone Number</label>
                 <input required type="text" className="form-control" id="phone_no" name="phone_no" value={selectedSupervisor.phone_no} onChange={handleChange} />
-              </div>
+              </div> */}
 
 
             </form>
@@ -195,7 +201,7 @@ function AllSupervisors() {
         <div>
           <Table striped bordered variant="light">
             <thead>
-              <tr>
+              <tr key={'00001'}>
                 <th>#</th>
                 <th>Name</th>
                 <th>Faculty Id</th>

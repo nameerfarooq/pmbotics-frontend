@@ -56,9 +56,9 @@ function DashboardMain(props) {
             {/* <CreateMilestone/> */}
             {/* <AllNotifications/> */}
             {/* <CreateNotification/> */}
-            <AllSupervisors/>
+            {/* <AllSupervisors/> */}
             {/* <AddSupervisor/> */}
-            {/* <AllStudents/> */}
+            <AllStudents/>
             {/* <AddStudents/> */}
 
         </div>

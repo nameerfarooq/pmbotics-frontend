@@ -8,7 +8,7 @@ function AddStudents() {
 
   // Getting departments (GET API)
   const [departments, setDepartments] = useState([])
-  const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentlist'
+  const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
 
   useEffect(() => {
     const getDepartments = async () => {
@@ -16,7 +16,8 @@ function AddStudents() {
         const fetchData = await axios.get(API_URI_departments, {
 
         })
-        setDepartments(fetchData.data)
+      
+        setDepartments(fetchData.data.data)
 
 
       } catch (error) {
@@ -27,12 +28,7 @@ function AddStudents() {
     getDepartments()
   }, [])
 
-  const deptList = {}
-  // eslint-disable-next-line
-  departments.map((value) => {
-    deptList[value.id] = value.name
-  })
-  let deptArray = Object.entries(deptList)
+  
 
 
 
@@ -132,8 +128,8 @@ function AddStudents() {
               <Form.Select required id="department" name="department" value={studentData.department} onChange={handleChange} aria-label="Default select example">
 
                 {
-                  deptArray.map((depart) => {
-                    return <option key={depart[0]} value={depart[0]}>{depart[1]}</option>
+                  departments.map((depart) => {
+                    return <option key={depart.id} value={depart.id}>{depart.name}</option>
                   })
 
                 }
