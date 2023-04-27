@@ -10,6 +10,7 @@ function SupervisorSidebar() {
         <li>Projects</li>
         <li>Milestones</li>
         <li>Notifications</li>
+        <li>Students</li>
         
     
        

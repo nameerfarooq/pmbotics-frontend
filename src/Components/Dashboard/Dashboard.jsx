@@ -1,6 +1,6 @@
 import DashboardMain from './DashboardMain';
 import Header from './Header'
-import Sidebar from './Sidebar';
+// import Sidebar from './Sidebar';
 import './style.css'
 function Dashboard(props) {
   const UserName = props.UserName
@@ -12,7 +12,7 @@ function Dashboard(props) {
 
       <div className='Dashboard-panel'>
         
-        <Sidebar />
+        {/* <Sidebar /> */}
 
         <DashboardMain />
 

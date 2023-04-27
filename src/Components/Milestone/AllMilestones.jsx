@@ -2,15 +2,20 @@ import React from 'react'
 import Milestone from './Milestone'
 import './milestone.css'
 import '../Project/projects.css'
+import { useNavigate } from 'react-router-dom'
 function AllMilestones(props) {
     var UserRole = props.UserRole
+    const navigate = useNavigate()
+    const gotocreatemilestone = ()=>{
+        navigate('/create-milestone')
+    }
     return (
         <>
             <div className='ProjectHeader'>
                 {
                     UserRole === "PanelMember"
                 }
-                <button className='New-Project-btn'>Create</button>
+                <button className='New-Project-btn' onClick={()=>{gotocreatemilestone()}}>Create</button>
                 <h2 className='ProjectHeading'>MILESTONES</h2>
             </div>
         <div className='MilestoneContainer'>

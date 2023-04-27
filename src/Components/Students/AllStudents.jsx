@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import '../Project/projects.css'
-import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
 
 function AllStudents() {
 
@@ -12,7 +13,10 @@ function AllStudents() {
   const [selectedStudent, setselectedStudent] = useState('')
   const [show, setShow] = useState(false);
   const [departments, setDepartments] = useState([])
-
+  const navigate = useNavigate()
+  const gotoaddstudent = () => {
+    navigate('/add-student')
+  }
 
 
 
@@ -238,7 +242,7 @@ function AllStudents() {
                 <td>
 
                 </td>
-                <td colSpan={3}><button className='Icon-btn-EM'>
+                <td colSpan={3}><button className='Icon-btn-EM' onClick={() => { gotoaddstudent() }}>
                   Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../Images/plus.png')} className="Icons-EM" /></span>
 
                 </button></td>

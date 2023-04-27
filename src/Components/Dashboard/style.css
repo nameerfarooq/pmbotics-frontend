@@ -1,4 +1,8 @@
 
+.active{
+    font-weight: bolder;
+    
+}
 .btnLogout{
     width: 40px !important;
     background-color: transparent !important;
@@ -16,6 +20,7 @@
     background-color: #05037C;
     color: white !important;
     text-decoration: none;
+    
 }
 
 .Sidebar{
@@ -30,21 +35,25 @@
     
 }
 .Sidebar-ul{
-    list-style: none;
+    list-style: none !important;
     margin-top: 5px;
     padding: 10%;
-    list-style-type: none;
+    list-style-type: none !important;
     background-color: white;
     border-radius: 10px;
 
 
 }
+.Sidebar-ul>li>a{
+    text-decoration: none;
+    color: #05037C ;
+}
 .Sidebar-ul>li{
     padding-bottom: 5px;
     border-bottom: 1px solid rgb(225, 225, 225);
     text-align: left;
-    font-weight: 500;
-    color: #05037C;
+    font-weight: 500 ;
+    color: #05037C ;
 
     
 

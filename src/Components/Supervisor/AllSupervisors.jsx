@@ -4,6 +4,7 @@ import '../Project/projects.css'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { useNavigate } from 'react-router-dom';
 // import Form from 'react-bootstrap/Form';
 
 function AllSupervisors() {
@@ -11,8 +12,10 @@ function AllSupervisors() {
   const [show, setShow] = useState(false);
   const [departments, setDepartments] = useState([])
   const [supervisors, setSupervisors] = useState([])
-
-
+  const navigate = useNavigate()
+  const gotoaddsupervisor=()=>{
+    navigate('/add-supervisor')
+  }
   useEffect(() => {
 
     getDepartments()
@@ -232,10 +235,12 @@ function AllSupervisors() {
                 <td>
                   6
                 </td>
-                <td colSpan={3}><button className='Icon-btn-EM'>
-                  Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../Images/plus.png')} className="Icons-EM" /></span>
+                <td colSpan={3}>
+                  <button className='Icon-btn-EM' onClick={()=>{gotoaddsupervisor()}}>
+                    Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../Images/plus.png')} className="Icons-EM" /></span>
 
-                </button></td>
+                  </button>
+                </td>
 
               </tr>
 

@@ -2,16 +2,22 @@ import React from 'react'
 // import '../Dashboard/style.css'
 import './projects.css'
 import ProjectsCards from './ProjectsCards.jsx'
+import { useNavigate } from 'react-router-dom'
+
 function MainProjectScreen(props) {
 
-
+  const navigate = useNavigate()
+  const gotocreateproject = () =>{
+    navigate('/create-project')
+  }
+  
 
   return (
     <div className='MainProjectScreen'>
       <div className='ProjectHeader'>
 
        
-        <button className='New-Project-btn'>Create</button>
+        <button className='New-Project-btn' onClick={()=>{gotocreateproject()}}>Create</button>
        
 
 
@@ -28,23 +34,8 @@ function MainProjectScreen(props) {
           <ProjectsCards />
           <ProjectsCards />
           <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
+         
+          
 
         </div>
         <br />
@@ -53,10 +44,7 @@ function MainProjectScreen(props) {
         <div className="ProjectsHolder">
           <ProjectsCards />
           <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
-          <ProjectsCards />
+         
 
         </div>
       </div>

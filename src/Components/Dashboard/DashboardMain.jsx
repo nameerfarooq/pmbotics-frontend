@@ -31,37 +31,40 @@ import './style.css'
 import AllStudents from '../Students/AllStudents'
 // eslint-disable-next-line
 import AddStudents from '../Students/AddStudents'
+import AllDepartments from './Departments/AllDepartments'
+import Sidebar from './Sidebar'
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 function DashboardMain(props) {
 
     return (
-        <div className='DashboardMain'>
+        <>
+            <BrowserRouter>
+                <Sidebar />
+                <div className='DashboardMain'>
+                    <Routes>
+                    <Route  path='/' element={<MainProjectScreen />} />
+                    <Route path='/create-project' element={<CreateProject/>} />
+                    {/* <Route path='/project' element={ <ViewProject/>} > */}
+                    {/* <Route path='/finalproject' element={ <FinalProject/>} /> */}
+                    {/* <Route path='/changesupervisor' element={ <ChangeSupervisor />} /> */}
+                    {/* <Route path='/editteammember' element={ <EditTeamMembers/>} /> */}
+                    {/* </Route> */}
+                    <Route path='/all-milestones' element={ <AllMilestones/>} />
+                    <Route path='/create-milestone' element={ <CreateMilestone/>} />
+                    <Route path='/all-notifications' element={ <AllNotifications/>} />
+                    <Route path='/create-notification' element={ <CreateNotification/>} />
+                    <Route path='/all-supervisors' element={ <AllSupervisors/>} />
+                    <Route path='/add-supervisor' element={ <AddSupervisor/>} />
+                    <Route path='/all-departments' element={ <AllDepartments />} />
+                    <Route path='/all-students' element={<AllStudents/>} />
+                    <Route path='/add-student' element={<AddStudents/>} />
+                    <Route path='*' element={ <div>404 not found</div>} />
+                    </Routes>
 
-            {/* **************************************************************************************** */}
-            {/* Main Screen for projects (view and create new)  */}
-            {/* **************************************************************************************** */}
-            {/* <MainProjectScreen /> */}
-            {/* <CreateProject/>  */}
-            {/* <ViewProject/> */}
-            {/* <FinalProject/> */}
-            {/* <ChangeSupervisor /> */}
-            {/* <EditTeamMembers/> */}
-            {/* ********************************************************************************************* */}
-            {/* create milestone window */}
-            {/* ********************************************************************************************* */}
-            {/* ********************************************************************************************* */}
-            {/* create milestone window */}
-            {/* ********************************************************************************************* */}
-            {/* <AllMilestones/> */}
-            {/* <CreateMilestone/> */}
-            {/* <AllNotifications/> */}
-            {/* <CreateNotification/> */}
-            {/* <AllSupervisors/> */}
-            {/* <AddSupervisor/> */}
-            <AllStudents/>
-            {/* <AddStudents/> */}
-
-        </div>
+                </div>
+            </BrowserRouter>
+        </>
     )
 }
 
