@@ -62,3 +62,34 @@ padding: 3%;
     background-color: #05037C;
     font-weight: bold;
 }
+.MilestoneDetailContainer{
+    padding: 3%;
+    margin-bottom: 5%;
+}
+.headingsformilestonedetails{
+    color: white;
+    background-color: #05037C;
+    font-weight: bolder;
+    width: fit-content;
+    padding: 0 5px;
+}
+.MS-Card-btn3{
+    margin-left: 5px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    width: fit-content;
+    padding:  1% 2%;
+    background-color: #05037C;
+    font-weight: bold;
+}
+.dangerbtn{
+    margin-left: 5px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    width: fit-content;
+    padding:  1% 2%;
+    background-color: rgb(238, 2, 2);
+    font-weight: bold;
+}

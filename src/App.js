@@ -1,11 +1,17 @@
 import './App.css';
 //eslint-disable-next-line
 import Dashboard from './Components/Dashboard/Dashboard';
+//eslint-disable-next-line
 import SupervisorDashboard from './Components/SupervisorScreens/SDashboard/SupervisorDashboard';
 import HomePage from './Components/LandingPage.jsx/HomePage';
+//eslint-disable-next-line
 import TDashboard from './Components/TeamMembers/Dashboard/TDashboard';
+//eslint-disable-next-line
 import Signup from './Components/LoginSignup/Signup';
+//eslint-disable-next-line
 import Loginpage from './Components/LoginSignup/Loginpage';
+//eslint-disable-next-line
+import PMOProvider from './Context/PMOProvider';
 
 function App() {
 
@@ -14,8 +20,10 @@ function App() {
   return (
     <div className="App">
       {
-        loginStatus  ?
-          <Dashboard UserRole={'FYPCoordinator'} UserName={'Sir Syed Faisal Ali'} />
+        loginStatus ?
+          <PMOProvider>
+            <Dashboard UserRole={'FYPCoordinator'} UserName={'Sir Syed Faisal Ali'} />
+          </PMOProvider>
           // <SupervisorDashboard UserRole={'Supervisor'} UserName={'Sir Syed Faisal Ali'} />
           // <TDashboard UserRole={'TeamMember'} UserName={'Muhammad Nameer'}/>
           // <Signup/>

@@ -7,18 +7,18 @@ import { useNavigate } from 'react-router-dom'
 function MainProjectScreen(props) {
 
   const navigate = useNavigate()
-  const gotocreateproject = () =>{
+  const gotocreateproject = () => {
     navigate('/create-project')
   }
-  
+
 
   return (
     <div className='MainProjectScreen'>
       <div className='ProjectHeader'>
 
-       
-        <button className='New-Project-btn' onClick={()=>{gotocreateproject()}}>Create</button>
-       
+
+        <button className='New-Project-btn' onClick={() => { gotocreateproject() }}>Create</button>
+
 
 
         <h2 className='ProjectHeading'>PROJECTS</h2>
@@ -34,8 +34,8 @@ function MainProjectScreen(props) {
           <ProjectsCards />
           <ProjectsCards />
           <ProjectsCards />
-         
-          
+
+
 
         </div>
         <br />
@@ -44,7 +44,7 @@ function MainProjectScreen(props) {
         <div className="ProjectsHolder">
           <ProjectsCards />
           <ProjectsCards />
-         
+
 
         </div>
       </div>

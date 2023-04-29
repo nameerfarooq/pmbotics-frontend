@@ -1,22 +1,20 @@
 import React from 'react'
 
 function Milestone(props) {
-    const {title, description} = props.details
+    const {milestone_name, milestone_details, id} = props.details
+    const viewMilestone = props.viewMilestone
     return (
         <div className='MS-Card'>
             <h2 className='MS-Card-heading'>
-                {title}
+                {milestone_name}
             </h2>
             <p className='MS-Card-para'>
-                {description}
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus in, reprehenderit pariatur nesciunt facere dolor ullam minima nulla sint, numquam necessitatibus vitae quas dolore unde dolorum! Minus, aperiam. Quod, totam.
+                {milestone_details}
             </p>
             <div className='MS-Card-btns'>
-                <button className='MS-Card-btn1'>
-                    Edit
-                </button>
-                <button className='MS-Card-btn2'>
-                    Save
+                
+                <button className='MS-Card-btn2'onClick={()=>viewMilestone(id)} >
+                    View
                 </button>
             </div>
         </div>
