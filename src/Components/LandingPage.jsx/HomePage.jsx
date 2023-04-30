@@ -3,8 +3,17 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import './HomePage.css'
 import '../MainStyling.css'
+import { useNavigate } from 'react-router-dom';
 
 function HomePage() {
+    const navigate = useNavigate()
+    const gotoLogin=()=>{
+        navigate('/login')
+    }
+    const gotoSignup=()=>{
+        
+        navigate('/signup')
+    }
     return (
         <div>
 
@@ -14,7 +23,7 @@ function HomePage() {
                     <Navbar.Brand className='WhiteTxt' href="#home">FYPManager</Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
-                        <button className='LoginButton'>
+                        <button className='LoginButton' onClick={()=>{gotoLogin()}}>
                             Login
                         </button>
                     </Navbar.Collapse>
@@ -33,7 +42,7 @@ function HomePage() {
                     <p className='Para'>
                         Tool for managing all processing carried out during a Final year project. where FYP panel, supervisors and team members can handle the project collaboratively
                     </p>
-                    <button className='SignUpBTN'>
+                    <button className='SignUpBTN' onClick={()=>{gotoSignup()}}>
                         Sign Up
                     </button>
                 </div>

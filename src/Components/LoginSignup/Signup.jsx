@@ -1,45 +1,50 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './LoginSignup.css'
 import Header from '../Dashboard/Header'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
+import GlobalContext from '../../Context/GlobalContext';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
-    const [email, setemail] = useState("")
-    const [password, setpassword] = useState("")
-    const [Confirmpassword, setConfirmpassword] = useState("")
-    const [name, setname] = useState("")
-    const [Designation, setDesignation] = useState("")
-    const [FacultyID, setFacultyID] = useState("")
-
-    function ValidatePassword(e) {
-        if (password === Confirmpassword) {
-            // console.log("Password Matched")
-            SubmitForm(e)
-        }
-        else {
-            console.log("password not matched");
-            alert("password Unmatched, Enter Password Correctly !")
-        }
+    const { departments } = useContext(GlobalContext)
+    const [data, setdata] = useState({
+        "email": "",
+        "password": "",
+        "name": "",
+        "facultyid": "",
+        "designation": "",
+        "phoneno": "",
+        "department": '1'
+    })
+    const navigate = useNavigate()
+    const Navigate = () => {
+        navigate('/login')
     }
-
-    async function SubmitForm(e) {
+    async function createuser(e) {
         e.preventDefault()
+        console.log(data)
+        const response = await axios.post("http://pmbotics.herokuapp.com/registerpmo", data)
+            .then((res) => {
+                console.log(res)
+                if (res.data.message === "Success") {
+                    alert("Success")
+                    setdata({
+                        "email": "",
+                        "password": "",
+                        "name": "",
+                        "facultyid": "",
+                        "designation": "",
+                        "phoneno": "",
+                        "department": '1'
+                    })
+                    Navigate()
+                }
+            }
 
-        let item = {
-            "email": email,
-            "password": password,
-            "name": name,
-            "facultyid": FacultyID,
-            "designation": Designation
-        }
-        console.log(item)
-        
-        const response = await axios.post("http://127.0.0.1:8000/register", item)
-            .then(
-                res => console.log("response got", res)
+
             )
             .catch(
                 err => console.log("Error Got", err)
@@ -47,7 +52,11 @@ function Signup() {
 
     }
 
-    
+    const handleChange = (e) => {
+        setdata({ ...data, [e.target.name]: e.target.value });
+    };
+
+
 
     return (
         <div>
@@ -57,31 +66,28 @@ function Signup() {
             </h2>
             <div className="formsHolder">
                 <Form>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" >
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Enter email" />
+                        <Form.Control type="email" id='email' name='email' value={data.email} onChange={handleChange} placeholder="Enter email" />
                         <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
                         </Form.Text>
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicName">
+                    <Form.Group className="mb-3" >
                         <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" value={name} onChange={(e) => setname(e.target.value)} placeholder="name" />
+                        <Form.Control type="text" id='name' name='name' value={data.name} onChange={handleChange} placeholder="name" />
                     </Form.Group>
 
 
                     <div className="fieldHolder">
 
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Group className="mb-3" >
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="text" value={password} onChange={(e) => setpassword(e.target.value)} placeholder="Password" />
+                            <Form.Control type="text" id='password' name='password' value={data.password} onChange={handleChange} placeholder="Password" />
                         </Form.Group>
                         <span className='spacer'></span>
-                        <Form.Group className="mb-3" controlId="formBasicPassword">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control type="text" value={Confirmpassword} onChange={(e) => setConfirmpassword(e.target.value)} placeholder="Password" />
-                        </Form.Group>
+
                     </div>
 
 
@@ -89,25 +95,49 @@ function Signup() {
 
                     <div className="fieldHolder">
 
-                        <Form.Group className="mb-3" controlId="formBasicName">
+                        <Form.Group className="mb-3" >
                             <Form.Label>Designation</Form.Label>
-                            <Form.Control type="text" value={Designation} onChange={(e) => setDesignation(e.target.value)} placeholder="name" />
+                            <Form.Control type="text" name='designation' id='designation' value={data.designation} onChange={handleChange} placeholder="Designation" />
                         </Form.Group>
 
                         <span className='spacer'></span>
 
-                        <Form.Group className="mb-3" controlId="formBasicName">
+                        <Form.Group className="mb-3" >
                             <Form.Label>FacultyID</Form.Label>
-                            <Form.Control type="text" value={FacultyID} onChange={(e) => setFacultyID(e.target.value)} placeholder="name" />
+                            <Form.Control type="text" id='facultyid' name='facultyid' value={data.facultyid} onChange={handleChange} placeholder="faculty id" />
+                        </Form.Group>
+
+                    </div>
+                    <div className="fieldHolder">
+
+                        <Form.Group className="mb-3" >
+                            <Form.Label>Phone Number</Form.Label>
+                            <Form.Control type="tel" id='phoneno' name='phoneno' value={data.phoneno} onChange={handleChange} placeholder="Phone no" />
+                        </Form.Group>
+
+                        <span className='spacer'></span>
+
+                        <Form.Group className="mb-3" >
+                            <Form.Label>Department</Form.Label>
+
+                            <Form.Select required value={data.department} name='department' id='department' onChange={handleChange} aria-label="Department">
+                                {
+                                    departments.map((depart) => {
+                                        return <option key={depart.id} value={depart.id}>{depart.name}</option>
+                                    })
+
+                                }
+                            </Form.Select>
+
                         </Form.Group>
 
                     </div>
 
 
-                    <Button onClick={ValidatePassword} variant="primary" >
+                    <Button variant="primary" onClick={createuser}>
                         Submit
                     </Button>
-                    
+
                 </Form>
 
 

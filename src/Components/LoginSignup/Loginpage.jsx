@@ -1,14 +1,20 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './LoginSignup.css'
 import Header from '../Dashboard/Header'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
-function Loginpage() {
+import GlobalContext from '../../Context/GlobalContext';
+import { useNavigate } from 'react-router-dom';
+function Loginpage(props) {
+
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
-
-
+  const { setLoginStatus, setuserRole } = useContext(GlobalContext)
+  const navigate = useNavigate()
+  const Navigate = (e) => {
+    navigate(`/${e}`)
+  }
   function ClearForm(e) {
     e.preventDefault()
     setEmail("")
@@ -21,14 +27,20 @@ function Loginpage() {
       "password": Password
     }
     e.preventDefault()
-    const response = await axios.post("http://127.0.0.1:8000/login", item)
-
+    const response = await axios.post("https://pmbotics.herokuapp.com/login", item)
       .then(res => {
-        console.log(res.data.message)
+        console.log(res)
         if (res.data.message === "Login Succes") {
           alert(res.data.message)
-
+          var userRole = res.data.data.data2[2]
+          localStorage.setItem('access_token', res.data.data.access_token);
+          localStorage.setItem('LoginStatus', true);
+          localStorage.setItem('userRole', userRole);
+          setLoginStatus(localStorage.getItem('LoginStatus'))
+          setuserRole(localStorage.getItem('userRole'))
+          setuserRole(userRole)
           ClearForm(e)
+          Navigate(userRole)
         }
         else {
           alert("Username or password is wrong")

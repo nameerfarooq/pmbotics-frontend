@@ -9,26 +9,26 @@ function AddStudents() {
   // Getting departments (GET API)
   const [departments, setDepartments] = useState([])
   const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
+  const getDepartments = async () => {
+    try {
+      const fetchData = await axios.get(API_URI_departments, {
 
-  useEffect(() => {
-    const getDepartments = async () => {
-      try {
-        const fetchData = await axios.get(API_URI_departments, {
+      })
 
-        })
-      
-        setDepartments(fetchData.data.data)
+      setDepartments(fetchData.data.data)
 
 
-      } catch (error) {
-        console.log(error)
+    } catch (error) {
+      console.log(error)
 
-      }
     }
+  }
+  useEffect(() => {
+
     getDepartments()
   }, [])
 
-  
+
 
 
 

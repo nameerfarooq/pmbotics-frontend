@@ -9,12 +9,12 @@ const Sidebar = () => {
       <h2>UIT University</h2>
 
       <ul className='Sidebar-ul'>
-        <li><NavLink to='/'>Projects</NavLink></li>
-        <li><NavLink to='/all-milestones'>Milestones</NavLink></li>
-        <li><NavLink to='/all-notifications'>Notifications</NavLink></li>
-        <li><NavLink to='/all-supervisors'>Supervisors</NavLink></li>
-        <li><NavLink to='/all-students'>Students</NavLink></li>
-        <li><NavLink to='/all-departments'>Departments</NavLink></li>
+        <li><NavLink to='/fyp_panel/all-projects'>Projects</NavLink></li>
+        <li><NavLink to='/fyp_panel/all-milestones'>Milestones</NavLink></li>
+        <li><NavLink to='/fyp_panel/all-notifications'>Notifications</NavLink></li>
+        <li><NavLink to='/fyp_panel/all-supervisors'>Supervisors</NavLink></li>
+        <li><NavLink to='/fyp_panel/all-students'>Students</NavLink></li>
+        <li><NavLink to='/fyp_panel/all-departments'>Departments</NavLink></li>
 
       </ul>
     </aside>

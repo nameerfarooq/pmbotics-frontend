@@ -12,29 +12,55 @@ import Signup from './Components/LoginSignup/Signup';
 import Loginpage from './Components/LoginSignup/Loginpage';
 //eslint-disable-next-line
 import PMOProvider from './Context/PMOProvider';
-
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState } from 'react';
+import GlobalProvider from './Context/GlobalProvider';
+import GlobalContext from './Context/GlobalContext';
+import { useContext } from 'react';
 function App() {
+  const { LoginStatus, userRole } = useContext(GlobalContext)
 
-  var loginStatus = true
+
 
   return (
-    <div className="App">
-      {
-        loginStatus ?
-          <PMOProvider>
-            <Dashboard UserRole={'FYPCoordinator'} UserName={'Sir Syed Faisal Ali'} />
-          </PMOProvider>
-          // <SupervisorDashboard UserRole={'Supervisor'} UserName={'Sir Syed Faisal Ali'} />
-          // <TDashboard UserRole={'TeamMember'} UserName={'Muhammad Nameer'}/>
-          // <Signup/>
-          // <Loginpage/>
-          :
-          <HomePage />
-      }
+      <div className="App">
+        
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Loginpage />} />
+            {console.log("login status: ",LoginStatus," & userRole: ",userRole)}
+            {LoginStatus && userRole === "fyp_panel" ?
+              (
+                <Route path='/fyp_panel/*' element={<PMOProvider><Dashboard UserRole={'FYPCoordinator'} UserName={'Sir Syed Faisal Ali'} /></PMOProvider>} />
+              )
+              :
+              (
+                <Route path='/fyp_panel/*' element={<Loginpage />} />
+              )
+            }
+            {LoginStatus && userRole === "supervisor" ?
+              (
+                <Route path='/supervisor' element={<SupervisorDashboard UserRole={'Supervisor'} UserName={'Sir Syed Faisal Ali'} />} />
+              )
+              :
+              (
+                <Route path='/supervisor' element={<Loginpage />} />
+              )
+            }
+            {LoginStatus && userRole === "student" ?
+              (
+                <Route path='/student' element={<TDashboard UserRole={'TeamMember'} UserName={'Muhammad Nameer'} />} />
+              )
+              :
+              (
+                <Route path='/student' element={<Loginpage />} />
+              )
+            }
 
-
-
-    </div>
+          </Routes>
+        
+      </div>
   );
 }
 
