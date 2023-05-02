@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../axiosConfig';
 import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -9,12 +9,10 @@ function CreateProject() {
 
     // GET API, getting supervisors list from database
     const [supervisors, setSupervisors] = useState([])
-    const API_URI_supervisorslist = 'https://pmbotics.herokuapp.com/supervisorlist'
+    const API_URI_supervisorslist = 'alluser/?role=supervisor'
     const getSupervisors = async () => {
         try {
-            const fetchData = await axios.get(API_URI_supervisorslist, {
-
-            })
+            const fetchData = await axios.get(API_URI_supervisorslist)
             setSupervisors(fetchData.data)
         } catch (error) {
             console.log(error)
@@ -74,7 +72,7 @@ console.log(supervisors)
 
 
 // eslint-disable-next-line
-        const response = await axios.post("https://pmbotics.herokuapp.com/project", item)
+        const response = await axios.post("createproject", item)
 
             .then(res => {
                 console.log(res)

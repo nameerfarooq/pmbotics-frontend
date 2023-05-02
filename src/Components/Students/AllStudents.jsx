@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from '../../axiosConfig';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import '../Project/projects.css'
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
+import GlobalContext from '../../Context/GlobalContext';
 
 function AllStudents() {
 
   const [students, setStudents] = useState([])
   const [selectedStudent, setselectedStudent] = useState('')
   const [show, setShow] = useState(false);
-  const [departments, setDepartments] = useState([])
+  const {departments}= useContext(GlobalContext)
   const navigate = useNavigate()
   const gotoaddstudent = () => {
     navigate('/add-student')
@@ -21,7 +22,7 @@ function AllStudents() {
 
 
 
-  const API_URI_studentslist = 'https://pmbotics.herokuapp.com/alluser/?role=student'
+  const API_URI_studentslist = 'alluser/?role=student'
   const getStudents = async () => {
     try {
       const fetchData = await axios.get(API_URI_studentslist)
@@ -33,33 +34,14 @@ function AllStudents() {
 
 
   useEffect(() => {
-    getDepartments()
     getStudents()
   }, [])
 
-  // getting all departments
-
-  const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
-  const getDepartments = async () => {
-    try {
-      const fetchData = await axios.get(API_URI_departments, {
-
-      })
-      setDepartments(fetchData.data.data)
-
-
-
-    } catch (error) {
-      console.log(error)
-
-    }
-  }
-
-
+ 
   // deleting student
 
   const DeleteStudent = async (e) => {
-    await axios.delete(`https://pmbotics.herokuapp.com/deletestudent/${e}`)
+    await axios.delete(`deletestudent/${e}`)
       .then(response => {
         alert('Student deleted successfully:', response.data);
         console.log(response)
@@ -92,7 +74,7 @@ function AllStudents() {
 
   const UpdateStudent = async () => {
     // eslint-disable-next-line
-    const response = await axios.patch('https://pmbotics.herokuapp.com/updatestudent',
+    const response = await axios.patch('updatestudent',
       selectedStudent)
       .then(res => {
         console.log(res.data);

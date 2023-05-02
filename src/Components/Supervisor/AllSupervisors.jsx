@@ -1,51 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from '../../axiosConfig';
 import '../Project/projects.css'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
-// import Form from 'react-bootstrap/Form';
+import Form from 'react-bootstrap/Form';
+import GlobalContext from '../../Context/GlobalContext';
 
 function AllSupervisors() {
   const [selectedSupervisor, setselectedSupervisor] = useState('')
   const [show, setShow] = useState(false);
-  const [departments, setDepartments] = useState([])
+  const { departments } = useContext(GlobalContext)
   const [supervisors, setSupervisors] = useState([])
   const navigate = useNavigate()
-  const gotoaddsupervisor=()=>{
-    navigate('/add-supervisor')
+  const gotoaddsupervisor = () => {
+    navigate('/fyp_panel/add-supervisor')
   }
   useEffect(() => {
 
-    getDepartments()
     getSupervisors()
 
   }, [])
 
-  const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
-  const getDepartments = async () => {
-    try {
-      const fetchData = await axios.get(API_URI_departments, {
-
-      })
-      setDepartments(fetchData.data.data)
 
 
-
-    } catch (error) {
-      console.log(error)
-
-    }
-  }
-
-  const API_URI_supervisorslist = 'https://pmbotics.herokuapp.com/alluser/?role=supervisor'
+  const API_URI_supervisorslist = 'alluser/?role=supervisor'
 
   const getSupervisors = async () => {
     try {
-      const fetchData = await axios.get(API_URI_supervisorslist, {
-
-      })
+      const fetchData = await axios.get(API_URI_supervisorslist)
+      console.log(fetchData.data.data)
       setSupervisors(fetchData.data.data)
     } catch (error) {
       console.log(error)
@@ -66,7 +51,7 @@ function AllSupervisors() {
   // deleting student
 
   const DeleteSupervisor = async (e) => {
-    await axios.delete(`https://pmbotics.herokuapp.com/deletesupervisor/${e}`)
+    await axios.delete(`deletesupervisor/${e}`)
       .then(response => {
         alert('Supervisor deleted successfully:', response.data);
         if (response.data.message === "Successfuly deleted") {
@@ -87,21 +72,37 @@ function AllSupervisors() {
 
 
   const updateClicked = (ClickedSupervisor) => {
+    console.log(ClickedSupervisor)
     setselectedSupervisor(ClickedSupervisor)
     handleShow()
 
   }
+  const tobeUpdatedSupervisor = {
 
+    "id": selectedSupervisor.id,
+    "faculty_no": selectedSupervisor.faculty_no,
+    "field_of_interest": selectedSupervisor.field_of_interest,
+    "designation": selectedSupervisor.designation,
+    "department": selectedSupervisor.department
+
+  }
   const UpdateSupervisor = async () => {
     // eslint-disable-next-line
-    const response = await axios.patch('https://pmbotics.herokuapp.com/updatesupervisor',
-      selectedSupervisor)
+    const response = await axios.patch('updatesupervisor',
+      tobeUpdatedSupervisor)
       .then(res => {
         console.log(res.data);
         if (res.data.message === "Success") {
-          // setSupervisors(prevSupervisors => prevSupervisors.map(supervisor  => supervisor.id === selectedSupervisor.id ? res.data : supervisor));
-          // console.log(res.data)
-          setselectedSupervisor('')
+          console.log(res.data)
+          getSupervisors()
+          setselectedSupervisor({
+            "id": '',
+            "faculty_no": '',
+            "field_of_interest": '',
+            "designation": '',
+            "department": ''
+          }
+          )
           handleClose()
         }
       })
@@ -154,20 +155,22 @@ function AllSupervisors() {
                 <label htmlFor="field_of_interest">Field of Interest</label>
                 <input required type="text" className="form-control" id="field_of_interest" name="field_of_interest" value={selectedSupervisor.field_of_interest} onChange={handleChange} />
               </div>
-              {/* <div className="form-group">
+              <div className="form-group">
                 <label htmlFor="department">Department</label>
                 <Form.Select required id="department" name="department" value={selectedSupervisor.department} onChange={handleChange} aria-label="Default select example">
-
-                  {
+                  {departments.length > 0 ?
                     departments.map((depart) => {
                       return <option key={depart.id} value={depart.id}>{depart.name}</option>
                     })
 
+                    :
+                    <p></p>
                   }
 
 
+
                 </Form.Select>
-              </div> */}
+              </div>
               {/* <div className="form-group">
                 <label htmlFor="phone_no">Phone Number</label>
                 <input required type="text" className="form-control" id="phone_no" name="phone_no" value={selectedSupervisor.phone_no} onChange={handleChange} />
@@ -204,7 +207,7 @@ function AllSupervisors() {
         <div>
           <Table striped bordered variant="light">
             <thead>
-              <tr key={'00001'}>
+              <tr>
                 <th>#</th>
                 <th>Name</th>
                 <th>Faculty Id</th>
@@ -236,7 +239,7 @@ function AllSupervisors() {
                   6
                 </td>
                 <td colSpan={3}>
-                  <button className='Icon-btn-EM' onClick={()=>{gotoaddsupervisor()}}>
+                  <button className='Icon-btn-EM' onClick={() => { gotoaddsupervisor() }}>
                     Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../Images/plus.png')} className="Icons-EM" /></span>
 
                   </button>

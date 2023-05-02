@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import MyContext from "./MyContext";
-import axios from "axios";
+import axios from "../axiosConfig";
 const PMOProvider = (props) => {
     const [milestones, setMilestones] = useState([])
     const getAllMilestones = async () => {
-        await axios.get('https://pmbotics.herokuapp.com/allmilestone')
+        await axios.get('allmilestone')
             .then((res) => {
                 console.log(res.data.data)
                 if (res.data.message === "Success") {
@@ -19,7 +19,7 @@ const PMOProvider = (props) => {
     useEffect(() => {
         getAllMilestones()
     }, [])
-    const refreshmilestone = () =>{
+    const refreshmilestone = () => {
         getAllMilestones()
     }
     const state = { milestones, setMilestones, refreshmilestone }

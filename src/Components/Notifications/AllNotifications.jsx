@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom'
 function AllNotifications() {
     const navigate = useNavigate()
     const gotocreatenotification = () => {
-        navigate('/create-notification')
+        navigate('/fyp_panel/create-notification')
     }
     return (
         <div>

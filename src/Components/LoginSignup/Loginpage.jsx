@@ -10,7 +10,7 @@ function Loginpage(props) {
 
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
-  const { setLoginStatus, setuserRole } = useContext(GlobalContext)
+  const { setLoginStatus, setuserRole, setuserName } = useContext(GlobalContext)
   const navigate = useNavigate()
   const Navigate = (e) => {
     navigate(`/${e}`)
@@ -32,13 +32,16 @@ function Loginpage(props) {
         console.log(res)
         if (res.data.message === "Login Succes") {
           alert(res.data.message)
-          var userRole = res.data.data.data2[2]
+          var userRole = res.data.data.role
+          var userName = res.data.data.name
           localStorage.setItem('access_token', res.data.data.access_token);
           localStorage.setItem('LoginStatus', true);
           localStorage.setItem('userRole', userRole);
+          localStorage.setItem('userName', userName);
           setLoginStatus(localStorage.getItem('LoginStatus'))
           setuserRole(localStorage.getItem('userRole'))
-          setuserRole(userRole)
+          setuserName(localStorage.getItem('userName'))
+          
           ClearForm(e)
           Navigate(userRole)
         }
@@ -51,9 +54,8 @@ function Loginpage(props) {
 
       )
       .catch(err => {
-        if (err.data.message === "login fail") {
-          alert("Username or password is wrong")
-        };
+        
+        console.log(err)
         // alert("Username or password is wrong")
       })
 

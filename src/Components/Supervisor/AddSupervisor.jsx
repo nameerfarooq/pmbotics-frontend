@@ -1,68 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from '../../axiosConfig';
 import '../Project/projects.css'
 import Form from 'react-bootstrap/Form';
+import GlobalContext from '../../Context/GlobalContext';
+import { useNavigate } from 'react-router-dom';
 function AddSupervisor() {
 
   // Getting departments (GET API)
-  const [departments, setDepartments] = useState([])
+  const { departments } = useContext(GlobalContext)
 
-
-  const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
-
-  useEffect(() => {
-    const getDepartments = async () => {
-      try {
-        const fetchData = await axios.get(API_URI_departments, {
-
-        })
-        setDepartments(fetchData.data.data)
-
-
-      } catch (error) {
-        console.log(error)
-
-      }
+    const navigate = useNavigate()
+    const gotoallsupervisors = () =>{
+      navigate('/fyp_panel/all-supervisors')
     }
-    getDepartments()
-  }, [])
-
-  // const deptList = {}
-  // // eslint-disable-next-line
-  // departments.map((value) => {
-  //   deptList[value.id] = value.name
-  // })
-  // let deptArray = Object.entries(deptList)
-
 
   // creating supervisors (POST API)
   const [supervisorData, setSupervisorData] = useState({
-    role: 'supervisor',
-    email: '',
-    password: '',
-    name: '',
-    faculty_no: '',
-    field_of_interest: '',
-    phone_no: '',
-    department: '1',
+    role: "supervisor",
+    email: "",
+    password: "",
+    name: "",
+    phoneno: "",
+    faculty_no: "",
+    field_of_interest: "",
+    designation: "",
+    department: 1
   });
   const handleSubmit = async e => {
     e.preventDefault();
-    await axios.post('https://pmbotics.herokuapp.com/createUser', supervisorData)
+    await axios.post('createUser', supervisorData)
       .then(response => {
         alert(JSON.stringify(response.data.message));
         console.log(response.data.message)
         if (response.data.message === "Success") {
           setSupervisorData({
-            role: 'supervisor',
-            email: '',
-            password: '',
-            name: '',
-            faculty_no: '',
-            field_of_interest: '',
-            phone_no: '',
-            department: '1'
+            role: "supervisor",
+            email: "",
+            password: "",
+            name: "",
+            phoneno: "",
+            faculty_no: "",
+            field_of_interest: "",
+            designation: "",
+            department: 1
           });
+          gotoallsupervisors()
         }
 
       })
@@ -120,26 +102,30 @@ function AddSupervisor() {
               <input required type="text" className="form-control" id="field_of_interest" name="field_of_interest" value={supervisorData.field_of_interest} onChange={handleChange} />
             </div>
             <div className="form-group">
+              <label htmlFor="field_of_interest">Designation</label>
+              <input required type="text" className="form-control" id="designation" name="designation" value={supervisorData.designation} onChange={handleChange} />
+            </div>
+            <div className="form-group">
               <label htmlFor="department">Department</label>
               <Form.Select required id="department" name="department" value={supervisorData.department} onChange={handleChange} aria-label="Default select example">
 
                 {
-                  
-              
+
+
                   departments.map((depart) => {
                     return <option key={depart.id} value={depart.id}>{depart.name}</option>
                   })
-                  
 
-                
+
+
                 }
 
 
               </Form.Select>
             </div>
             <div className="form-group">
-              <label htmlFor="phone_no">Phone Number</label>
-              <input required type="text" className="form-control" id="phone_no" name="phone_no" value={supervisorData.phone_no} onChange={handleChange} />
+              <label htmlFor="phoneno">Phone Number</label>
+              <input required type="text" className="form-control" id="phoneno" name="phoneno" value={supervisorData.phoneno} onChange={handleChange} />
             </div>
             <button type="submit" className=" m-2 btn btn-primary">Submit</button>
 

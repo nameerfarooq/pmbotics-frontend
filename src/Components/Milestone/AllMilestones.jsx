@@ -5,14 +5,13 @@ import '../Project/projects.css'
 import { useNavigate } from 'react-router-dom'
 import MyContext from '../../Context/MyContext'
 function AllMilestones(props) {
-    var UserRole = props.UserRole
     
     const {milestones} = useContext(MyContext)
     
     // navigation for create milestone screen
     const navigate = useNavigate()
     const gotocreatemilestone = () => {
-        navigate('/create-milestone')
+        navigate('/fyp_panel/create-milestone')
     }
 
 
@@ -21,16 +20,14 @@ function AllMilestones(props) {
     
     const viewMilestone = (e) => {
 
-        navigate(`/milestone/${e}`)
+        navigate(`/fyp_panel/milestone/${e}`)
     }
 
 
     return (
         <>
             <div className='ProjectHeader'>
-                {
-                    UserRole === "PanelMember"
-                }
+                
                 <button className='New-Project-btn' onClick={() => { gotocreatemilestone() }}>Create</button>
                 <h2 className='ProjectHeading'>MILESTONES</h2>
             </div>

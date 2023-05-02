@@ -3,7 +3,6 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Form from 'react-bootstrap/Form';
 
 
 function AllDepartments() {
@@ -16,9 +15,7 @@ function AllDepartments() {
     const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
     const getDepartments = async () => {
         try {
-            const fetchData = await axios.get(API_URI_departments, {
-
-            })
+            const fetchData = await axios.get(API_URI_departments)
             setDepartments(fetchData.data.data)
 
 
@@ -70,7 +67,6 @@ function AllDepartments() {
             .then(res => {
                 console.log(res.data);
                 if (res.data.message === "Success") {
-                    // setDepartments(prevDepartments => prevDepartments.map(dept => dept.id === selectedDepartment.id ? res.data : dept));
                     console.log(departments)
                     setselectedDepartment('')
                     handleClose()
@@ -97,18 +93,7 @@ function AllDepartments() {
 
                 <Modal.Body>
                     <form >
-                        {/* <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input required type="email" className="form-control" id="email" name="email" value={selectedSupervisor.email} onChange={handleChange} />
-              </div> */}
-                        {/* <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input required type="password" className="form-control" id="password" name="password" value={selectedSupervisor.password} onChange={handleChange} />
-              </div> */}
-                        {/* <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input required type="text" className="form-control" id="name" name="name" value={selectedSupervisor.name} onChange={handleChange} />
-              </div> */}
+
                         <div className="form-group">
                             <label htmlFor="name">Department Name</label>
                             <input required type="text" className="form-control" id="name" name="name" value={selectedDepartment.name} onChange={handleChange} />
@@ -118,23 +103,8 @@ function AllDepartments() {
                             <input required type="text" className="form-control" id="hod" name="hod" value={selectedDepartment.hod} onChange={handleChange} />
                         </div>
 
-                        {/* <div className="form-group">
-                <label htmlFor="phone_no">Phone Number</label>
-                <input required type="text" className="form-control" id="phone_no" name="phone_no" value={selectedSupervisor.phone_no} onChange={handleChange} />
-              </div> */}
-
-
                     </form>
-
-
-
-
-
                 </Modal.Body>
-
-
-
-
 
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

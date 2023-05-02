@@ -1,32 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from '../../axiosConfig';
 import '../Project/projects.css'
 import Form from 'react-bootstrap/Form';
+import GlobalContext from '../../Context/GlobalContext';
 function AddStudents() {
 
 
 
   // Getting departments (GET API)
-  const [departments, setDepartments] = useState([])
-  const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
-  const getDepartments = async () => {
-    try {
-      const fetchData = await axios.get(API_URI_departments, {
-
-      })
-
-      setDepartments(fetchData.data.data)
-
-
-    } catch (error) {
-      console.log(error)
-
-    }
-  }
-  useEffect(() => {
-
-    getDepartments()
-  }, [])
+  const {departments} = useContext(GlobalContext)
+  
 
 
 
@@ -47,7 +30,7 @@ function AddStudents() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    await axios.post('https://pmbotics.herokuapp.com/createUser', studentData)
+    await axios.post('createUser', studentData)
       .then(response => {
         alert(JSON.stringify(response.data.message));
         console.log(response.data.message)

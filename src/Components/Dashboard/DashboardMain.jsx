@@ -45,7 +45,7 @@ function DashboardMain(props) {
             <Sidebar />
             <div className='DashboardMain'>
                 <Routes>
-                    <Route path='/all-projects' element={<MainProjectScreen />} />
+                    <Route path='/' element={<MainProjectScreen />} />
                     <Route path='/create-project' element={<CreateProject />} />
                     {/* <Route path='/project' element={ <ViewProject/>} > */}
                     {/* <Route path='/finalproject' element={ <FinalProject/>} /> */}

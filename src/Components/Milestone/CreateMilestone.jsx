@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import '../Project/projects.css'
-import axios from 'axios';
+import axios from '../../axiosConfig';
 function CreateMilestone() {
     const [Duedate, setDueDate] = useState(new Date());
     const [Defendingdate, setDefendingDate] = useState(new Date());
@@ -32,7 +32,7 @@ function CreateMilestone() {
 
         }
 
-        const response = await axios.post("http://127.0.0.1:8000/milestone", item)
+        const response = await axios.post("createmilestone", item)
             .then(res => {
                 if(res.data.message==="success"){
                     alert(res.data.message)
