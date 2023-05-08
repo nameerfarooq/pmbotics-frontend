@@ -6,7 +6,7 @@ const GlobalProvider = (props) => {
 
     const [LoginStatus, setLoginStatus] = useState(localStorage.getItem('LoginStatus'))
     const [userRole, setuserRole] = useState(localStorage.getItem('userRole'))
-    const [userName, setuserName] = useState('')
+    const [userName, setuserName] = useState(localStorage.getItem('userName'))
     const handleLogout = () => {
         localStorage.removeItem('access_token');
         setLoginStatus(false)

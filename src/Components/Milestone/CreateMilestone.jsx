@@ -1,44 +1,98 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import '../Project/projects.css'
 import axios from '../../axiosConfig';
+import { useNavigate } from 'react-router-dom';
+import MyContext from '../../Context/MyContext';
 function CreateMilestone() {
-    const [Duedate, setDueDate] = useState(new Date());
-    const [Defendingdate, setDefendingDate] = useState(new Date());
-    const [MilestoneName, setMilestoneName] = useState("")
-    const [MilestoneDetails, setMilestoneDetails] = useState("")
-    const [FYPpanel, setFYPpanel] = useState("")
-
+    const { refreshmilestone } = useContext(MyContext)
+    const navigate = useNavigate()
+    const gotoAllmilestone = () => {
+        navigate('/fyp_panel/all-milestones')
+    }
+    const [rubrics, setRubrics] = useState({
+        rubric_data: [
+            {
+                title: "",
+                points: ["", "", "", "", ""],
+            },
+            {
+                title: "",
+                points: ["", "", "", "", ""],
+            },
+            {
+                title: "",
+                points: ["", "", "", "", ""],
+            },
+            {
+                title: "",
+                points: ["", "", "", "", ""],
+            },
+            {
+                title: "",
+                points: ["", "", "", "", ""],
+            },
+        ],
+    });
+    const [milestone, setMilestone] = useState({
+        milestone_name: "",
+        document_submission_date: new Date(),
+        milestone_defending_date: new Date(),
+        milestone_details: "",
+        marks: 0,
+        rubrics: rubrics
+    })
     function ClearForm(e) {
         e.preventDefault()
-        setDueDate(new Date())
-        setDefendingDate(new Date())
-        setMilestoneName("")
-        setMilestoneDetails("")
-        setFYPpanel("")
+        setRubrics({
+            rubric_data: [
+                {
+                    title: "",
+                    points: ["", "", "", "", ""],
+                },
+                {
+                    title: "",
+                    points: ["", "", "", "", ""],
+                },
+                {
+                    title: "",
+                    points: ["", "", "", "", ""],
+                },
+                {
+                    title: "",
+                    points: ["", "", "", "", ""],
+                },
+                {
+                    title: "",
+                    points: ["", "", "", "", ""],
+                },
+            ],
+        })
+        setMilestone({
+            milestone_name: "",
+            document_submission_date: new Date(),
+            milestone_defending_date: new Date(),
+            milestone_details: "",
+            marks: 0,
+            rubrics: rubrics
+
+        })
 
     }
     async function SubmitForm(e) {
         e.preventDefault()
-        
-        const item = {
-            "milestone_name": MilestoneName,
-            "document_submissin_date": "2023-01-23",
-            "milestone_defending_date": "2023-01-25",
-            "milestone_details": MilestoneDetails,
-            "fyp_panel": 9
-
-        }
-
-        const response = await axios.post("createmilestone", item)
+        const response = await axios.post("createmilestone", milestone)
             .then(res => {
-                if(res.data.message==="success"){
-                    alert(res.data.message)
+                if (res.data.message === "Success") {
+                    alert("Milestone Created Successfully")
                     ClearForm(e)
+                    refreshmilestone()
+                    gotoAllmilestone()
                 }
-                else{
+                else {
+                    console.log(res)
                     alert(res.data.message)
                 }
             }
@@ -48,9 +102,26 @@ function CreateMilestone() {
             }
             )
     }
+
+    const handleChange = (e) => {
+        setMilestone({ ...milestone, [e.target.name]: e.target.value });
+    };
+
+
+    const handleTitleChange = (event, index) => {
+        const newRubrics = { ...rubrics };
+        newRubrics.rubric_data[index].title = event.target.value;
+        setRubrics(newRubrics);
+    };
+
+    const handlePointsChange = (event, index, pointIndex) => {
+        const newRubrics = { ...rubrics };
+        newRubrics.rubric_data[index].points[pointIndex] = event.target.value;
+        setRubrics(newRubrics);
+    };
     return (
 
-        <div className='CreateProjectScreen'>
+        <div className='CreateProjectScreen-2'>
 
             <h2 className='CP-Title'>
                 Create Milestone
@@ -63,36 +134,113 @@ function CreateMilestone() {
                 <Form>
 
                     <label >Milestone Name</label>
-                    <Form.Control value={MilestoneName} onChange={(e) => setMilestoneName(e.target.value)} type="text" />
+                    <Form.Control className='form-field-50' value={milestone.milestone_name} name='milestone_name' onChange={handleChange} type="text" />
 
                     <label >Document Submission Date</label>
-                    <Form.Group controlId="duedate">
+                    <Form.Group className='form-field-50' controlId="duedate">
                         <Form.Control
                             type="date"
-                            name="duedate"
-                            placeholder="Due date"
-                            value={Duedate}
-                            onChange={(e) => setDueDate(e.target.value)}
+                            name="document_submission_date"
+
+                            placeholder="document_submission_date"
+                            value={milestone.document_submission_date}
+                            onChange={handleChange}
                         />
                     </Form.Group>
                     <label >Milestone Defending Date</label>
-                    <Form.Group controlId="duedate">
+                    <Form.Group className='form-field-50' controlId="duedate">
                         <Form.Control
                             type="date"
-                            name="duedate"
+                            name="milestone_defending_date"
                             placeholder="Due date"
-                            value={Defendingdate}
-                            onChange={(e) => setDefendingDate(e.target.value)}
+                            value={milestone.milestone_defending_date}
+                            onChange={handleChange}
                         />
                     </Form.Group>
 
 
                     <label >Milestone Details</label>
-                    <Form.Control value={MilestoneDetails} onChange={(e) => setMilestoneDetails(e.target.value)} type="text" className='CM-Des' />
+                    <Form.Control className='form-field-50 CM-Des' name='milestone_details' value={milestone.milestone_details} onChange={handleChange} type="text" />
 
 
-                    <label >FYP Panel</label>
-                    <Form.Control value={FYPpanel} onChange={(e) => setFYPpanel(e.target.value)} type="text" className='' />
+                    <label >Milestone Marks</label>
+                    <Form.Control className='form-field-50' name='marks' value={milestone.marks} onChange={handleChange} type="text" />
+
+
+
+
+                    <label >Rubrics</label>
+
+                    {/* <table>
+                        <tr>
+                            <td>
+                                Criteria
+                            </td>
+                            <td>
+                                value 1
+                            </td>
+                            <td>
+                                value 2
+                            </td>
+                            <td>
+                                value 3
+                            </td>
+                            <td>
+                                value 4
+                            </td>
+                            <td>
+                                value 5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <Form.Control className='form-criteria' name='marks' value={milestone.marks} onChange={handleChange} type="text" />
+                            </td>
+                            <td>
+                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
+                            </td>
+                            <td>
+                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
+                            </td>
+                            <td>
+                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
+                            </td>
+                            <td>
+                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
+                            </td>
+                            <td>
+                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
+                            </td>
+                        </tr>
+                    </table> */}
+
+                    {rubrics.rubric_data.map((rubric, index) => (
+                        <div className='rubric-row' key={index}>
+                            <input
+                                className='rubric-inp-t'
+                                type="text"
+                                value={rubric.title}
+                                onChange={(event) => handleTitleChange(event, index)}
+                            />
+                            {rubric.points.map((point, pointIndex) => (
+                                <div className='rub-p-row' key={pointIndex}>
+
+                                    <input
+                                        className='rub-p-inp'
+                                        type="text"
+                                        value={point}
+                                        onChange={(event) => handlePointsChange(event, index, pointIndex)}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+
+
+
+
+
+
 
 
                     <div className='PC-btnHolder'>
@@ -100,7 +248,7 @@ function CreateMilestone() {
                             Cancel
                         </Button>
                         <Button onClick={SubmitForm} className='PC-btn2' variant="primary" type="submit">
-                            Create Milestone
+                            Create
                         </Button>
                     </div>
                 </Form>

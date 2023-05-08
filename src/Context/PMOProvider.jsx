@@ -4,16 +4,19 @@ import axios from "../axiosConfig";
 const PMOProvider = (props) => {
     const [milestones, setMilestones] = useState([])
     const getAllMilestones = async () => {
-        await axios.get('allmilestone')
-            .then((res) => {
-                console.log(res.data.data)
-                if (res.data.message === "Success") {
-                    setMilestones(res.data.data)
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        if (localStorage.getItem('access_token')) {
+            await axios.get('allmilestone')
+                .then((res) => {
+                    console.log(res.data.data)
+                    if (res.data.message === "Success") {
+                        setMilestones(res.data.data)
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+        }
+
     }
 
     useEffect(() => {
