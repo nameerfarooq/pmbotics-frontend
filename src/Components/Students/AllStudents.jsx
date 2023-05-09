@@ -11,12 +11,21 @@ import GlobalContext from '../../Context/GlobalContext';
 function AllStudents() {
 
   const [students, setStudents] = useState([])
-  const [selectedStudent, setselectedStudent] = useState('')
+  const [selectedStudent, setselectedStudent] = useState({
+    id: null,
+    email: "",
+    name: "",
+    rollno: "",
+    seatno: "",
+    enrollmentno: "",
+    phoneno: "",
+    department: 1
+  })
   const [show, setShow] = useState(false);
-  const {departments}= useContext(GlobalContext)
+  const { departments } = useContext(GlobalContext)
   const navigate = useNavigate()
   const gotoaddstudent = () => {
-    navigate('/add-student')
+    navigate('/fyp_panel/add-student')
   }
 
 
@@ -37,7 +46,7 @@ function AllStudents() {
     getStudents()
   }, [])
 
- 
+
   // deleting student
 
   const DeleteStudent = async (e) => {
@@ -69,20 +78,31 @@ function AllStudents() {
   const updateClicked = (ClickedStudent) => {
     setselectedStudent(ClickedStudent)
     handleShow()
-
+    
   }
-
+  
   const UpdateStudent = async () => {
+    console.log('dekhlo', selectedStudent)
     // eslint-disable-next-line
     const response = await axios.patch('updatestudent',
       selectedStudent)
       .then(res => {
         console.log(res.data);
         if (res.data.message === "Success") {
-          // setStudents(prevStudents => prevStudents.map(student => student.id === selectedStudent.id ? res.data : student));
-          // console.log(res.data)
-          setselectedStudent('')
+
+          setselectedStudent({
+            id: null,
+            email: "",
+            name: "",
+            rollno: "",
+            seatno: "",
+            enrollmentno: "",
+            phoneno: "",
+            department: 1
+          })
           handleClose()
+          getStudents()
+
         }
       })
       .catch(error => {
@@ -117,18 +137,18 @@ function AllStudents() {
 
         <Modal.Body>
           <form >
-            {/* <div className="form-group">
+            <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input required type="email" className="form-control" id="email" name="email" value={selectedSupervisor.email} onChange={handleChange} />
-              </div> */}
+                <input required type="email" className="form-control" id="email" name="email" value={selectedStudent.email} onChange={handleChange} />
+              </div>
             {/* <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input required type="password" className="form-control" id="password" name="password" value={selectedSupervisor.password} onChange={handleChange} />
               </div> */}
-            {/* <div className="form-group">
+            <div className="form-group">
                 <label htmlFor="name">Name</label>
-                <input required type="text" className="form-control" id="name" name="name" value={selectedSupervisor.name} onChange={handleChange} />
-              </div> */}
+                <input required type="text" className="form-control" id="name" name="name" value={selectedStudent.name} onChange={handleChange} />
+              </div>
             <div className="form-group">
               <label htmlFor="rollno">Roll Number</label>
               <input required type="text" className="form-control" id="rollno" name="rollno" value={selectedStudent.rollno} onChange={handleChange} />
@@ -140,6 +160,10 @@ function AllStudents() {
             <div className="form-group">
               <label htmlFor="enrollmentno">Enrollement Number</label>
               <input required type="text" className="form-control" id="enrollmentno" name="enrollmentno" value={selectedStudent.enrollmentno} onChange={handleChange} />
+            </div>
+            <div className="form-group">
+              <label htmlFor="enrollmentno">Phone Number</label>
+              <input required type="text" className="form-control" id="phoneno" name="phoneno" value={selectedStudent.phoneno} onChange={handleChange} />
             </div>
             <div className="form-group">
               <label htmlFor="department">Department</label>
@@ -202,12 +226,12 @@ function AllStudents() {
             </thead>
             <tbody>
               {console.log(students)}
-              {students.map((student) => (
+              {students.map((student, RowIndex) => (
 
-                <tr key={student.rollno}>
-                  <td>1</td>
-                  <td>{student.name}</td>
-                  <td>{student.rollno}</td>
+                <tr key={RowIndex}>
+                  <td key={RowIndex + 1}>{RowIndex + 1}</td>
+                  <td key={RowIndex + 2}>{student.name}</td>
+                  <td key={RowIndex + 3}>{student.rollno}</td>
                   <td>
                     <button className='Icon-btn-EM'>
                       <img alt='iconsimages' onClick={() => updateClicked(student)} src={require('../../Images/pencil.png')} className="Icons-EM" />

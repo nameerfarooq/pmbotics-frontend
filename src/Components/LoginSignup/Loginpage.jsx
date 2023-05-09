@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './LoginSignup.css'
 import Header from '../Dashboard/Header'
 import Button from 'react-bootstrap/Button';
@@ -10,8 +10,15 @@ function Loginpage(props) {
 
   const [Email, setEmail] = useState("")
   const [Password, setPassword] = useState("")
-  const { setLoginStatus, setuserRole, setuserName } = useContext(GlobalContext)
+  const { LoginStatus, userRole, setLoginStatus, setuserRole, setuserName } = useContext(GlobalContext)
   const navigate = useNavigate()
+  useEffect(() => {
+    if(LoginStatus && userRole){
+      
+      navigate(`/${userRole}`)
+    }
+  }, [])
+  
   const Navigate = (e) => {
     navigate(`/${e}`)
   }

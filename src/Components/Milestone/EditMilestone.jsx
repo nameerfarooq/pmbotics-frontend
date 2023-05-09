@@ -34,8 +34,7 @@ function EditMilestone() {
 
     function ClearForm(e) {
         e.preventDefault()
-        setRubrics(myMilestone.rubrics)
-        setMilestone(myMilestone)
+        navigate(`/fyp_panel/milestone/${id}`)
 
     }
     async function SubmitForm(e) {
@@ -205,7 +204,7 @@ function EditMilestone() {
 
                             <div className='PC-btnHolder'>
                                 <Button onClick={ClearForm} className='PC-btn1' variant="secondary" type="submit">
-                                    Cancel
+                                    Back
                                 </Button>
                                 <Button onClick={SubmitForm} className='PC-btn2' variant="primary" type="submit">
                                     Update

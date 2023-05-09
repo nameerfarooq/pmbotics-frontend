@@ -3,10 +3,11 @@ import axios from '../../axiosConfig';
 import '../Project/projects.css'
 import Form from 'react-bootstrap/Form';
 import GlobalContext from '../../Context/GlobalContext';
+import { useNavigate } from 'react-router-dom';
 function AddStudents() {
 
 
-
+  const navigate = useNavigate()
   // Getting departments (GET API)
   const {departments} = useContext(GlobalContext)
   
@@ -33,7 +34,7 @@ function AddStudents() {
     await axios.post('createUser', studentData)
       .then(response => {
         alert(JSON.stringify(response.data.message));
-        console.log(response.data.message)
+        console.log(response)
         if (response.data.message === "Success") {
           setStudentData({
             role: 'student',
@@ -55,7 +56,7 @@ function AddStudents() {
       });
 
     // clear form data after successful submission
-
+      navigate('/fyp_panel/all-students')
 
 
 
