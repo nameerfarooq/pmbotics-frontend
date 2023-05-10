@@ -1,105 +1,77 @@
 import axios from '../../axiosConfig';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-
-
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import GlobalContext from '../../Context/GlobalContext';
+import MyContext from '../../Context/MyContext';
 function CreateProject() {
 
-
+    const { departments } = useContext(GlobalContext)
     // GET API, getting supervisors list from database
-    const [supervisors, setSupervisors] = useState([])
-    const API_URI_supervisorslist = 'alluser/?role=supervisor'
-    const getSupervisors = async () => {
-        try {
-            const fetchData = await axios.get(API_URI_supervisorslist)
-            setSupervisors(fetchData.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    useEffect(() => {
-        window.addEventListener('load', getSupervisors)
-        return () => {
-            window.removeEventListener('load', getSupervisors)
-        }
-    }, [supervisors])
+    const {supervisors, refreshProjects} = useContext(MyContext)
+const navigate = useNavigate()
+ 
+    
 
 
 
-console.log(supervisors)
+    console.log(supervisors)
 
-    const supervisorsList = {}
-    // eslint-disable-next-line
-    supervisors.map((value) => {
-        supervisorsList[value.id] = value.name
+
+
+    const [project, setProject] = useState({
+        "title": "",
+        "year": "",
+        "batch": "",
+        "description": "",
+        "domain": "",
+        "no_of_group_members": '',
+        "supervisor": '',
+        "department": 1
     })
-    let supervisorsArray = Object.entries(supervisorsList)
-    
-    
-    
-    const [Batch, setBatch] = useState("")
-    const [Program, setProgram] = useState("")
-    const [ProjectName, setProjectName] = useState("")
-    const [ProjectDescription, setProjectDescription] = useState("")
-    const [NoGroupMembers, setNoGroupMembers] = useState("")
-    const [ProjectType, setProjectType] = useState("")
-    const [Supervisor, setSupervisor] = useState("")
-    // const projTitle = []
-    const item = {
-        "title": ProjectName,
-        "batch": Batch,
-        "description": ProjectDescription,
-        "domain": ProjectType,
-        "no_of_group_members": NoGroupMembers,
-        "supervisor": Supervisor,
-        "department": Program,
-    }
-
 
 
 
     async function Submit(e) {
         e.preventDefault()
 
-        // getProjectList(e)
-
-
-
-
-
-        // API integration
-
-
-// eslint-disable-next-line
-        const response = await axios.post("createproject", item)
-
+       
+        const response = await axios.post("createproject", project)
             .then(res => {
                 console.log(res)
-                if (res.data.message === "success") {
+                if (res.data.message === "Success") {
                     alert(res.data.message)
                     ClearForm(e)
+                    refreshProjects()
+                    navigate('/fyp_panel/')
                 }
-                else {
-                    alert("Error occured")
-
-                }
-                ;
+                
+                
             }
 
             )
-
+            .catch((err)=>{
+                console.log(err)
+            })
 
     }
+    const handleChange = (e) => {
+        setProject({ ...project, [e.target.name]: e.target.value });
+    };
     function ClearForm(e) {
         e.preventDefault()
-        setBatch("")
-        setProgram("")
-        setProjectName("")
-        setProjectDescription("")
-        setNoGroupMembers("")
-        setProjectType("")
-        setSupervisor("")
+        setProject({
+            "title": "",
+            "year": "",
+            "batch": "",
+            "description": "",
+            "domain": "",
+            "no_of_group_members": '',
+            "supervisor": '',
+            "department": 1
+        })
 
     }
     return (
@@ -116,47 +88,25 @@ console.log(supervisors)
             <div className='FormMainContainer'>
                 <Form>
 
-                    <label >Batch</label>
-                    <Form.Select required value={Batch} onChange={(e) => setBatch(e.target.value)} aria-label="Default select example">
-                        <option>select</option>
-                        <option value="19b">19b</option>
-                        <option value="18b">18b</option>
-                        <option value="17b">17b</option>
-                        <option value="16b">16b</option>
-                        <option value="15b">15b</option>
-                        <option value="14b">14b</option>
-                        <option value="13b">13b</option>
-                        <option value="12b">12b</option>
-                        <option value="11b">11b</option>
-                        <option value="10b">10b</option>
-                    </Form.Select>
 
-
-
-                    <label >Program</label>
-                    <Form.Select required value={Program} onChange={(e) => setProgram(e.target.value)} aria-label="Default select example">
-                        <option>select</option>
-                        <option value="1">Computer Science</option>
-                        <option value="3">Software Engineering</option>
-                        <option value="2">Electrical Engineering</option>
-                        <option value="4">Power Engineering</option>
-                        <option value="5">Electronics Engineering</option>
-                        <option value="6">Computer Engineering</option>
-
-                    </Form.Select>
 
 
 
 
                     <label >Project Name</label>
-                    <Form.Control required value={ProjectName} onChange={(e) => setProjectName(e.target.value)} type="text" />
+                    <Form.Control required name='title' id='title' value={project.title} onChange={handleChange} type="text" />
 
                     <label >Project Description</label>
-                    <Form.Control required value={ProjectDescription} onChange={(e) => setProjectDescription(e.target.value)} type="text" />
+                    <Form.Control required name='description' id='description' value={project.description} onChange={handleChange} type="text" />
 
+                    <label >year</label>
+                    <Form.Control required name='year' id='year' value={project.year} onChange={handleChange} type="text" />
+
+                    <label >Batch</label>
+                    <Form.Control required name='batch' id='batch' value={project.batch} onChange={handleChange} type="text" />
 
                     <label >Number of group members</label>
-                    <Form.Select required value={NoGroupMembers} onChange={(e) => setNoGroupMembers(e.target.value)} aria-label="Default select example">
+                    <Form.Select required name='no_of_group_members' id='no_of_group_members' value={project.no_of_group_members} onChange={handleChange} aria-label="Default select example">
                         <option>select</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -169,21 +119,31 @@ console.log(supervisors)
 
 
 
-                    <label >Project type</label>
-                    <Form.Control required value={ProjectType} onChange={(e) => setProjectType(e.target.value)} type="text" />
+                    <label >Project domain</label>
+                    <Form.Control required name='domain' id='domain' value={project.domain} onChange={handleChange} type="text" />
 
 
 
 
                     <label >Assign Supervisor</label>
-                    <Form.Select required value={Supervisor} onChange={(e) => setSupervisor(e.target.value)} aria-label="Default select example">
-                    
+                    <Form.Select required name='supervisor' value={project.supervisor} onChange={handleChange} aria-label="Default select example">
+                    <option  value=''>select</option>
                         {
-                            supervisorsArray.map((value, key) => {
-                                const a = value[0]
-                                const b = value[1]
+                            supervisors.map((value, key) => {
 
-                                return <option key={key} value={a}>{b}</option>
+                                return <option key={key} value={value.id}>{value.name}</option>
+                            })
+
+                        }
+
+
+                    </Form.Select>
+                    <label >Department</label>
+                    <Form.Select required name='department' value={project.department} onChange={handleChange} aria-label="Default select example">
+
+                        {
+                            departments.map((value, key) => {
+                                return <option key={key} value={value.id}>{value.name}</option>
                             })
 
                         }

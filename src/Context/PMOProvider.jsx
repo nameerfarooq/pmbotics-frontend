@@ -5,7 +5,39 @@ const PMOProvider = (props) => {
     const [milestones, setMilestones] = useState([])
     const [accessTokenAvailable, setAccessTokenAvailable] = useState(false)
     const [accessToken] = useState(localStorage.getItem('access_token'))
+    const [supervisors, setSupervisors] = useState('')
+    const [projects, setProjects] = useState('')
+    const refreshProjects = ()=>{
+        getAllProjects()
+    }
+    const refreshSupervisors = ()=>{
+        getAllSupervisors()
+    }
+    const getAllProjects = async ()=>{
+        await axios.get('projects')
+        .then((res) => {
+            if (res.data.message === "Success") {
+                setProjects(res.data.body)
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
 
+
+
+    const getAllSupervisors = async ()=>{
+    await axios.get('alluser/?role=supervisor')
+            .then((res) => {
+                if (res.data.message === "Success") {
+                    setSupervisors(res.data.data)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+}
 
     const getAllMilestones = async () => {
         await axios.get('allmilestone')
@@ -22,6 +54,8 @@ const PMOProvider = (props) => {
     useEffect(() => {
         if (accessTokenAvailable && accessToken) {
             getAllMilestones()
+            getAllSupervisors()
+            getAllProjects()
         }
     }, [accessToken, accessTokenAvailable])
 
@@ -34,7 +68,7 @@ const PMOProvider = (props) => {
     const refreshmilestone = () => {
         getAllMilestones()
     }
-    const state = { milestones, setMilestones, refreshmilestone }
+    const state = { milestones, setMilestones, refreshmilestone, supervisors, projects ,refreshProjects,refreshSupervisors}
 
     return (
         <MyContext.Provider value={state}>

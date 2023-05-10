@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from '../../axiosConfig';
 import '../Project/projects.css'
 import Table from 'react-bootstrap/Table';
@@ -7,55 +7,29 @@ import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import GlobalContext from '../../Context/GlobalContext';
+import MyContext from '../../Context/MyContext';
 
 function AllSupervisors() {
   const [selectedSupervisor, setselectedSupervisor] = useState('')
   const [show, setShow] = useState(false);
   const { departments } = useContext(GlobalContext)
-  const [supervisors, setSupervisors] = useState('')
+  const { supervisors, refreshSupervisors } = useContext(MyContext)
   const navigate = useNavigate()
   const gotoaddsupervisor = () => {
     navigate('/fyp_panel/add-supervisor')
   }
-  useEffect(() => {
-
-    getSupervisors()
-
-  }, [])
-
-
-
-  const API_URI_supervisorslist = 'alluser/?role=supervisor'
-
-  const getSupervisors = async () => {
-    try {
-      const fetchData = await axios.get(API_URI_supervisorslist)
-      console.log(fetchData.data.data)
-      setSupervisors(fetchData.data.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-
-
-
-
-
-
 
 
 
   // deleting supervisors
 
-  // deleting student
 
   const DeleteSupervisor = async (e) => {
     await axios.delete(`deletesupervisor/${e}`)
       .then(response => {
         alert('Supervisor deleted successfully:', response.data);
         if (response.data.message === "Successfuly deleted") {
-          getSupervisors()
+          refreshSupervisors()
         }
       })
       .catch(error => {
@@ -87,7 +61,7 @@ function AllSupervisors() {
         console.log(res.data);
         if (res.data.message === "Success") {
           console.log(res.data)
-          getSupervisors()
+          refreshSupervisors()
           setselectedSupervisor({
             id: '',
             email: "",

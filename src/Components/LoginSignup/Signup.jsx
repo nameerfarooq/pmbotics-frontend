@@ -26,7 +26,7 @@ function Signup() {
     async function createuser(e) {
         e.preventDefault()
         console.log(data)
-        const response = await axios.post("http://pmbotics.herokuapp.com/registerpmo", data)
+        const response = await axios.post("https://pmbotics.herokuapp.com/registerpmo", data)
             .then((res) => {
                 console.log(res)
                 if (res.data.message === "Success") {

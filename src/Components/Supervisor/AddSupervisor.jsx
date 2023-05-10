@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from '../../axiosConfig';
 import '../Project/projects.css'
 import Form from 'react-bootstrap/Form';
 import GlobalContext from '../../Context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
+import MyContext from '../../Context/MyContext';
 function AddSupervisor() {
 
   // Getting departments (GET API)
+  const {refreshSupervisors} = useContext(MyContext)
   const { departments } = useContext(GlobalContext)
 
     const navigate = useNavigate()
@@ -44,6 +46,7 @@ function AddSupervisor() {
             designation: "",
             department: 1
           });
+          refreshSupervisors()
           gotoallsupervisors()
         }
 
