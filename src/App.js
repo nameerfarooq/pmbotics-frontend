@@ -29,10 +29,10 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/login' element={<Loginpage />} />
-            {console.log("login status: ",LoginStatus," & userRole: ",userRole)}
+            {/* {console.log("login status: ",LoginStatus," & userRole: ",userRole)} */}
             {LoginStatus && userRole === "fyp_panel" ?
               (
-                <Route path='/fyp_panel/*' element={<PMOProvider><Dashboard UserRole={'FYPCoordinator'} UserName={'Sir Syed Faisal Ali'} /></PMOProvider>} />
+                <Route path='/fyp_panel/*' element={<PMOProvider><Dashboard  /></PMOProvider>} />
               )
               :
               (

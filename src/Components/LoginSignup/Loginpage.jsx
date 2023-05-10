@@ -39,12 +39,15 @@ function Loginpage(props) {
         console.log(res)
         if (res.data.message === "Login Succes") {
           alert(res.data.message)
+          console.log(res)
           var userRole = res.data.data.role
           var userName = res.data.data.name
           localStorage.setItem('access_token', res.data.data.access_token);
           localStorage.setItem('LoginStatus', true);
           localStorage.setItem('userRole', userRole);
           localStorage.setItem('userName', userName);
+          localStorage.setItem('userId', res.data.data.id);
+          localStorage.setItem('departmentId', res.data.data.dep_id);
           setLoginStatus(localStorage.getItem('LoginStatus'))
           setuserRole(localStorage.getItem('userRole'))
           setuserName(localStorage.getItem('userName'))

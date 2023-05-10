@@ -36,6 +36,7 @@ import Sidebar from './Sidebar'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MilestoneDetail from '../Milestone/MilestoneDetail'
 import EditMilestone from '../Milestone/EditMilestone'
+import AddDepartment from './Departments/AddDepartment'
 
 function DashboardMain(props) {
 
@@ -61,6 +62,7 @@ function DashboardMain(props) {
                     <Route path='/all-supervisors' element={<AllSupervisors />} />
                     <Route path='/add-supervisor' element={<AddSupervisor />} />
                     <Route path='/all-departments' element={<AllDepartments />} />
+                    <Route path='/add-department' element={<AddDepartment />} />
                     <Route path='/all-students' element={<AllStudents />} />
                     <Route path='/add-student' element={<AddStudents />} />
                     <Route path='*' element={<div>404 not found</div>} />

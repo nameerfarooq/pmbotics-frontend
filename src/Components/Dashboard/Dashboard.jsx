@@ -3,12 +3,11 @@ import Header from './Header'
 // import Sidebar from './Sidebar';
 import './style.css'
 function Dashboard(props) {
-  const UserName = props.UserName
   return (
 
     <div className="App">
 
-      <Header UserName={UserName} />
+      <Header  />
 
       <div className='Dashboard-panel'>
         

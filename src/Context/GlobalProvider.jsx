@@ -12,6 +12,8 @@ const GlobalProvider = (props) => {
         localStorage.removeItem('LoginStatus');
         localStorage.removeItem('userRole');
         localStorage.removeItem('userName');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('departmentId');
         setLoginStatus(false)
         setuserRole('')
         setuserName('')
@@ -22,7 +24,6 @@ const GlobalProvider = (props) => {
     const getDepartments = async () => {
         axios.get(API_URI_departments)
         .then((res)=>{
-            console.log(res)
             setDepartments(res.data.data)
         })
     }

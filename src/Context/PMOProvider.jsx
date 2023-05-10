@@ -4,13 +4,12 @@ import axios from "../axiosConfig";
 const PMOProvider = (props) => {
     const [milestones, setMilestones] = useState([])
     const [accessTokenAvailable, setAccessTokenAvailable] = useState(false)
-    const [accessToken, setAccessToken] = useState(localStorage.getItem('access_token'))
+    const [accessToken] = useState(localStorage.getItem('access_token'))
 
 
     const getAllMilestones = async () => {
         await axios.get('allmilestone')
             .then((res) => {
-                console.log(res.data.data)
                 if (res.data.message === "Success") {
                     setMilestones(res.data.data)
                 }
@@ -22,8 +21,6 @@ const PMOProvider = (props) => {
 
     useEffect(() => {
         if (accessTokenAvailable && accessToken) {
-            console.log("yeh status hai acess token available ka",accessTokenAvailable)
-            console.log("yeh status hai acess token  ka",accessToken)
             getAllMilestones()
         }
     }, [accessToken, accessTokenAvailable])

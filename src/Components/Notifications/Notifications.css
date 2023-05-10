@@ -30,3 +30,7 @@
     padding: 1%;
     color: #9c9c9c;
 }
+.notispanright{
+    float: right;
+    right: 0;
+}

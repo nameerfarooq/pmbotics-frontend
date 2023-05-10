@@ -1,51 +1,177 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import './Notifications.css'
 import '../MainStyling.css'
 import '../Project/projects.css'
 import Notification from './Notification'
+import axios from '../../axiosConfig'
 import { useNavigate } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 function AllNotifications() {
+
+    const [selectedNotification, setSelectedNotification] = useState({
+        id: '',
+        title: "",
+        description: "",
+        createdate: "",
+        createtime: "",
+        department: '',
+        createdby: '',
+        name: ""
+    })
+    const [show, setShow] = useState(false);
+
+    const [notifications, setNotifications] = useState('')
+    useEffect(() => {
+        getAllnotifications()
+    }, [])
+    const getAllnotifications = async () => {
+        await axios.get('allnotifications')
+            .then((res) => {
+
+                if (res.data.message === "Success") {
+
+                    setNotifications(res.data.body)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
     const navigate = useNavigate()
     const gotocreatenotification = () => {
         navigate('/fyp_panel/create-notification')
     }
+
+
+    // update notifications
+    const handleClose = () => setShow(false);
+    const handleShow = (notification) => {
+        setSelectedNotification(notification)
+        setShow(true);
+
+    }
+    const updateClicked = (ClickedNotification) => {
+        setSelectedNotification(ClickedNotification)
+        handleShow()
+
+    }
+    const UpdateNotification = async () => {
+
+        // eslint-disable-next-line
+        const response = await axios.patch('updatenotification',
+            selectedNotification)
+            .then(res => {
+
+                if (res.data.message === "Success") {
+
+                    setSelectedNotification({
+                        id: '',
+                        title: "",
+                        description: "",
+                        createdate: "",
+                        createtime: "",
+                        department: '',
+                        createdby: '',
+                        name: ""
+                    })
+                    handleClose()
+                    getAllnotifications()
+
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+    const handleChange = (e) => {
+        setSelectedNotification({ ...selectedNotification, [e.target.name]: e.target.value });
+    };
+
     return (
-        <div>
-            <div className='ProjectHeader'>
-                <button className='New-Project-btn' onClick={() => { gotocreatenotification() }}>New</button>
-                <h2 className='ProjectHeading'>Notifications</h2>
-            </div>
-            <div className='MainContainerDiv'>
-
-                <Notification details={
-                    {
-                        title: "Project Submission Guidelines",
-                        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos magni sequi accusantium dicta, dolore ut rerum soluta autem porro, perspiciatis numquam harum hic. Maiores nemo eum accusantium reiciendis optio atque!",
-                        author: "Sir Syed Faisal Ali",
-                        timeline: "10:45 PM, 20 Jan 2023"
-                    }
-                } />
-                <Notification details={
-                    {
-                        title: "FYP Report Submission",
-                        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos magni sequi accusantium dicta, dolore ut rerum soluta autem porro, perspiciatis numquam harum hic. Maiores nemo eum accusantium reiciendis optio atque!",
-                        author: "Sir Zeeshan Saleem Khan",
-                        timeline: "10:45 PM, 22 Jan 2023"
-                    }
-                } />
-                <Notification details={
-                    {
-                        title: "Deadline Extended",
-                        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos magni sequi accusantium dicta, dolore ut rerum soluta autem porro, perspiciatis numquam harum hic. Maiores nemo eum accusantium reiciendis optio atque!",
-                        author: "Syed Faisal Ali",
-                        timeline: "10:45 PM, 01 Jan 2023"
-                    }
-                } />
+        <>
+            {notifications ?
+                <div>
+                    {/* showing popup for updating student */}
 
 
-            </div>
-        </div>
+
+
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Edit Notification</Modal.Title>
+                        </Modal.Header>
+
+
+
+                        <Modal.Body>
+                            <form >
+                                <div className="form-group">
+                                    <label htmlFor="email">title</label>
+                                    <input required type="email" className="form-control" id="title" name="title" value={selectedNotification.title} onChange={handleChange} />
+                                </div>
+
+                                <div className="form-group">
+                                    <label htmlFor="name">Description</label>
+                                    <input required type="text" className="form-control" id="description" name="description" value={selectedNotification.description} onChange={handleChange} />
+                                </div>
+
+
+                            </form>
+
+
+                        </Modal.Body>
+
+
+
+
+
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={UpdateNotification}>
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div className='ProjectHeader'>
+                        <button className='New-Project-btn' onClick={() => { gotocreatenotification() }}>New</button>
+                        <h2 className='ProjectHeading'>Notifications</h2>
+                    </div>
+                    <div className='MainContainerDiv'>
+
+                        {notifications.map((notification, Index) => (
+                            <Notification key={Index} handleShow={handleShow} refreshnotifications={getAllnotifications} details={notification} />
+                        ))}
+
+
+
+
+                    </div>
+                </div >
+                :
+                <p>Loading</p>
+            }
+        </>
     )
 }
 

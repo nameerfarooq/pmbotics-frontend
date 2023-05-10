@@ -10,7 +10,7 @@ import GlobalContext from '../../Context/GlobalContext';
 
 function AllStudents() {
 
-  const [students, setStudents] = useState([])
+  const [students, setStudents] = useState('')
   const [selectedStudent, setselectedStudent] = useState({
     id: null,
     email: "",
@@ -53,7 +53,7 @@ function AllStudents() {
     await axios.delete(`deletestudent/${e}`)
       .then(response => {
         alert('Student deleted successfully:', response.data);
-        console.log(response)
+
         if (response.data.message === "Successfuly deleted") {
           setStudents(prevStudents => prevStudents.filter(student => student.id !== e))
 
@@ -78,16 +78,16 @@ function AllStudents() {
   const updateClicked = (ClickedStudent) => {
     setselectedStudent(ClickedStudent)
     handleShow()
-    
+
   }
-  
+
   const UpdateStudent = async () => {
-    console.log('dekhlo', selectedStudent)
+
     // eslint-disable-next-line
     const response = await axios.patch('updatestudent',
       selectedStudent)
       .then(res => {
-        console.log(res.data);
+
         if (res.data.message === "Success") {
 
           setselectedStudent({
@@ -121,152 +121,160 @@ function AllStudents() {
 
 
   return (
-    <div>
+    <>
+      {students ?
+
+
+        <div>
 
 
 
-      {/* showing popup for editing a student */}
+          {/* showing popup for editing a student */}
 
-      {/* model started for editing selected student */}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Student</Modal.Title>
-        </Modal.Header>
+          {/* model started for editing selected student */}
+          <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Edit Student</Modal.Title>
+            </Modal.Header>
 
 
 
-        <Modal.Body>
-          <form >
-            <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input required type="email" className="form-control" id="email" name="email" value={selectedStudent.email} onChange={handleChange} />
-              </div>
-            {/* <div className="form-group">
+            <Modal.Body>
+              <form >
+                <div className="form-group">
+                  <label htmlFor="email">Email</label>
+                  <input required type="email" className="form-control" id="email" name="email" value={selectedStudent.email} onChange={handleChange} />
+                </div>
+                {/* <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input required type="password" className="form-control" id="password" name="password" value={selectedSupervisor.password} onChange={handleChange} />
               </div> */}
-            <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input required type="text" className="form-control" id="name" name="name" value={selectedStudent.name} onChange={handleChange} />
-              </div>
-            <div className="form-group">
-              <label htmlFor="rollno">Roll Number</label>
-              <input required type="text" className="form-control" id="rollno" name="rollno" value={selectedStudent.rollno} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="seatno">Seat Number</label>
-              <input required type="text" className="form-control" id="seatno" name="seatno" value={selectedStudent.seatno} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="enrollmentno">Enrollement Number</label>
-              <input required type="text" className="form-control" id="enrollmentno" name="enrollmentno" value={selectedStudent.enrollmentno} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="enrollmentno">Phone Number</label>
-              <input required type="text" className="form-control" id="phoneno" name="phoneno" value={selectedStudent.phoneno} onChange={handleChange} />
-            </div>
-            <div className="form-group">
-              <label htmlFor="department">Department</label>
-              <Form.Select required id="department" name="department" value={selectedStudent.department} onChange={handleChange} aria-label="Default select example">
+                <div className="form-group">
+                  <label htmlFor="name">Name</label>
+                  <input required type="text" className="form-control" id="name" name="name" value={selectedStudent.name} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="rollno">Roll Number</label>
+                  <input required type="text" className="form-control" id="rollno" name="rollno" value={selectedStudent.rollno} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="seatno">Seat Number</label>
+                  <input required type="text" className="form-control" id="seatno" name="seatno" value={selectedStudent.seatno} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="enrollmentno">Enrollement Number</label>
+                  <input required type="text" className="form-control" id="enrollmentno" name="enrollmentno" value={selectedStudent.enrollmentno} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="enrollmentno">Phone Number</label>
+                  <input required type="text" className="form-control" id="phoneno" name="phoneno" value={selectedStudent.phoneno} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="department">Department</label>
+                  <Form.Select required id="department" name="department" value={selectedStudent.department} onChange={handleChange} aria-label="Default select example">
 
-                {
-                  departments.map((depart) => {
-                    return <option key={depart.id} value={depart.id}>{depart.name}</option>
-                  })
+                    {
+                      departments.map((depart) => {
+                        return <option key={depart.id} value={depart.id}>{depart.name}</option>
+                      })
 
-                }
+                    }
 
 
-              </Form.Select>
-            </div>
-            {/* <div className="form-group">
+                  </Form.Select>
+                </div>
+                {/* <div className="form-group">
                 <label htmlFor="phone_no">Phone Number</label>
                 <input required type="text" className="form-control" id="phone_no" name="phone_no" value={selectedSupervisor.phone_no} onChange={handleChange} />
               </div> */}
 
 
-          </form>
+              </form>
 
 
 
 
 
-        </Modal.Body>
+            </Modal.Body>
 
 
 
 
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={UpdateStudent}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" onClick={UpdateStudent}>
+                Save Changes
+              </Button>
+            </Modal.Footer>
+          </Modal>
 
-      {/* Model ended */}
-
-
-      <div className='MainContainerFP'>
-        <h2 className='Heading BlueTxt'>
-          All Students
-        </h2>
-        <div>
-          <Table striped bordered variant="light">
-            <thead>
-              <tr key={'header-row'}>
-                <th>#</th>
-                <th>Name</th>
-                <th>Roll #</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {console.log(students)}
-              {students.map((student, RowIndex) => (
-
-                <tr key={RowIndex}>
-                  <td key={RowIndex + 1}>{RowIndex + 1}</td>
-                  <td key={RowIndex + 2}>{student.name}</td>
-                  <td key={RowIndex + 3}>{student.rollno}</td>
-                  <td>
-                    <button className='Icon-btn-EM'>
-                      <img alt='iconsimages' onClick={() => updateClicked(student)} src={require('../../Images/pencil.png')} className="Icons-EM" />
-                    </button>
-                    <button className='Icon-btn-EM'>
-                      <img alt='iconsimages' onClick={() => DeleteStudent(student.id)} src={require('../../Images/delete.png')} className="Icons-EM" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
+          {/* Model ended */}
 
 
-              <tr>
-                <td>
+          <div className='MainContainerFP'>
+            <h2 className='Heading BlueTxt'>
+              All Students
+            </h2>
+            <div>
+              <Table striped bordered variant="light">
+                <thead>
+                  <tr key={'header-row'}>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Roll #</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
 
-                </td>
-                <td colSpan={3}><button className='Icon-btn-EM' onClick={() => { gotoaddstudent() }}>
-                  Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../Images/plus.png')} className="Icons-EM" /></span>
+                  {students.map((student, RowIndex) => (
 
-                </button></td>
+                    <tr key={RowIndex}>
+                      <td key={RowIndex + 1}>{RowIndex + 1}</td>
+                      <td key={RowIndex + 2}>{student.name}</td>
+                      <td key={RowIndex + 3}>{student.rollno}</td>
+                      <td>
+                        <button className='Icon-btn-EM'>
+                          <img alt='iconsimages' onClick={() => updateClicked(student)} src={require('../../Images/pencil.png')} className="Icons-EM" />
+                        </button>
+                        <button className='Icon-btn-EM'>
+                          <img alt='iconsimages' onClick={() => DeleteStudent(student.id)} src={require('../../Images/delete.png')} className="Icons-EM" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
 
-              </tr>
 
-            </tbody>
-          </Table>
+                  <tr>
+                    <td>
+                      +
+                    </td>
+                    <td colSpan={3}><button className='Icon-btn-EM' onClick={() => { gotoaddstudent() }}>
+                      Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../Images/plus.png')} className="Icons-EM" /></span>
+
+                    </button></td>
+
+                  </tr>
+
+                </tbody>
+              </Table>
+            </div>
+          </div>
+
+
+
+
+
+
+
         </div>
-      </div>
-
-
-
-
-
-
-
-    </div>
+        :
+        <p>Loading</p>
+      }
+    </>
   )
 }
 

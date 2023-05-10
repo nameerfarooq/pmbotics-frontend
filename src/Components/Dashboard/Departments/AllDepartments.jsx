@@ -3,13 +3,16 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import { useNavigate } from 'react-router-dom';
 
 function AllDepartments() {
-    const [departments, setDepartments] = useState([])
+    const [departments, setDepartments] = useState('')
     const [selectedDepartment, setselectedDepartment] = useState('')
     const [show, setShow] = useState(false)
-
+    const navigate = useNavigate()
+    const gotoAddDepartment = () =>{
+        navigate('/fyp_panel/add-department')
+    }
     const handleShow = () => { setShow(true) }
     const handleClose = () => { setShow(false) }
     const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
@@ -79,92 +82,101 @@ function AllDepartments() {
 
     }
     return (
-        <div className='MainContainerFP'>
-
-            {/* showing popup for editing a student */}
-
-            {/* model started for editing selected student */}
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit Department</Modal.Title>
-                </Modal.Header>
+        <>
+            {departments ?
 
 
+                <div className='MainContainerFP'>
 
-                <Modal.Body>
-                    <form >
+                    {/* showing popup for editing a student */}
 
-                        <div className="form-group">
-                            <label htmlFor="name">Department Name</label>
-                            <input required type="text" className="form-control" id="name" name="name" value={selectedDepartment.name} onChange={handleChange} />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="hod">HOD</label>
-                            <input required type="text" className="form-control" id="hod" name="hod" value={selectedDepartment.hod} onChange={handleChange} />
-                        </div>
+                    {/* model started for editing selected student */}
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Edit Department</Modal.Title>
+                        </Modal.Header>
 
-                    </form>
-                </Modal.Body>
 
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={updateDepartment}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
 
-            {/* Model ended */}
-            <h2 className='Heading BlueTxt'>
-                All Departments
-            </h2>
-            <div>
-                <Table striped bordered variant="light">
-                    <thead>
-                        <tr key={'header-row'}>
-                            <th>#</th>
-                            <th>Department Name</th>
-                            <th>HOD</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                        <Modal.Body>
+                            <form >
 
-                        {departments.map((department) => (
+                                <div className="form-group">
+                                    <label htmlFor="name">Department Name</label>
+                                    <input required type="text" className="form-control" id="name" name="name" value={selectedDepartment.name} onChange={handleChange} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="hod">HOD</label>
+                                    <input required type="text" className="form-control" id="hod" name="hod" value={selectedDepartment.hod} onChange={handleChange} />
+                                </div>
 
-                            <tr key={department.id}>
-                                <td>1</td>
-                                <td>{department.name}</td>
-                                <td>{department.hod}</td>
-                                <td>
-                                    <button className='Icon-btn-EM'>
-                                        <img alt='iconsimages' onClick={() => updateClicked(department)} src={require('../../../Images/pencil.png')} className="Icons-EM" />
+                            </form>
+                        </Modal.Body>
+
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+                            </Button>
+                            <Button variant="primary" onClick={updateDepartment}>
+                                Save Changes
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
+
+                    {/* Model ended */}
+                    <h2 className='Heading BlueTxt'>
+                        All Departments
+                    </h2>
+                    <div>
+                        <Table striped bordered variant="light">
+                            <thead>
+                                <tr key={'header-row'}>
+                                    <th>#</th>
+                                    <th>Department Name</th>
+                                    <th>HOD</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {departments.map((department, Index) => (
+
+                                    <tr key={department.id}>
+                                        <td>{Index+1}</td>
+                                        <td>{department.name}</td>
+                                        <td>{department.hod}</td>
+                                        <td>
+                                            <button className='Icon-btn-EM'>
+                                                <img alt='iconsimages' onClick={() => updateClicked(department)} src={require('../../../Images/pencil.png')} className="Icons-EM" />
+                                            </button>
+                                            <button className='Icon-btn-EM'>
+                                                <img alt='iconsimages' onClick={() => DeleteDepartment(department.id)} src={require('../../../Images/delete.png')} className="Icons-EM" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+
+
+                                <tr>
+                                    <td>
+
+                                    </td>
+                                    <td colSpan={3}>
+                                        <button onClick={gotoAddDepartment} className='Icon-btn-EM'>
+                                        Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/plus.png')} className="Icons-EM" /></span>
+
                                     </button>
-                                    <button className='Icon-btn-EM'>
-                                        <img alt='iconsimages' onClick={() => DeleteDepartment(department.id)} src={require('../../../Images/delete.png')} className="Icons-EM" />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+                                    </td>
 
+                                </tr>
 
-                        <tr>
-                            <td>
-
-                            </td>
-                            <td colSpan={3}><button className='Icon-btn-EM'>
-                                Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/plus.png')} className="Icons-EM" /></span>
-
-                            </button></td>
-
-                        </tr>
-
-                    </tbody>
-                </Table>
-            </div>
-        </div>
+                            </tbody>
+                        </Table>
+                    </div>
+                </div>
+                :
+                <p>Loading</p>}
+        </>
     )
 }
 
