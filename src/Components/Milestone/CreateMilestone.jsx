@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from "react";
 import '../Project/projects.css'
 import axios from '../../axiosConfig';
+import { Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import MyContext from '../../Context/MyContext';
 function CreateMilestone() {
@@ -190,77 +191,59 @@ function CreateMilestone() {
 
                     <label >Rubrics</label>
 
-                    {/* <table>
-                        <tr>
-                            <td>
-                                Criteria
-                            </td>
-                            <td>
-                                value 1
-                            </td>
-                            <td>
-                                value 2
-                            </td>
-                            <td>
-                                value 3
-                            </td>
-                            <td>
-                                value 4
-                            </td>
-                            <td>
-                                value 5
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Form.Control className='form-criteria' name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                        </tr>
-                    </table> */}
 
-                    {rubrics.rubric_data.map((rubric, index) => (
-                        <div className='rubric-row' key={index}>
-                            <input
-                                className='rubric-inp-t'
-                                type="text"
-                                value={rubric.title}
-                                onChange={(event) => handleTitleChange(event, index)}
-                            />
-                            {rubric.points.map((point, pointIndex) => (
-                                <div className='rub-p-row' key={pointIndex}>
+                    <Table  bordered className='table-for-rubric'>
+                        <thead>
+                            <tr>
+                                <td>Rubrics title</td>
+                                <td>Criteria 1</td>
+                                <td>Criteria 2</td>
+                                <td>Criteria 3</td>
+                                <td>Criteria 4</td>
+                                <td>Criteria 5</td>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                                    <input
-                                        className='rub-p-inp'
-                                        type="text"
-                                        value={point}
-                                        onChange={(event) => handlePointsChange(event, index, pointIndex)}
-                                    />
-                                </div>
+
+                            {rubrics.rubric_data.map((rubric, index) => (
+                                <tr>
+                                    
+                                        <td>
+                                            <input
+                                                className='rubric-inp-t'
+                                                type="text"
+                                                value={rubric.title}
+                                                onChange={(event) => handleTitleChange(event, index)}
+                                            />
+                                        </td>
+                                        {rubric.points.map((point, pointIndex) => (
+                                            <td>
+                                                <div className='rub-p-row' key={pointIndex}>
+
+                                                    <input
+                                                        className='rub-p-inp'
+                                                        type="text"
+                                                        value={point}
+                                                        onChange={(event) => handlePointsChange(event, index, pointIndex)}
+
+                                                    />
+                                                </div>
+                                            </td>
+                                        ))}
+                                    
+                                </tr>
                             ))}
-                        </div>
-                    ))}
 
 
 
 
 
 
+                        </tbody>
+                    </Table>
 
+                
 
                     <div className='PC-btnHolder'>
                         <Button onClick={ClearForm} className='PC-btn1' variant="secondary" type="submit">

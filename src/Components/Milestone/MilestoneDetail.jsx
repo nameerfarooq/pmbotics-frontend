@@ -4,7 +4,7 @@ import MyContext from "../../Context/MyContext";
 import axios from "../../axiosConfig";
 import { useNavigate } from "react-router-dom";
 import '../Milestone/milestone.css'
-
+import { Table } from "react-bootstrap";
 function MilestoneDetail() {
     const { id } = useParams();
     const { milestones, refreshmilestone } = useContext(MyContext)
@@ -42,38 +42,32 @@ function MilestoneDetail() {
 
 
                 <div className="MilestoneDetailContainer">
-                    <h3 className="headingsformilestonedetails">
-                        Title
-                    </h3>
-                    <h2>
-                        {milestone.milestone_name}
-                    </h2>
-                    <h3 className="headingsformilestonedetails">
-                        Details
-                    </h3>
-                    <p>
-                        {milestone.milestone_details}
-                    </p>
-                    <h3 className="headingsformilestonedetails">
-                        Document submission date
-                    </h3>
-                    <h4>
-                        {milestone.document_submission_date}
-                    </h4>
-                    <h3 className="headingsformilestonedetails">
-                        Defending Date
-                    </h3>
-                    <h4>
-                        {milestone.milestone_defending_date}
-                    </h4>
-                    <h3 className="headingsformilestonedetails">
-                        Milestone Marks
-                    </h3>
-                    <h4>
-                        {milestone.marks}
-                    </h4>
 
-                    <h3 className="headingsformilestonedetails">
+                    <Table striped hover bordered>
+                        <thead>
+                            <tr style={{ color: '#08c076', fontSize:'16px', fontWeight:'bold' }}>
+                                <td>Title</td>
+                                <td>Details</td>
+                                <td>Submission Date</td>
+                                <td>Defending Date</td>
+                                <td>Total Marks</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{milestone.milestone_name}</td>
+                                <td>{milestone.milestone_details}</td>
+                                <td>{milestone.document_submission_date}</td>
+                                <td>{milestone.milestone_defending_date}</td>
+                                <td>{milestone.marks}</td>
+                            </tr>
+                        </tbody>
+                    </Table>
+
+
+
+                    
+                    <h3 style={{ color: '#08c076', fontSize:'24px', fontWeight:'bolder' }} >
                         Rubrics
                     </h3>
 

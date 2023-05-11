@@ -27,7 +27,12 @@ function AllStudents() {
   const gotoaddstudent = () => {
     navigate('/fyp_panel/add-student')
   }
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredStudents = students ? students.filter((student) =>
+    student.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+    :
+    null;
 
 
 
@@ -150,6 +155,11 @@ function AllStudents() {
 
         <div>
 
+<div className="searchbar-container">
+  <input type="text" placeholder='Search students by name' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+  
+</div>
+          {/* <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} /> */}
 
 
           {/* showing popup for editing a student */}
@@ -253,7 +263,7 @@ function AllStudents() {
                 </thead>
                 <tbody>
 
-                  {students.map((student, RowIndex) => (
+                  {filteredStudents.map((student, RowIndex) => (
 
                     <tr key={RowIndex}>
                       <td key={RowIndex + 1}>{RowIndex + 1}</td>

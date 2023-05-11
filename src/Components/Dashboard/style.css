@@ -84,3 +84,18 @@
     height: auto;
     width: 180px !important;
 }
+.backButton{
+    /* text-align: center; */
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background-color: #05037C;
+    padding: 5px 10px;
+    margin: 10px !important;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.backButton:hover{
+    color: #08c076;
+    cursor: pointer;
+}

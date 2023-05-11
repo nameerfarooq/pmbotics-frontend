@@ -23,7 +23,7 @@ function Signup() {
         navigate('/login')
     }
 
-    
+
 
     useEffect(() => {
         handleLogout()
@@ -94,8 +94,14 @@ function Signup() {
         <div>
             <Header />
             <h2 className='Heading1'>
+                <span>
+                    <a className='backButton' onClick={() => navigate(-1)}>
+                        <img alt='iconsimages' src={require('../../Images/arrow (1).png')} className="Icons-EM" /> go back
+                    </a>
+                </span>
                 Register as FYP Coordinator
             </h2>
+
             <div className="formsHolder">
                 <Form>
                     <Form.Group className="mb-3" >

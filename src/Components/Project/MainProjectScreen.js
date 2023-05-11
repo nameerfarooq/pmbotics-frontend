@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect,useState } from 'react'
 // import '../Dashboard/style.css'
 import './projects.css'
 import ProjectsCards from './ProjectsCards.jsx'
@@ -27,7 +27,14 @@ function MainProjectScreen() {
     navigate(`/fyp_panel/project/${e}`)
   }
 
+  // search 
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredProjects = projects ? projects.filter((project) =>
+    project.title.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+    :
+    null;
   return (
     <>
 
@@ -38,15 +45,20 @@ function MainProjectScreen() {
         </div>
         {
           projects ?
+
             <div className='projectSection1'>
+              <div className="searchbar-container">
+                <input type="text" placeholder='Search projects by title' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+
+              </div>
               <br />
               <h3>On Going Projects</h3>
               <br />
               <div className="ProjectsHolder">
 
-                {projects.map((project, Index) => (
+                {filteredProjects.map((project, Index) => (
                   project.status === 'ongoing' ?
-                    <div key={Index} onClick={() => { ClikedProject(project.id) }}>
+                    <div className='project-cards-container' key={Index} onClick={() => { ClikedProject(project.id) }}>
                       <ProjectsCards details={project} />
                     </div>
                     :
@@ -59,9 +71,9 @@ function MainProjectScreen() {
               <h3>Previous Projects</h3>
               <br />
               <div className="ProjectsHolder">
-                {projects.map((project, Index) => (
+                {filteredProjects.map((project, Index) => (
                   project.status === 'completed' ?
-                    <div key={Index} onClick={() => { ClikedProject(project.id) }}>
+                    <div className='project-cards-container' key={Index} onClick={() => { ClikedProject(project.id) }}>
                       <ProjectsCards details={project} />
                     </div>
                     :

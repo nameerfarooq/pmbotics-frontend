@@ -10,6 +10,7 @@ import GlobalContext from '../../Context/GlobalContext';
 import MyContext from '../../Context/MyContext';
 
 function AllSupervisors() {
+
   const [selectedSupervisor, setselectedSupervisor] = useState('')
   const [show, setShow] = useState(false);
   const { departments } = useContext(GlobalContext)
@@ -19,7 +20,14 @@ function AllSupervisors() {
     navigate('/fyp_panel/add-supervisor')
   }
 
+  //  search filter
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const filteredSupervisors = supervisors ? supervisors.filter((supervisor) =>
+    supervisor.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+    :
+    null;
 
   // deleting supervisors
 
@@ -32,7 +40,7 @@ function AllSupervisors() {
           alert('Supervisor deleted successfully');
           refreshSupervisors()
         }
-        else{
+        else {
           alert(res.data.message)
         }
       })
@@ -120,8 +128,11 @@ function AllSupervisors() {
         <div>
 
 
+          {/* search bar  */}
+          <div className="searchbar-container">
+            <input type="text" placeholder='Search students by name' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
 
-
+          </div>
           <div className='MainContainerFP'>
             {/* showing popup for editing a supervisor */}
 
@@ -218,7 +229,7 @@ function AllSupervisors() {
                 </thead>
                 <tbody>
 
-                  {supervisors.map((supervisor, Index) => (
+                  {filteredSupervisors.map((supervisor, Index) => (
 
                     <tr key={supervisor.id}>
                       <td>{Index + 1}</td>

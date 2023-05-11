@@ -35,6 +35,7 @@ function AddSupervisor() {
 
         console.log(res)
         if (res.data.message === "Success") {
+          alert("supervisor created successfully")
           setSupervisorData({
             role: "supervisor",
             email: "",

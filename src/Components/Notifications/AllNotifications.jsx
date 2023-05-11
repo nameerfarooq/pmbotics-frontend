@@ -46,7 +46,14 @@ function AllNotifications() {
         navigate('/fyp_panel/create-notification')
     }
 
+    // search
 
+    const [searchQuery, setSearchQuery] = useState("");
+    const filteredNotifications = notifications ? notifications.filter((notification) =>
+        notification.title.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+        :
+        null;
     // update notifications
     const handleClose = () => setShow(false);
     const handleShow = (notification) => {
@@ -120,7 +127,7 @@ function AllNotifications() {
                 <div>
                     {/* showing popup for updating student */}
 
-
+                   
 
 
                     <Modal show={show} onHide={handleClose}>
@@ -167,11 +174,15 @@ function AllNotifications() {
                         <button className='New-Project-btn' onClick={() => { gotocreatenotification() }}>New</button>
                         <h2 className='ProjectHeading'>Notifications</h2>
                     </div>
+                    <div className="searchbar-container">
+                        <input type="text" placeholder='Search notifications by title' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+
+                    </div>
                     <div className='MainContainerDiv'>
 
                         <Table striped>
                             <thead>
-                                <tr style={{fontWeight:'bold'}}>
+                                <tr style={{ fontWeight: 'bold' }}>
                                     <td>S #</td>
                                     <td>Title</td>
                                     <td>Details</td>
@@ -182,7 +193,7 @@ function AllNotifications() {
                                 </tr>
                             </thead>
                             <tbody>
-                                {notifications.map((notification, Index) => (
+                                {filteredNotifications.map((notification, Index) => (
                                     <Notification key={'Noti' + Index} Index={Index} handleShow={handleShow} refreshnotifications={getAllnotifications} details={notification} />
                                 ))}
                             </tbody>

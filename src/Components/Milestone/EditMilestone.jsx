@@ -7,6 +7,7 @@ import axios from '../../axiosConfig';
 import { useNavigate } from 'react-router-dom';
 import MyContext from '../../Context/MyContext';
 import { useParams } from 'react-router-dom';
+import { Table } from 'react-bootstrap';
 function EditMilestone() {
     const { id } = useParams();
     const { milestones, refreshmilestone } = useContext(MyContext)
@@ -148,35 +149,54 @@ function EditMilestone() {
 
 
                             <label >Rubrics</label>
+                            <Table bordered className='table-for-rubric'>
+                                <thead>
+                                    <tr>
+                                        <td>Rubrics title</td>
+                                        <td>Criteria 1</td>
+                                        <td>Criteria 2</td>
+                                        <td>Criteria 3</td>
+                                        <td>Criteria 4</td>
+                                        <td>Criteria 5</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
 
-                            {rubrics.rubric_data.map((rubric, index) => (
-                                <div className='rubric-row' key={index}>
-                                    <input
-                                        className='rubric-inp-t'
-                                        type="text"
-                                        value={rubric.title}
-                                        onChange={(event) => handleTitleChange(event, index)}
-                                    />
-                                    {rubric.points.map((point, pointIndex) => (
-                                        <div className='rub-p-row' key={pointIndex}>
+                                    {rubrics.rubric_data.map((rubric, index) => (
+                                        <tr>
 
-                                            <input
-                                                className='rub-p-inp'
-                                                type="text"
-                                                value={point}
-                                                onChange={(event) => handlePointsChange(event, index, pointIndex)}
-                                            />
-                                        </div>
+                                            <td>
+                                                <input
+                                                    className='rubric-inp-t'
+                                                    type="text"
+                                                    value={rubric.title}
+                                                    onChange={(event) => handleTitleChange(event, index)}
+                                                />
+                                            </td>
+                                            {rubric.points.map((point, pointIndex) => (
+                                                <td>
+                                                    <div className='rub-p-row' key={pointIndex}>
+
+                                                        <input
+                                                            className='rub-p-inp'
+                                                            type="text"
+                                                            value={point}
+                                                            onChange={(event) => handlePointsChange(event, index, pointIndex)}
+
+                                                        />
+                                                    </div>
+                                                </td>
+                                            ))}
+
+                                        </tr>
                                     ))}
-                                </div>
-                            ))}
 
 
+                                </tbody>
+                            </Table>
 
-
-
-
+                         
 
 
                             <div className='PC-btnHolder'>
