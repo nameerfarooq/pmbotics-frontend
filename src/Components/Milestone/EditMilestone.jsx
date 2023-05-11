@@ -48,9 +48,28 @@ function EditMilestone() {
                     refreshmilestone()
                     gotomilestone()
                 }
-                else {
-                    console.log(res)
-                    alert(res.data.message)
+                else if (res.data.exception === "some exception") {
+                    let errorMessages = [];
+                    if (typeof res.data.message === "object") {
+                        // If the message is an object, extract the error messages from it
+                        for (let field in res.data.message) {
+                            if (Array.isArray(res.data.message[field])) {
+                                errorMessages.push(...res.data.message[field]);
+                            }
+                        }
+                    } else {
+                        // Otherwise, add the message to the error messages array
+                        errorMessages.push(res.data.message);
+                    }
+                    if (errorMessages.length > 0) {
+                        // If there are error messages, show them in an alert box
+                        alert(errorMessages[0]);
+                    } else {
+                        // Otherwise, show the exception message
+                        alert(res.data.exception);
+                    }
+                } else {
+                    alert(res.data.exception);
                 }
             }
             )
@@ -130,48 +149,6 @@ function EditMilestone() {
 
                             <label >Rubrics</label>
 
-                            {/* <table>
-                        <tr>
-                            <td>
-                                Criteria
-                            </td>
-                            <td>
-                                value 1
-                            </td>
-                            <td>
-                                value 2
-                            </td>
-                            <td>
-                                value 3
-                            </td>
-                            <td>
-                                value 4
-                            </td>
-                            <td>
-                                value 5
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <Form.Control className='form-criteria' name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                            <td>
-                                <Form.Control name='marks' value={milestone.marks} onChange={handleChange} type="text" />
-                            </td>
-                        </tr>
-                    </table> */}
 
                             {rubrics.rubric_data.map((rubric, index) => (
                                 <div className='rubric-row' key={index}>

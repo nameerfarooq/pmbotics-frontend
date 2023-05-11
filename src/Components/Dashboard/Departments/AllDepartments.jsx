@@ -3,6 +3,7 @@ import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
 import { useNavigate } from 'react-router-dom';
 
 function AllDepartments() {
@@ -10,7 +11,7 @@ function AllDepartments() {
     const [selectedDepartment, setselectedDepartment] = useState('')
     const [show, setShow] = useState(false)
     const navigate = useNavigate()
-    const gotoAddDepartment = () =>{
+    const gotoAddDepartment = () => {
         navigate('/fyp_panel/add-department')
     }
     const handleShow = () => { setShow(true) }
@@ -39,13 +40,16 @@ function AllDepartments() {
     const DeleteDepartment = async (e) => {
         console.log(e)
         await axios.delete('https://pmbotics.herokuapp.com/departmentcrud', { data: { id: e } })
-            .then(response => {
-                alert('Department deleted successfully:', response.data);
-                console.log(response)
-                if (response.data.message === "Successfuly deleted") {
+            .then(res => {
+                alert('Department deleted successfully:', res.data);
+                console.log(res)
+                if (res.data.message === "Successfuly deleted") {
                     setDepartments(prevDepartments => prevDepartments.filter(department => department.id !== e))
-
                 }
+                else {
+                    alert(res.data.message)
+                }
+
             })
             .catch(error => {
                 alert('An error occurred while deleting department:', error);
@@ -75,6 +79,29 @@ function AllDepartments() {
                     handleClose()
                     getDepartments()
                 }
+                else if (res.data.exception === "some exception") {
+                    let errorMessages = [];
+                    if (typeof res.data.message === "object") {
+                        // If the message is an object, extract the error messages from it
+                        for (let field in res.data.message) {
+                            if (Array.isArray(res.data.message[field])) {
+                                errorMessages.push(...res.data.message[field]);
+                            }
+                        }
+                    } else {
+                        // Otherwise, add the message to the error messages array
+                        errorMessages.push(res.data.message);
+                    }
+                    if (errorMessages.length > 0) {
+                        // If there are error messages, show them in an alert box
+                        alert(errorMessages[0]);
+                    } else {
+                        // Otherwise, show the exception message
+                        alert(res.data.exception);
+                    }
+                } else {
+                    alert(res.data.exception);
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -84,7 +111,6 @@ function AllDepartments() {
     return (
         <>
             {departments ?
-
 
                 <div className='MainContainerFP'>
 
@@ -142,7 +168,7 @@ function AllDepartments() {
                                 {departments.map((department, Index) => (
 
                                     <tr key={department.id}>
-                                        <td>{Index+1}</td>
+                                        <td>{Index + 1}</td>
                                         <td>{department.name}</td>
                                         <td>{department.hod}</td>
                                         <td>
@@ -163,9 +189,9 @@ function AllDepartments() {
                                     </td>
                                     <td colSpan={3}>
                                         <button onClick={gotoAddDepartment} className='Icon-btn-EM'>
-                                        Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/plus.png')} className="Icons-EM" /></span>
+                                            Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/plus.png')} className="Icons-EM" /></span>
 
-                                    </button>
+                                        </button>
                                     </td>
 
                                 </tr>

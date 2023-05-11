@@ -8,13 +8,13 @@ import MyContext from '../../Context/MyContext';
 function AddSupervisor() {
 
   // Getting departments (GET API)
-  const {refreshSupervisors} = useContext(MyContext)
+  const { refreshSupervisors } = useContext(MyContext)
   const { departments } = useContext(GlobalContext)
 
-    const navigate = useNavigate()
-    const gotoallsupervisors = () =>{
-      navigate('/fyp_panel/all-supervisors')
-    }
+  const navigate = useNavigate()
+  const gotoallsupervisors = () => {
+    navigate('/fyp_panel/all-supervisors')
+  }
 
   // creating supervisors (POST API)
   const [supervisorData, setSupervisorData] = useState({
@@ -31,10 +31,10 @@ function AddSupervisor() {
   const handleSubmit = async e => {
     e.preventDefault();
     await axios.post('createUser', supervisorData)
-      .then(response => {
-        alert(JSON.stringify(response.data.message));
-        console.log(response.data.message)
-        if (response.data.message === "Success") {
+      .then(res => {
+
+        console.log(res)
+        if (res.data.message === "Success") {
           setSupervisorData({
             role: "supervisor",
             email: "",
@@ -48,6 +48,29 @@ function AddSupervisor() {
           });
           refreshSupervisors()
           gotoallsupervisors()
+        }
+        else if (res.data.exception === "some exception") {
+          let errorMessages = [];
+          if (typeof res.data.message === "object") {
+            // If the message is an object, extract the error messages from it
+            for (let field in res.data.message) {
+              if (Array.isArray(res.data.message[field])) {
+                errorMessages.push(...res.data.message[field]);
+              }
+            }
+          } else {
+            // Otherwise, add the message to the error messages array
+            errorMessages.push(res.data.message);
+          }
+          if (errorMessages.length > 0) {
+            // If there are error messages, show them in an alert box
+            alert(errorMessages[0]);
+          } else {
+            // Otherwise, show the exception message
+            alert(res.data.exception);
+          }
+        } else {
+          alert(res.data.exception);
         }
 
       })

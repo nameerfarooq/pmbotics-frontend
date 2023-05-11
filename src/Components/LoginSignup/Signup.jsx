@@ -1,15 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './LoginSignup.css'
 import Header from '../Dashboard/Header'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
-import Alert from 'react-bootstrap/Alert';
 import GlobalContext from '../../Context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
 
 function Signup() {
-    const { departments } = useContext(GlobalContext)
+    const { departments, handleLogout } = useContext(GlobalContext)
     const [data, setdata] = useState({
         "email": "",
         "password": "",
@@ -23,6 +22,16 @@ function Signup() {
     const Navigate = () => {
         navigate('/login')
     }
+
+    
+
+    useEffect(() => {
+        handleLogout()
+    }, [])
+
+
+
+
     async function createuser(e) {
         e.preventDefault()
         console.log(data)
@@ -41,6 +50,29 @@ function Signup() {
                         "department": '1'
                     })
                     Navigate()
+                }
+                else if (res.data.exception === "some exception") {
+                    let errorMessages = [];
+                    if (typeof res.data.message === "object") {
+                        // If the message is an object, extract the error messages from it
+                        for (let field in res.data.message) {
+                            if (Array.isArray(res.data.message[field])) {
+                                errorMessages.push(...res.data.message[field]);
+                            }
+                        }
+                    } else {
+                        // Otherwise, add the message to the error messages array
+                        errorMessages.push(res.data.message);
+                    }
+                    if (errorMessages.length > 0) {
+                        // If there are error messages, show them in an alert box
+                        alert(errorMessages.join("\n"));
+                    } else {
+                        // Otherwise, show the exception message
+                        alert(res.data.exception);
+                    }
+                } else {
+                    alert(res.data.exception);
                 }
             }
 
@@ -141,6 +173,9 @@ function Signup() {
                 </Form>
 
 
+            </div>
+            <div className='centered-div' onClick={Navigate}>
+                Already have an account? <u>Login</u>
             </div>
         </div>
     )

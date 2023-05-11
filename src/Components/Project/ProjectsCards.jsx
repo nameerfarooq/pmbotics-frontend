@@ -5,8 +5,8 @@ import MyContext from '../../Context/MyContext'
 function ProjectsCards(props) {
   const project = props.details
   const { supervisors } = useContext(MyContext)
-  const filteredSupervisor = supervisors.filter(supervisor => supervisor.id == project.supervisor);
-  const mySupervisor = filteredSupervisor[0]
+  const filteredSupervisor = supervisors ? supervisors.filter(supervisor => supervisor.id == project.supervisor) : null;
+  const mySupervisor = filteredSupervisor ? filteredSupervisor[0] : null;
   console.log('oho', mySupervisor)
   return (
     <>

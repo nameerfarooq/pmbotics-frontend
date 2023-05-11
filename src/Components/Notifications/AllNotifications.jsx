@@ -7,6 +7,7 @@ import axios from '../../axiosConfig'
 import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Table } from 'react-bootstrap'
 
 function AllNotifications() {
 
@@ -66,7 +67,7 @@ function AllNotifications() {
             .then(res => {
 
                 if (res.data.message === "Success") {
-
+                    alert("updated Successfully")
                     setSelectedNotification({
                         id: '',
                         title: "",
@@ -80,6 +81,29 @@ function AllNotifications() {
                     handleClose()
                     getAllnotifications()
 
+                }
+                else if (res.data.exception === "some exception") {
+                    let errorMessages = [];
+                    if (typeof res.data.message === "object") {
+                        // If the message is an object, extract the error messages from it
+                        for (let field in res.data.message) {
+                            if (Array.isArray(res.data.message[field])) {
+                                errorMessages.push(...res.data.message[field]);
+                            }
+                        }
+                    } else {
+                        // Otherwise, add the message to the error messages array
+                        errorMessages.push(res.data.message);
+                    }
+                    if (errorMessages.length > 0) {
+                        // If there are error messages, show them in an alert box
+                        alert(errorMessages[0]);
+                    } else {
+                        // Otherwise, show the exception message
+                        alert(res.data.exception);
+                    }
+                } else {
+                    alert(res.data.exception);
                 }
             })
             .catch(error => {
@@ -139,29 +163,31 @@ function AllNotifications() {
                     </Modal>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <div className='ProjectHeader'>
                         <button className='New-Project-btn' onClick={() => { gotocreatenotification() }}>New</button>
                         <h2 className='ProjectHeading'>Notifications</h2>
                     </div>
                     <div className='MainContainerDiv'>
 
-                        {notifications.map((notification, Index) => (
-                            <Notification key={Index} handleShow={handleShow} refreshnotifications={getAllnotifications} details={notification} />
-                        ))}
+                        <Table striped>
+                            <thead>
+                                <tr style={{fontWeight:'bold'}}>
+                                    <td>S #</td>
+                                    <td>Title</td>
+                                    <td>Details</td>
+                                    <td>Created by</td>
+                                    <td>Create Date</td>
+                                    <td>Create Time</td>
+                                    <td>Actions</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {notifications.map((notification, Index) => (
+                                    <Notification key={'Noti' + Index} Index={Index} handleShow={handleShow} refreshnotifications={getAllnotifications} details={notification} />
+                                ))}
+                            </tbody>
+                        </Table>
+
 
 
 

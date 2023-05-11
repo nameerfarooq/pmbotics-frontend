@@ -159,7 +159,7 @@ const navigate = useNavigate()
 
                     <div className='PC-btnHolder'>
                         <Button onClick={ClearForm} className='PC-btn1' variant="secondary" type="submit">
-                            Cancel
+                            Clear
                         </Button>
                         <Button onClick={Submit} className='PC-btn2' variant="primary" type="submit">
                             Create Project

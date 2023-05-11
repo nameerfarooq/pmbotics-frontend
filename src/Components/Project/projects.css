@@ -300,3 +300,16 @@ color: #05037C;
     margin: 0 2px;
     background-color: transparent;
 }
+
+
+
+
+
+.tr-td-bold>td{
+    font-weight: bold;
+}
+.title-of-table{
+    color: #05037C;
+    font-weight: bold;
+    margin: 2% 0 1% 0;
+}

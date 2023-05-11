@@ -26,10 +26,14 @@ function AllSupervisors() {
 
   const DeleteSupervisor = async (e) => {
     await axios.delete(`deletesupervisor/${e}`)
-      .then(response => {
-        alert('Supervisor deleted successfully:', response.data);
-        if (response.data.message === "Successfuly deleted") {
+      .then(res => {
+        console.log(res)
+        if (res.data.message === "Successfuly deleted") {
+          alert('Supervisor deleted successfully');
           refreshSupervisors()
+        }
+        else{
+          alert(res.data.message)
         }
       })
       .catch(error => {
@@ -60,7 +64,7 @@ function AllSupervisors() {
       .then(res => {
         console.log(res.data);
         if (res.data.message === "Success") {
-          console.log(res.data)
+          alert("Successfully updated")
           refreshSupervisors()
           setselectedSupervisor({
             id: '',
@@ -74,6 +78,29 @@ function AllSupervisors() {
           }
           )
           handleClose()
+        }
+        else if (res.data.exception === "some exception") {
+          let errorMessages = [];
+          if (typeof res.data.message === "object") {
+            // If the message is an object, extract the error messages from it
+            for (let field in res.data.message) {
+              if (Array.isArray(res.data.message[field])) {
+                errorMessages.push(...res.data.message[field]);
+              }
+            }
+          } else {
+            // Otherwise, add the message to the error messages array
+            errorMessages.push(res.data.message);
+          }
+          if (errorMessages.length > 0) {
+            // If there are error messages, show them in an alert box
+            alert(errorMessages[0]);
+          } else {
+            // Otherwise, show the exception message
+            alert(res.data.exception);
+          }
+        } else {
+          alert(res.data.exception);
         }
       })
       .catch(error => {

@@ -4,7 +4,6 @@ import Header from './Header'
 import './style.css'
 function Dashboard(props) {
   return (
-
     <div className="App">
 
       <Header  />

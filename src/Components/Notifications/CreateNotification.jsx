@@ -30,9 +30,32 @@ function CreateNotification() {
         await axios.post('createnotification', notification)
             .then((res) => {
                 console.log(res)
-                if(res.data.message === "Success"){
+                if (res.data.message === "Success") {
                     alert("Notification Created Successfully")
                     Goback()
+                }
+                else if (res.data.exception === "some exception") {
+                    let errorMessages = [];
+                    if (typeof res.data.message === "object") {
+                        // If the message is an object, extract the error messages from it
+                        for (let field in res.data.message) {
+                            if (Array.isArray(res.data.message[field])) {
+                                errorMessages.push(...res.data.message[field]);
+                            }
+                        }
+                    } else {
+                        // Otherwise, add the message to the error messages array
+                        errorMessages.push(res.data.message);
+                    }
+                    if (errorMessages.length > 0) {
+                        // If there are error messages, show them in an alert box
+                        alert(errorMessages[0]);
+                    } else {
+                        // Otherwise, show the exception message
+                        alert(res.data.exception);
+                    }
+                } else {
+                    alert(res.data.exception);
                 }
             })
             .catch((err) => {

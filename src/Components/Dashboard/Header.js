@@ -3,20 +3,27 @@ import Navbar from 'react-bootstrap/Navbar';
 import './style.css'
 import { useContext } from 'react';
 import GlobalContext from '../../Context/GlobalContext';
-
+import { useNavigate } from 'react-router-dom';
 function Header() {
 
 
-  const { handleLogout, userName } = useContext(GlobalContext)
-
+  const { handleLogout, userName, userRole } = useContext(GlobalContext)
+  const navigate = useNavigate()
+  const gotoHome = () => {
+    navigate(`/${localStorage.getItem('userRole')}/`)
+  }
   return (
     <Navbar sticky="top" className='Navbar-out'>
+
+
       <Container>
-        <Navbar.Brand className='Navbar-in' href="#home">FYPManager</Navbar.Brand>
+        <Navbar.Brand onClick={gotoHome} className='Navbar-in'>
+          <img className='w-100 pmbotics-logo' src={require('../../Images/logo-no-background.png')} alt="" />
+        </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           {userName && <Navbar.Text>
-            <a href="#login" className='Navbar-in' >Hi, {userName}</a>
+            <a className='Navbar-in' >Hi, {userName} ({userRole})</a>
             <button className='btnLogout' title='logout' onClick={handleLogout}>
 
               <img className='w-100' src={require('../../Images/logout.png')} alt="" />

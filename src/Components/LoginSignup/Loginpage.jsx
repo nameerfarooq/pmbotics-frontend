@@ -13,12 +13,12 @@ function Loginpage(props) {
   const { LoginStatus, userRole, setLoginStatus, setuserRole, setuserName } = useContext(GlobalContext)
   const navigate = useNavigate()
   useEffect(() => {
-    if(LoginStatus && userRole){
-      
+    if (LoginStatus && userRole) {
+
       navigate(`/${userRole}`)
     }
   }, [])
-  
+
   const Navigate = (e) => {
     navigate(`/${e}`)
   }
@@ -51,7 +51,7 @@ function Loginpage(props) {
           setLoginStatus(localStorage.getItem('LoginStatus'))
           setuserRole(localStorage.getItem('userRole'))
           setuserName(localStorage.getItem('userName'))
-          
+
           ClearForm(e)
           Navigate(userRole)
         }
@@ -64,7 +64,7 @@ function Loginpage(props) {
 
       )
       .catch(err => {
-        
+
         console.log(err)
         // alert("Username or password is wrong")
       })
@@ -104,6 +104,10 @@ function Loginpage(props) {
             Login
           </Button>
         </Form>
+        <br />
+        <p>
+          Dont have an account ? <span onClick={() => navigate('/signup')}> <u> Signup Now</u></span>
+        </p>
 
 
       </div>

@@ -19,3 +19,7 @@
 .spacer{
     width: 5px;
 }
+.centered-div{
+    text-align: center;
+    margin: 0 auto 30px;
+}

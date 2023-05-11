@@ -9,8 +9,8 @@ function AddStudents() {
 
   const navigate = useNavigate()
   // Getting departments (GET API)
-  const {departments} = useContext(GlobalContext)
-  
+  const { departments } = useContext(GlobalContext)
+
 
 
 
@@ -32,10 +32,11 @@ function AddStudents() {
     e.preventDefault();
 
     await axios.post('createUser', studentData)
-      .then(response => {
-        alert(JSON.stringify(response.data.message));
-        console.log(response)
-        if (response.data.message === "Success") {
+      .then(res => {
+
+        console.log(res)
+        if (res.data.message === "Success") {
+          alert("Successfully created")
           setStudentData({
             role: 'student',
             email: '',
@@ -47,16 +48,40 @@ function AddStudents() {
             phoneno: '',
             department: '1'
           });
+          navigate('/fyp_panel/all-students')
+        }
+        else if (res.data.exception === "some exception") {
+          let errorMessages = [];
+          if (typeof res.data.message === "object") {
+            // If the message is an object, extract the error messages from it
+            for (let field in res.data.message) {
+              if (Array.isArray(res.data.message[field])) {
+                errorMessages.push(...res.data.message[field]);
+              }
+            }
+          } else {
+            // Otherwise, add the message to the error messages array
+            errorMessages.push(res.data.message);
+          }
+          if (errorMessages.length > 0) {
+            // If there are error messages, show them in an alert box
+            alert(errorMessages[0]);
+          } else {
+            // Otherwise, show the exception message
+            alert(res.data.exception);
+          }
+        } else {
+          alert(res.data.exception);
         }
       })
       .catch(error => {
-        alert(error)
+        
         console.log(error)
 
       });
 
     // clear form data after successful submission
-      navigate('/fyp_panel/all-students')
+
 
 
 

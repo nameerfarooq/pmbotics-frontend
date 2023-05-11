@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 // import '../Dashboard/style.css'
 import './projects.css'
 import ProjectsCards from './ProjectsCards.jsx'
@@ -14,12 +14,14 @@ function MainProjectScreen() {
   const gotocreateproject = () => {
     navigate('/fyp_panel/create-project')
   }
-  const { supervisors } = useContext(MyContext)
 
-  const { projects } = useContext(MyContext)
+
+  const { projects, refreshProjects } = useContext(MyContext)
   console.log(projects)
 
-
+  useEffect(() => {
+    refreshProjects()
+  }, [])
 
   const ClikedProject = (e) => {
     navigate(`/fyp_panel/project/${e}`)
@@ -45,7 +47,7 @@ function MainProjectScreen() {
                 {projects.map((project, Index) => (
                   project.status === 'ongoing' ?
                     <div key={Index} onClick={() => { ClikedProject(project.id) }}>
-                      <ProjectsCards  details={project} />
+                      <ProjectsCards details={project} />
                     </div>
                     :
                     null
@@ -59,7 +61,9 @@ function MainProjectScreen() {
               <div className="ProjectsHolder">
                 {projects.map((project, Index) => (
                   project.status === 'completed' ?
-                    <ProjectsCards key={Index} supervisors={supervisors} details={project} />
+                    <div key={Index} onClick={() => { ClikedProject(project.id) }}>
+                      <ProjectsCards details={project} />
+                    </div>
                     :
                     null
                 ))}
