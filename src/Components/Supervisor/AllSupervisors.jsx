@@ -35,7 +35,6 @@ function AllSupervisors() {
   const DeleteSupervisor = async (e) => {
     await axios.delete(`deletesupervisor/${e}`)
       .then(res => {
-        console.log(res)
         if (res.data.message === "Successfuly deleted") {
           alert('Supervisor deleted successfully');
           refreshSupervisors()
@@ -58,7 +57,6 @@ function AllSupervisors() {
 
 
   const updateClicked = (ClickedSupervisor) => {
-    console.log(ClickedSupervisor)
     setselectedSupervisor(ClickedSupervisor)
     handleShow()
 
@@ -70,7 +68,6 @@ function AllSupervisors() {
     const response = await axios.patch('updatesupervisor',
       selectedSupervisor)
       .then(res => {
-        console.log(res.data);
         if (res.data.message === "Success") {
           alert("Successfully updated")
           refreshSupervisors()

@@ -29,7 +29,6 @@ function CreateNotification() {
         e.preventDefault()
         await axios.post('createnotification', notification)
             .then((res) => {
-                console.log(res)
                 if (res.data.message === "Success") {
                     alert("Notification Created Successfully")
                     Goback()

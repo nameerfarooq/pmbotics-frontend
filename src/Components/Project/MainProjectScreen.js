@@ -17,7 +17,6 @@ function MainProjectScreen() {
 
 
   const { projects, refreshProjects } = useContext(MyContext)
-  console.log(projects)
 
   useEffect(() => {
     refreshProjects()

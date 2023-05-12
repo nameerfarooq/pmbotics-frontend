@@ -34,7 +34,6 @@ function AddStudents() {
     await axios.post('createUser', studentData)
       .then(res => {
 
-        console.log(res)
         if (res.data.message === "Success") {
           alert("Successfully created")
           setStudentData({

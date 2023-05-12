@@ -18,7 +18,6 @@ function AddDepartment() {
         await axios.post('https://pmbotics.herokuapp.com/departmentcrud', department)
             .then(response => {
                 alert(JSON.stringify(response.data.message));
-                console.log(response)
                 if (response.data.message === "Success") {
                     setDepartment({
                         name: "",
@@ -29,7 +28,6 @@ function AddDepartment() {
             })
             .catch(error => {
                 alert(error)
-                console.log(error)
 
             });
 

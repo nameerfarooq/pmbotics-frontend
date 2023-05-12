@@ -33,7 +33,6 @@ function AddSupervisor() {
     await axios.post('createUser', supervisorData)
       .then(res => {
 
-        console.log(res)
         if (res.data.message === "Success") {
           alert("supervisor created successfully")
           setSupervisorData({

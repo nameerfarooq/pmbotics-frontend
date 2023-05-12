@@ -38,11 +38,9 @@ function AllDepartments() {
 
 
     const DeleteDepartment = async (e) => {
-        console.log(e)
         await axios.delete('https://pmbotics.herokuapp.com/departmentcrud', { data: { id: e } })
             .then(res => {
                 alert('Department deleted successfully:', res.data);
-                console.log(res)
                 if (res.data.message === "Successfuly deleted") {
                     setDepartments(prevDepartments => prevDepartments.filter(department => department.id !== e))
                 }
@@ -72,9 +70,7 @@ function AllDepartments() {
     const updateDepartment = async () => {
         await axios.patch('https://pmbotics.herokuapp.com/departmentcrud', selectedDepartment)
             .then(res => {
-                console.log(res.data);
                 if (res.data.message === "Success") {
-                    console.log(departments)
                     setselectedDepartment('')
                     handleClose()
                     getDepartments()

@@ -29,7 +29,6 @@ function App() {
             <Route path='/' element={<HomePage />} />
             <Route path='/signup' element={<Signup />} />
             <Route path='/login' element={<Loginpage />} />
-            {/* {console.log("login status: ",LoginStatus," & userRole: ",userRole)} */}
             {LoginStatus && userRole === "fyp_panel" ?
               (
                 <Route path='/fyp_panel/*' element={<PMOProvider><Dashboard  /></PMOProvider>} />
@@ -41,20 +40,20 @@ function App() {
             }
             {LoginStatus && userRole === "supervisor" ?
               (
-                <Route path='/supervisor' element={<SupervisorDashboard UserRole={'Supervisor'} UserName={'Sir Syed Faisal Ali'} />} />
+                <Route path='/supervisor/*' element={ <SupervisorDashboard/>} />
               )
               :
               (
-                <Route path='/supervisor' element={<Loginpage />} />
+                <Route path='/supervisor/*' element={<Loginpage />} />
               )
             }
             {LoginStatus && userRole === "student" ?
               (
-                <Route path='/student' element={<TDashboard UserRole={'TeamMember'} UserName={'Muhammad Nameer'} />} />
+                <Route path='/student/*' element={<TDashboard/>} />
               )
               :
               (
-                <Route path='/student' element={<Loginpage />} />
+                <Route path='/student/*' element={<Loginpage />} />
               )
             }
 

@@ -17,7 +17,6 @@ const navigate = useNavigate()
 
 
 
-    console.log(supervisors)
 
 
 
@@ -40,7 +39,6 @@ const navigate = useNavigate()
        
         const response = await axios.post("createproject", project)
             .then(res => {
-                console.log(res)
                 if (res.data.message === "Success") {
                     alert(res.data.message)
                     ClearForm(e)

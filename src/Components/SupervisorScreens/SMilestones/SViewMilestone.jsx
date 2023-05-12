@@ -1,39 +1,35 @@
-import { useContext } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import MyContext from "../../Context/MyContext";
-import axios from "../../axiosConfig";
+import axios from "../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
-import '../Milestone/milestone.css'
+import '../../Milestone/milestone.css'
 import { Table } from "react-bootstrap";
-function MilestoneDetail() {
+function SViewMilestone() {
     const { id } = useParams();
-    const { milestones, refreshmilestone } = useContext(MyContext)
+    const [milestones, setMilestones] = useState('')
     const navigate = useNavigate()
-    const editMilestone = () => {
-        navigate(`/fyp_panel/edit-milestone/${id}`)
+    
+    const getAllMilestones = async () => {
+        await axios.get('getallmilestone')
+            .then((res) => {
+                if (res.data.message) {
+                    setMilestones(res.data.body)
+                }
+            })
     }
+    useEffect(() => {
+        getAllMilestones()
+    }, [])
     // eslint-disable-next-line
-    const filteredMilestone = milestones.filter(milestone => milestone.id == id)
-    const milestone = filteredMilestone[0]
+    const filteredMilestone = milestones? milestones.filter(milestone => milestone.id == id) : null;
+    const milestone = filteredMilestone? filteredMilestone[0] : null
     var singleMarks;
     if (milestone) {
 
         singleMarks = ((milestone.marks) / (milestone.rubrics.rubric_data.length)) / (milestone.rubrics.rubric_data.length)
     }
 
-    const deleteMilestone = async () => {
-        await axios.delete(`deletemilestone/${id}`)
-            .then((res) => {
-                alert(res.data.message)
-                if (res.data.message === "Successfuly deleted") {
-                    refreshmilestone()
-                    navigate('/fyp_panel/all-milestones')
-                }
-            })
-            .catch((err) => {
-                alert(err)
-            })
-    }
+    
     return (
         <>
             {milestone ?
@@ -43,7 +39,7 @@ function MilestoneDetail() {
 
                     <Table striped hover bordered>
                         <thead>
-                            <tr style={{ color: '#08c076', fontSize:'16px', fontWeight:'bold' }}>
+                            <tr style={{ color: '#08c076', fontSize: '16px', fontWeight: 'bold' }}>
                                 <td>Title</td>
                                 <td>Details</td>
                                 <td>Submission Date</td>
@@ -64,8 +60,8 @@ function MilestoneDetail() {
 
 
 
-                    
-                    <h3 style={{ color: '#08c076', fontSize:'24px', fontWeight:'bolder' }} >
+
+                    <h3 style={{ color: '#08c076', fontSize: '24px', fontWeight: 'bolder' }} >
                         Rubrics
                     </h3>
 
@@ -93,17 +89,17 @@ function MilestoneDetail() {
                             </tr>
                         </thead>
                         <tbody>
-                            {milestone.rubrics.rubric_data.map((criteria,Index) => (
-                                <tr id="tr-rubrics" key={criteria.title+Index}>
-                                    <td  key={criteria.title+Index+Index}className="td-rub-1">
+                            {milestone.rubrics.rubric_data.map((criteria, Index) => (
+                                <tr id="tr-rubrics" key={criteria.title + Index}>
+                                    <td key={criteria.title + Index + Index} className="td-rub-1">
                                         {criteria.title}
                                     </td>
-                                    <td key={criteria.title+Index+Index+Index} className="td-rub-1">
+                                    <td key={criteria.title + Index + Index + Index} className="td-rub-1">
                                         {((milestone.marks) / (milestone.rubrics.rubric_data.length))}
                                     </td >
                                     {
-                                        criteria.points.map((point,Index) => (
-                                            <td key={point+Index} className="td-rub" >
+                                        criteria.points.map((point, Index) => (
+                                            <td key={point + Index} className="td-rub" >
                                                 {point}
                                             </td>
                                         ))
@@ -117,14 +113,7 @@ function MilestoneDetail() {
 
 
 
-                    <div>
-                        <button className="dangerbtn" onClick={() => deleteMilestone()} >
-                            Delete Milestone
-                        </button>
-                        <button className="MS-Card-btn3" onClick={() => editMilestone()} >
-                            Edit Milestone
-                        </button>
-                    </div>
+                   
                 </div>
 
 
@@ -141,4 +130,4 @@ function MilestoneDetail() {
     )
 }
 
-export default MilestoneDetail
+export default SViewMilestone

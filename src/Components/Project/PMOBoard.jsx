@@ -8,7 +8,6 @@ function PMOBoard(props) {
     const getAlltickets = async () => {
         const response = await axios.get(`allticket?pro_id=${id}`)
             .then((res) => {
-                console.log("ticket lelo :", res)
                 if (res.data.message == "Success") {
                     setTickets(res.data.data)
                 }

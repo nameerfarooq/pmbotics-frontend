@@ -28,7 +28,6 @@ function Loginpage(props) {
     setPassword("")
   }
   async function SubmitForm(e) {
-    console.log(Email, Password)
     let item = {
       "email": Email,
       "password": Password
@@ -36,10 +35,8 @@ function Loginpage(props) {
     e.preventDefault()
     const response = await axios.post("https://pmbotics.herokuapp.com/login", item)
       .then(res => {
-        console.log(res)
         if (res.data.message === "Login Succes") {
           alert(res.data.message)
-          console.log(res)
           var userRole = res.data.data.role
           var userName = res.data.data.name
           localStorage.setItem('access_token', res.data.data.access_token);

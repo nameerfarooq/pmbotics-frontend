@@ -31,7 +31,6 @@ function EditMilestone() {
     }, [myMilestone])
 
 
-    console.log(milestone)
 
     function ClearForm(e) {
         e.preventDefault()
@@ -40,7 +39,6 @@ function EditMilestone() {
     }
     async function SubmitForm(e) {
         e.preventDefault()
-        console.log("hunh ", milestone)
         const response = await axios.patch("updatemilestone", milestone)
             .then(res => {
                 if (res.data.message === "Success") {

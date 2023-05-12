@@ -17,7 +17,8 @@ import GlobalContext from '../../Context/GlobalContext';
 function ViewProject() {
     const { id } = useParams()
     const navigate = useNavigate()
-
+    const [milestoneMarkings, setMilestoneMarkings] = useState('')
+    const [milestone_marks, setMilestone_marks] = useState('')
     const { projects, supervisors, refreshProjects } = useContext(MyContext);
     const { departments } = useContext(GlobalContext)
     const [students, setStudents] = useState('')
@@ -36,13 +37,47 @@ function ViewProject() {
         "supervisor": '',
         "department": ''
     })
+    const assignMarks = async (e) => {
+        let data = {
+            "comments": "statisfied",
+            "marks": milestone_marks,
+            "project": id,
+            "milestone": e,
+            "m_distributor": localStorage.getItem('userId')
+        }
+        await axios.post('givemarks', data)
+            .then((res) => {
+                if (res.data.message === "Success") {
+                    alert("Marks posted Successfully")
+                    getMilestoneMarkings()
+                }
+                else {
+                    alert(res.data.message)
+                }
+
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const getMilestoneMarkings = async () => {
+        await axios.get(`marks?project_id=${id}`)
+            .then((res) => {
+                if (res.data.message == "Success") {
+
+                    setMilestoneMarkings(res.data.data)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
     const getMilestoneWork = async () => {
         await axios.get(`work?pro_id=${id}`)
             .then((res) => {
-                console.log(res)
                 if (res.data.message == "Success") {
 
                     setMilestoneWork(res.data.body)
@@ -55,7 +90,6 @@ function ViewProject() {
     const getProjectMembers = async () => {
         await axios.get(`studentprojectwise?pro_id=${id}`)
             .then((res) => {
-                console.log(res)
                 if (res.data.message == "Success") {
 
                     setStudents(res.data.body)
@@ -79,12 +113,12 @@ function ViewProject() {
     useEffect(() => {
 
         if (myProject && supervisors) {
-            console.log("mera", mySupervisor)
             const filteredSupervisor = supervisors.filter(supervisor => supervisor.id == myProject.supervisor);
             const supervisor = filteredSupervisor.length ? filteredSupervisor[0] : null;
             setMySupervisor(supervisor);
             getProjectMembers()
             getMilestoneWork()
+            getMilestoneMarkings()
         }
     }, [myProject, supervisors]);
 
@@ -108,7 +142,6 @@ function ViewProject() {
     const deleteProject = async () => {
         await axios.delete(`deleteproject/${id}`)
             .then((res) => {
-                console.log(res)
                 if (res.data.message == "Successfuly deleted") {
                     alert("Project deleted successfully")
                     refreshProjects()
@@ -116,14 +149,13 @@ function ViewProject() {
 
                 }
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err)
             })
     }
     const updateProject = async () => {
         await axios.patch('updateproject', selectedProject)
             .then((res) => {
-                console.log(res)
                 if (res.data.message == "Success") {
                     alert("Project updated successfully")
                     refreshProjects()
@@ -343,32 +375,68 @@ function ViewProject() {
                         </tbody>
                     </Table>
                     <h5 className='title-of-table'>Milestones work</h5>
-                    <Table bordered striped hover >
+                    <Table bordered  >
                         <thead >
                             <tr style={{ color: '#08c076' }} className='tr-td-bold'>
                                 <td>S#</td>
                                 <td>Milestone Name</td>
                                 <td>Milestone Work</td>
+                                <td>Marks</td>
 
                             </tr>
                         </thead>
                         <tbody>
-                            {console.log(milestoneWork)}
                             {milestoneWork ? milestoneWork.map((milestone, Index) => (
+
                                 <tr key={Index}>
                                     <td>{Index + 1}</td>
                                     <td>{milestone.milestone_title}</td>
                                     <td>
                                         <a href={milestone.document} target='_blank' >
-                                        <img alt='iconsimages' src={require('../../Images/cloud.png')} className="Icons-EM" />
-                                        
+                                            <img alt='iconsimages' src={require('../../Images/cloud.png')} className="Icons-EM" />
+
                                         </a>
 
+                                    </td>
+                                    <td>
+                                        <input type="number" name="milestone-marks"  onChange={(e) => { setMilestone_marks(e.target.value) }} />
+                                        <a onClick={() => assignMarks(milestone.milestone)} target='_blank' >
+                                            <img alt='iconsimages' src={require('../../Images/check-mark.png')} className="Icons-EM" />
+
+                                        </a>
                                     </td>
                                 </tr>
                             ))
                                 :
-                                <tr><td colSpan={3}>no Milestone created yet</td></tr>
+                                <tr><td colSpan={4}>no Milestone created yet</td></tr>
+                            }
+                        </tbody>
+                    </Table>
+                    <h5 className='title-of-table'>Milestones marks</h5>
+                    <Table bordered striped hover >
+                        <thead >
+                            <tr style={{ color: '#08c076' }} className='tr-td-bold'>
+                                <td>S#</td>
+                                <td>Milestone Name</td>
+                                <td>Milestone Marks</td>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {milestoneMarkings ? milestoneMarkings.map((milestone, Index) => (
+
+                                <tr key={Index}>
+                                    <td>{Index + 1}</td>
+                                    <td>{milestone.title}</td>
+                                    <td>
+                                        {milestone.marks}
+
+                                    </td>
+
+                                </tr>
+                            ))
+                                :
+                                <tr><td colSpan={4}>no Milestone created yet</td></tr>
                             }
                         </tbody>
                     </Table>

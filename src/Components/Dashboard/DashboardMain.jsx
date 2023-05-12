@@ -33,7 +33,7 @@ import AllStudents from '../Students/AllStudents'
 import AddStudents from '../Students/AddStudents'
 import AllDepartments from './Departments/AllDepartments'
 import Sidebar from './Sidebar'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {  Route, Routes } from 'react-router-dom';
 import MilestoneDetail from '../Milestone/MilestoneDetail'
 import EditMilestone from '../Milestone/EditMilestone'
 import AddDepartment from './Departments/AddDepartment'

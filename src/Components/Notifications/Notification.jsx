@@ -11,7 +11,6 @@ function Notification(props) {
     const deleteNotification = async () => {
         await axios.delete(`deletenotification/${id}`)
             .then((res) => {
-                console.log(res)
                 if (res.data.message === "Successfuly deleted") {
                     alert("notification deleted")
                     getAllnotifications()
