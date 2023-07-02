@@ -49,10 +49,16 @@ function ViewProject() {
             .then((res) => {
                 if (res.data.message === "Success") {
                     alert("Marks posted Successfully")
+                    setMilestone_marks('')
+                    document.getElementById("milestone-marks").value = "";
+
                     getMilestoneMarkings()
                 }
                 else {
                     alert(res.data.message)
+                    setMilestone_marks('')
+                    document.getElementById("milestone-marks").value = "";
+
                 }
 
             })
@@ -399,7 +405,7 @@ function ViewProject() {
 
                                     </td>
                                     <td>
-                                        <input type="number" name="milestone-marks"  onChange={(e) => { setMilestone_marks(e.target.value) }} />
+                                        <input type="number" id='milestone-marks' name="milestone-marks" onChange={(e) => { setMilestone_marks(e.target.value) }} />
                                         <a onClick={() => assignMarks(milestone.milestone)} target='_blank' >
                                             <img alt='iconsimages' src={require('../../Images/check-mark.png')} className="Icons-EM" />
 
@@ -429,7 +435,7 @@ function ViewProject() {
                                     <td>{Index + 1}</td>
                                     <td>{milestone.title}</td>
                                     <td>
-                                        {milestone.marks}
+                                        {Math.round(milestone.marks)}
 
                                     </td>
 
