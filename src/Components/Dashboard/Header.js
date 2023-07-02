@@ -10,7 +10,13 @@ function Header() {
   const { handleLogout, userName, userRole } = useContext(GlobalContext)
   const navigate = useNavigate()
   const gotoHome = () => {
-    navigate(`/${localStorage.getItem('userRole')}/`)
+    const user_role = localStorage.getItem('userRole')
+    if (user_role) {
+      navigate(`/${user_role}/`)
+    }
+    else {
+      navigate('/')
+    }
   }
   return (
     <Navbar sticky="top" className='Navbar-out'>

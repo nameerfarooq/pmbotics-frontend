@@ -7,7 +7,7 @@ import HomePage from './Components/LandingPage.jsx/HomePage';
 //eslint-disable-next-line
 import TDashboard from './Components/TeamMembers/Dashboard/TDashboard';
 //eslint-disable-next-line
-import Signup from './Components/LoginSignup/Signup';
+import Signup from './Components/LoginSignup/Register';
 //eslint-disable-next-line
 import Loginpage from './Components/LoginSignup/Loginpage';
 //eslint-disable-next-line
@@ -17,6 +17,7 @@ import { useState } from 'react';
 import GlobalProvider from './Context/GlobalProvider';
 import GlobalContext from './Context/GlobalContext';
 import { useContext } from 'react';
+import Register from './Components/LoginSignup/Register';
 function App() {
   const { LoginStatus, userRole } = useContext(GlobalContext)
 
@@ -27,7 +28,7 @@ function App() {
         
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path='/signup' element={<Signup />} />
+            <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Loginpage />} />
             {LoginStatus && userRole === "fyp_panel" ?
               (

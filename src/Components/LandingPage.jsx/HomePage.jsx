@@ -13,9 +13,9 @@ function HomePage() {
     const gotoLogin = () => {
         navigate('/login')
     }
-    const gotoSignup = () => {
+    const Register = () => {
 
-        navigate('/signup')
+        navigate('/register')
     }
     return (
         <div>
@@ -47,8 +47,8 @@ function HomePage() {
                     <p className='Para'>
                         Tool for managing all processing carried out during a Final year project. where FYP panel, supervisors and team members can handle the project collaboratively
                     </p>
-                    <button className='SignUpBTN' onClick={() => { gotoSignup() }}>
-                        Sign Up
+                    <button className='SignUpBTN' onClick={Register}>
+                        Register Your Organization
                     </button>
                 </div>
                 <div className='section-2-2'>
