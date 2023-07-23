@@ -1,0 +1,38 @@
+.Welcome-screen .Uni-name {
+    width: max-content;
+    border-radius: 10px;
+    margin-inline: auto;
+    padding: 15px;
+    color: rgb(0, 0, 0);
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.admin-actions {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 30px;
+    margin: 20px auto;
+    width: max-content;
+}
+
+.admin-actions .action {
+    width: 300px;
+    text-align: center;
+    padding: 25px;
+    margin: 20px;
+    border: 3px solid rgb(202, 202, 202);
+    color: rgb(202, 202, 202);
+    font-weight: 600;
+    font-size: 32px;
+    border-radius: 10px;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.admin-actions .action:hover {
+    color: #05037C;
+    border: #05037C 3px solid;
+    box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.39);
+}

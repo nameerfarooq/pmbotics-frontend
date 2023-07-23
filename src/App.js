@@ -18,49 +18,59 @@ import GlobalProvider from './Context/GlobalProvider';
 import GlobalContext from './Context/GlobalContext';
 import { useContext } from 'react';
 import Register from './Components/LoginSignup/Register';
+import Main from './Components/AdminScreens/Main';
 function App() {
   const { LoginStatus, userRole } = useContext(GlobalContext)
 
 
 
   return (
-      <div className="App">
-        
-          <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/login' element={<Loginpage />} />
-            {LoginStatus && userRole === "fyp_panel" ?
-              (
-                <Route path='/fyp_panel/*' element={<PMOProvider><Dashboard  /></PMOProvider>} />
-              )
-              :
-              (
-                <Route path='/fyp_panel/*' element={<Loginpage />} />
-              )
-            }
-            {LoginStatus && userRole === "supervisor" ?
-              (
-                <Route path='/supervisor/*' element={ <SupervisorDashboard/>} />
-              )
-              :
-              (
-                <Route path='/supervisor/*' element={<Loginpage />} />
-              )
-            }
-            {LoginStatus && userRole === "student" ?
-              (
-                <Route path='/student/*' element={<TDashboard/>} />
-              )
-              :
-              (
-                <Route path='/student/*' element={<Loginpage />} />
-              )
-            }
+    <div className="App">
 
-          </Routes>
-        
-      </div>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Loginpage />} />
+        {LoginStatus && userRole === "admin" ?
+          (
+            <Route path='/admin/*' element={<Main />} />
+          )
+          :
+          (
+            <Route path='/admin/*' element={<Loginpage />} />
+          )
+        }
+        {LoginStatus && userRole === "fyp_panel" ?
+          (
+            <Route path='/fyp_panel/*' element={<PMOProvider><Dashboard /></PMOProvider>} />
+          )
+          :
+          (
+            <Route path='/fyp_panel/*' element={<Loginpage />} />
+          )
+        }
+        {LoginStatus && userRole === "supervisor" ?
+          (
+            <Route path='/supervisor/*' element={<SupervisorDashboard />} />
+          )
+          :
+          (
+            <Route path='/supervisor/*' element={<Loginpage />} />
+          )
+        }
+        {LoginStatus && userRole === "student" ?
+          (
+            <Route path='/student/*' element={<TDashboard />} />
+          )
+          :
+          (
+            <Route path='/student/*' element={<Loginpage />} />
+          )
+        }
+
+      </Routes>
+
+    </div>
   );
 }
 

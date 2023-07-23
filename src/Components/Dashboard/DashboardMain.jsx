@@ -64,8 +64,8 @@ function DashboardMain(props) {
                     <Route path='/all-supervisors' element={<AllSupervisors />} />
                     <Route path='/add-supervisor' element={<AddSupervisor />} />
                     
-                    <Route path='/all-departments' element={<AllDepartments />} />
-                    <Route path='/add-department' element={<AddDepartment />} />
+                    {/* <Route path='/all-departments' element={<AllDepartments />} />
+                    <Route path='/add-department' element={<AddDepartment />} /> */}
                     
                     <Route path='/all-students' element={<AllStudents />} />
                     <Route path='/add-student' element={<AddStudents />} />
