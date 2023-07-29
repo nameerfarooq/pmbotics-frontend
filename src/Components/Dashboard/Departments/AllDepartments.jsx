@@ -5,9 +5,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import { useNavigate } from 'react-router-dom';
+import { Form } from 'react-bootstrap';
 
 function AllDepartments({ setshowScreen }) {
-    const [departments, setDepartments] = useState('')
+    const [hodsList, sethodsList] = useState([])
+    const [departments, setDepartments] = useState([])
     const [selectedDepartment, setselectedDepartment] = useState('')
     const [show, setShow] = useState(false)
 
@@ -18,21 +20,25 @@ function AllDepartments({ setshowScreen }) {
         try {
             const fetchData = await axios.get(API_URI_departments)
             setDepartments(fetchData.data.data)
-
-
-
         } catch (error) {
             console.log(error)
-
         }
+    }
+    const getHods = async () => {
+        await axios.get(`/allfyppanel?dep_id=${selectedDepartment.id}`)
+            .then((res) => {
+                if (res.data.status === 200) {
+                    sethodsList(res.data.data)
+                }
+            })
+            .catch((err) => {
+                alert(err)
+            })
     }
 
     useEffect(() => {
         getDepartments()
-
-
     }, [])
-
 
     // const DeleteDepartment = async (e) => {
     //     await axios.delete(API_URI_departments, { data: { id: e } })
@@ -57,7 +63,9 @@ function AllDepartments({ setshowScreen }) {
         handleShow()
 
     }
-
+    useEffect(() => {
+        getHods()
+    }, [selectedDepartment])
     const handleChange = (e) => {
         setselectedDepartment({ ...selectedDepartment, [e.target.name]: e.target.value });
     };
@@ -65,7 +73,12 @@ function AllDepartments({ setshowScreen }) {
 
 
     const updateDepartment = async () => {
-        await axios.patch(API_URI_departments, selectedDepartment)
+        console.log(selectedDepartment, "department is sleected")
+        await axios.patch(API_URI_departments, {
+            "dep_id": selectedDepartment.id,
+            "name": selectedDepartment.name,
+            "hod_id": selectedDepartment.hod
+        })
             .then(res => {
                 if (res.data.message === "Success") {
                     setselectedDepartment('')
@@ -126,9 +139,16 @@ function AllDepartments({ setshowScreen }) {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="hod">HOD</label>
-                                <input required type="text" className="form-control" id="hod" name="hod" value={selectedDepartment.hod} onChange={handleChange} />
+                                {/* <input required type="text" className="form-control" id="hod" name="hod" value={selectedDepartment.hod} onChange={handleChange} /> */}
                             </div>
+                            <Form.Select required value={selectedDepartment.hod} name='hod' id='hod' onChange={handleChange} aria-label="Department">
+                                {
+                                    hodsList.map((hod) => {
+                                        return <option key={hod.id} value={hod.id}>{hod.name}</option>
+                                    })
 
+                                }
+                            </Form.Select>
                         </form>
                     </Modal.Body>
 
@@ -167,7 +187,10 @@ function AllDepartments({ setshowScreen }) {
                                         <td>{department.hod}</td>
                                         <td style={{ textAlign: "center" }}>
                                             <button className='Icon-btn-EM'>
-                                                <img alt='iconsimages' onClick={() => updateClicked(department)} src={require('../../../Images/pencil.png')} className="Icons-EM" />
+                                                <img alt='iconsimages' onClick={() => {
+                                                    updateClicked(department)
+
+                                                }} src={require('../../../Images/pencil.png')} className="Icons-EM" />
                                             </button>
                                             {/* <button className='Icon-btn-EM'>
                                                 <img alt='iconsimages' onClick={() => DeleteDepartment(department.id)} src={require('../../../Images/delete.png')} className="Icons-EM" />
