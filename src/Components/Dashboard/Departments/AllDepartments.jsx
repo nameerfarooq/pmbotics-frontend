@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../../axiosConfig';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 import { useNavigate } from 'react-router-dom';
 
-function AllDepartments() {
+function AllDepartments({ setshowScreen }) {
     const [departments, setDepartments] = useState('')
     const [selectedDepartment, setselectedDepartment] = useState('')
     const [show, setShow] = useState(false)
-    const navigate = useNavigate()
-    const gotoAddDepartment = () => {
-        navigate('/fyp_panel/add-department')
-    }
+
     const handleShow = () => { setShow(true) }
     const handleClose = () => { setShow(false) }
-    const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
+    const API_URI_departments = 'departmentcrud'
     const getDepartments = async () => {
         try {
             const fetchData = await axios.get(API_URI_departments)
@@ -37,23 +34,23 @@ function AllDepartments() {
     }, [])
 
 
-    const DeleteDepartment = async (e) => {
-        await axios.delete('https://pmbotics.herokuapp.com/departmentcrud', { data: { id: e } })
-            .then(res => {
-                alert('Department deleted successfully:', res.data);
-                if (res.data.message === "Successfuly deleted") {
-                    setDepartments(prevDepartments => prevDepartments.filter(department => department.id !== e))
-                }
-                else {
-                    alert(res.data.message)
-                }
+    // const DeleteDepartment = async (e) => {
+    //     await axios.delete(API_URI_departments, { data: { id: e } })
+    //         .then(res => {
+    //             alert('Department deleted successfully:', res.data);
+    //             if (res.data.message === "Successfuly deleted") {
+    //                 setDepartments(prevDepartments => prevDepartments.filter(department => department.id !== e))
+    //             }
+    //             else {
+    //                 alert(res.data.message)
+    //             }
 
-            })
-            .catch(error => {
-                alert('An error occurred while deleting department:', error);
-            });
+    //         })
+    //         .catch(error => {
+    //             alert('An error occurred while deleting department:', error);
+    //         });
 
-    }
+    // }
 
     const updateClicked = (e) => {
         setselectedDepartment(e)
@@ -68,7 +65,7 @@ function AllDepartments() {
 
 
     const updateDepartment = async () => {
-        await axios.patch('https://pmbotics.herokuapp.com/departmentcrud', selectedDepartment)
+        await axios.patch(API_URI_departments, selectedDepartment)
             .then(res => {
                 if (res.data.message === "Success") {
                     setselectedDepartment('')
@@ -156,7 +153,7 @@ function AllDepartments() {
                                 <th>#</th>
                                 <th>Department Name</th>
                                 <th>HOD</th>
-                                <th>Actions</th>
+                                <th style={{ textAlign: "center" }}>Edit</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -168,13 +165,13 @@ function AllDepartments() {
                                         <td>{Index + 1}</td>
                                         <td>{department.name}</td>
                                         <td>{department.hod}</td>
-                                        <td>
+                                        <td style={{ textAlign: "center" }}>
                                             <button className='Icon-btn-EM'>
                                                 <img alt='iconsimages' onClick={() => updateClicked(department)} src={require('../../../Images/pencil.png')} className="Icons-EM" />
                                             </button>
-                                            <button className='Icon-btn-EM'>
+                                            {/* <button className='Icon-btn-EM'>
                                                 <img alt='iconsimages' onClick={() => DeleteDepartment(department.id)} src={require('../../../Images/delete.png')} className="Icons-EM" />
-                                            </button>
+                                            </button> */}
                                         </td>
                                     </tr>
                                 ))
@@ -186,9 +183,8 @@ function AllDepartments() {
 
                                 </td>
                                 <td colSpan={3}>
-                                    <button onClick={gotoAddDepartment} className='Icon-btn-EM'>
+                                    <button onClick={() => setshowScreen(1)} className='Icon-btn-EM'>
                                         Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/plus.png')} className="Icons-EM" /></span>
-
                                     </button>
                                 </td>
 

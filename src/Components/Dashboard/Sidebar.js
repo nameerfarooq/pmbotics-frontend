@@ -18,7 +18,7 @@ const Sidebar = () => {
         <li><NavLink to='/fyp_panel/all-notifications'>Notifications</NavLink></li>
         <li><NavLink to='/fyp_panel/all-supervisors'>Supervisors</NavLink></li>
         <li><NavLink to='/fyp_panel/all-students'>Students</NavLink></li>
-        {/* <li><NavLink to='/fyp_panel/all-departments'>Departments</NavLink></li> */}
+        <li><NavLink to='/fyp_panel/all-departments'>Departments</NavLink></li>
 
       </ul>
     </aside>

@@ -8,29 +8,23 @@ const GlobalProvider = (props) => {
     const [userRole, setuserRole] = useState(localStorage.getItem('userRole'))
     const [userName, setuserName] = useState(localStorage.getItem('userName'))
     const handleLogout = () => {
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('LoginStatus');
-        localStorage.removeItem('userRole');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('departmentId');
+        localStorage.clear()
         setLoginStatus(false)
         setuserRole('')
         setuserName('')
     }
     const [departments, setDepartments] = useState([])
-    const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
-   
-    const getDepartments = async () => {
-        axios.get(API_URI_departments)
-        .then((res)=>{
-            setDepartments(res.data.data)
-        })
-    }
-    useEffect(() => {
+    // const API_URI_departments = 'https://pmbotics.herokuapp.com/departmentcrud'
+    // const getDepartments = async () => {
+    //     axios.get(API_URI_departments)
+    //         .then((res) => {
+    //             setDepartments(res.data.data)
+    //         })
+    // }
+    // useEffect(() => {
 
-        getDepartments()
-    }, [])
+    //     getDepartments()
+    // }, [])
     const state = { userName, setuserName, LoginStatus, userRole, setuserRole, setLoginStatus, handleLogout, departments }
     return (
         <GlobalContext.Provider value={state}>
