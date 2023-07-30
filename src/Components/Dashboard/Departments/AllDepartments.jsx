@@ -46,7 +46,7 @@ function AllDepartments({ setshowScreen }) {
     //             alert('Department deleted successfully:', res.data);
     //             if (res.data.message === "Successfuly deleted") {
     //                 setDepartments(prevDepartments => prevDepartments.filter(department => department.id !== e))
-    //             }
+    //             }setselectedDepartment
     //             else {
     //                 alert(res.data.message)
     //             }
@@ -108,6 +108,7 @@ function AllDepartments({ setshowScreen }) {
                 } else {
                     alert(res.data.exception);
                 }
+                console.log(res, "this is res")
             })
             .catch(error => {
                 console.log(error);
@@ -143,10 +144,12 @@ function AllDepartments({ setshowScreen }) {
                             </div>
                             <Form.Select required value={selectedDepartment.hod} name='hod' id='hod' onChange={handleChange} aria-label="Department">
                                 {
-                                    hodsList.map((hod) => {
-                                        return <option key={hod.id} value={hod.id}>{hod.name}</option>
-                                    })
-
+                                    <>
+                                        <option key={selectedDepartment.hod} value={selectedDepartment.hod}>{selectedDepartment.hod}</option>
+                                        {hodsList.map((hod) => {
+                                            return <option key={hod.id} value={hod.id}>{hod.name}</option>
+                                        })}
+                                    </>
                                 }
                             </Form.Select>
                         </form>

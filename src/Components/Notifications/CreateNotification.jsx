@@ -30,7 +30,7 @@ function CreateNotification() {
         await axios.post('createnotification', notification)
             .then((res) => {
                 if (res.data.message === "Success") {
-                    alert("Notification Created Successfully")
+                    alert("Announcement Created Successfully")
                     Goback()
                 }
                 else if (res.data.exception === "some exception") {
@@ -69,7 +69,7 @@ function CreateNotification() {
     return (
         <div className='CreateProjectScreen'>
             <h2 className='Heading BlueTxt'>
-                Create Notification
+                Create Announcement
             </h2>
             <div className='FormMainContainer'>
                 <Form>
@@ -89,7 +89,7 @@ function CreateNotification() {
 
 
 
-                    <label >Notification Title</label>
+                    <label >Announcement Title</label>
                     <Form.Control type="text" name='title' value={notification.title} onChange={handlechange} />
                     <label >Description</label>
                     <Form.Control type="text" name='description' value={notification.description} onChange={handlechange} />

@@ -39,14 +39,16 @@ function ViewProject() {
     })
     const assignMarks = async (e) => {
         let data = {
-            "comments": "statisfied",
-            "marks": milestone_marks,
-            "project": id,
-            "milestone": e,
+            "comments": "satisfied",
+            "marks": Number(milestone_marks),
+            "project": Number(id),
+            "milestone": Number(e),
             "m_distributor": localStorage.getItem('userId')
         }
         await axios.post('givemarks', data)
             .then((res) => {
+                console.log(res, 'marks')
+                console.log(data, 'data')
                 if (res.data.message === "Success") {
                     alert("Marks posted Successfully")
                     setMilestone_marks('')
@@ -97,7 +99,6 @@ function ViewProject() {
         await axios.get(`studentprojectwise?pro_id=${id}`)
             .then((res) => {
                 if (res.data.message == "Success") {
-
                     setStudents(res.data.body)
                 }
             })
@@ -112,12 +113,10 @@ function ViewProject() {
             const project = filteredProject.length ? filteredProject[0] : null;
             setMyProject(project);
             setLoaded(true);
-
         }
     }, [id, projects, supervisors]);
 
     useEffect(() => {
-
         if (myProject && supervisors) {
             const filteredSupervisor = supervisors.filter(supervisor => supervisor.id == myProject.supervisor);
             const supervisor = filteredSupervisor.length ? filteredSupervisor[0] : null;
@@ -140,7 +139,7 @@ function ViewProject() {
             "domain": myProject.domain,
             "no_of_group_members": myProject.no_of_group_members,
             "supervisor": myProject.supervisor,
-            "department": myProject.department
+            "department": localStorage.getItem("departmentId")
         })
         handleShow()
 
@@ -273,7 +272,7 @@ function ViewProject() {
                                     </Form.Select>
                                 </div>
 
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                     <label htmlFor="department">Department</label>
                                     <Form.Select required id="department" name="department" value={selectedProject.department} onChange={handleChange} aria-label="Default select example">
 
@@ -286,7 +285,7 @@ function ViewProject() {
 
 
                                     </Form.Select>
-                                </div>
+                                </div> */}
 
 
 
@@ -448,8 +447,6 @@ function ViewProject() {
                     </Table>
                     <h5 className='title-of-table'>Project Board</h5>
                     <PMOBoard id={id} />
-
-
                     <div>
                         <button className="dangerbtn" onClick={() => deleteProject()} >
                             Delete project

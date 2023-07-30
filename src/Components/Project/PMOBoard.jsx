@@ -24,7 +24,7 @@ function PMOBoard(props) {
 
     return (
         <>
-            {tickets.todo?.length>0 || tickets.inprogress?.length>0 || tickets.review?.length>0 || tickets.completed?.length>0 ?
+            {tickets.todo?.length > 0 || tickets.inprogress?.length > 0 || tickets.review?.length > 0 || tickets.completed?.length > 0 ?
 
                 <div className='MainDiv'>
 
@@ -70,17 +70,17 @@ function PMOBoard(props) {
 
                                 {tickets?.inprogress.map((inprogress, Index) => (
                                     <div key={Index} className={`backlogTasks ${tickets.inprogress ? 'Pink' : ''}`}>
-                                    <p>
-                                        {inprogress.ticket_name}
-                                    </p>
-                                    <p className='board-ticket-p2'>
-                                        <b> Created by </b>{inprogress.creator_name.length > 7 ? inprogress.creator_name.slice(0, 7) + '...' : inprogress.creator_name}
-                                    </p>
-                                    <p className='board-ticket-p2'>
-                                        <b> Assigned to </b>{inprogress.assignee_name.length > 7 ? inprogress.assignee_name.slice(0, 7) + '...' : inprogress.assignee_name}
-                                    </p>
+                                        <p>
+                                            {inprogress.ticket_name}
+                                        </p>
+                                        <p className='board-ticket-p2'>
+                                            <b> Created by </b>{inprogress.creator_name.length > 7 ? inprogress.creator_name.slice(0, 7) + '...' : inprogress.creator_name}
+                                        </p>
+                                        <p className='board-ticket-p2'>
+                                            <b> Assigned to </b>{inprogress.assignee_name.length > 7 ? inprogress.assignee_name.slice(0, 7) + '...' : inprogress.assignee_name}
+                                        </p>
 
-                                </div>
+                                    </div>
                                 ))}
 
                             </div>
@@ -102,18 +102,18 @@ function PMOBoard(props) {
                             <div className='BacklogStream'>
 
                                 {tickets?.review.map((review, Index) => (
-                                   <div key={Index} className={`backlogTasks ${tickets.review ? 'Blue' : ''}`}>
-                                   <p>
-                                       {review.ticket_name}
-                                   </p>
-                                   <p className='board-ticket-p2'>
-                                       <b> Created by </b>{review.creator_name.length > 7 ? review.creator_name.slice(0, 7) + '...' : review.creator_name}
-                                   </p>
-                                   <p className='board-ticket-p2'>
-                                       <b> Assigned to </b>{review.assignee_name.length > 7 ? review.assignee_name.slice(0, 7) + '...' : review.assignee_name}
-                                   </p>
+                                    <div key={Index} className={`backlogTasks ${tickets.review ? 'Blue' : ''}`}>
+                                        <p>
+                                            {review.ticket_name}
+                                        </p>
+                                        <p className='board-ticket-p2'>
+                                            <b> Created by </b>{review.creator_name.length > 7 ? review.creator_name.slice(0, 7) + '...' : review.creator_name}
+                                        </p>
+                                        <p className='board-ticket-p2'>
+                                            <b> Assigned to </b>{review.assignee_name.length > 7 ? review.assignee_name.slice(0, 7) + '...' : review.assignee_name}
+                                        </p>
 
-                               </div>
+                                    </div>
                                 ))}
 
                             </div>
@@ -132,17 +132,17 @@ function PMOBoard(props) {
 
                                 {tickets?.completed.map((completed, Index) => (
                                     <div key={Index} className={`backlogTasks ${tickets.completed ? 'Green' : ''}`}>
-                                    <p>
-                                        {completed.ticket_name}
-                                    </p>
-                                    <p className='board-ticket-p2'>
-                                        <b> Created by </b>{completed.creator_name.length > 7 ? completed.creator_name.slice(0, 7) + '...' : completed.creator_name}
-                                    </p>
-                                    <p className='board-ticket-p2'>
-                                        <b> Assigned to </b>{completed.assignee_name.length > 7 ? completed.assignee_name.slice(0, 7) + '...' : completed.assignee_name}
-                                    </p>
- 
-                                </div>
+                                        <p>
+                                            {completed.ticket_name}
+                                        </p>
+                                        <p className='board-ticket-p2'>
+                                            <b> Created by </b>{completed.creator_name.length > 7 ? completed.creator_name.slice(0, 7) + '...' : completed.creator_name}
+                                        </p>
+                                        <p className='board-ticket-p2'>
+                                            <b> Assigned to </b>{completed.assignee_name.length > 7 ? completed.assignee_name.slice(0, 7) + '...' : completed.assignee_name}
+                                        </p>
+
+                                    </div>
                                 ))}
 
 
@@ -152,7 +152,7 @@ function PMOBoard(props) {
                     </div>
                 </div>
                 :
-                <p>There are no tickets created in this project yet...</p>
+                <p>There are no Tasks created in this project yet...</p>
             }
         </>
     )

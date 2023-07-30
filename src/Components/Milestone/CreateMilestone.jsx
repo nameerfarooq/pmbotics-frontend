@@ -42,6 +42,7 @@ function CreateMilestone() {
         document_submission_date: new Date(),
         milestone_defending_date: new Date(),
         milestone_details: "",
+        department: localStorage.getItem("departmentId"),
         marks: 0,
         rubrics: rubrics
     })
@@ -76,6 +77,7 @@ function CreateMilestone() {
             document_submission_date: new Date(),
             milestone_defending_date: new Date(),
             milestone_details: "",
+            department: localStorage.getItem("departmentId"),
             marks: 0,
             rubrics: rubrics
 
@@ -115,6 +117,7 @@ function CreateMilestone() {
                 } else {
                     alert(res.data.exception);
                 }
+                console.log(res, "yeh tha asal masla")
             }
             )
             .catch(err => {
@@ -192,7 +195,7 @@ function CreateMilestone() {
                     <label >Rubrics</label>
 
 
-                    <Table  bordered className='table-for-rubric'>
+                    <Table bordered className='table-for-rubric'>
                         <thead>
                             <tr>
                                 <td>Rubrics title</td>
@@ -208,30 +211,30 @@ function CreateMilestone() {
 
                             {rubrics.rubric_data.map((rubric, index) => (
                                 <tr>
-                                    
+
+                                    <td>
+                                        <input
+                                            className='rubric-inp-t'
+                                            type="text"
+                                            value={rubric.title}
+                                            onChange={(event) => handleTitleChange(event, index)}
+                                        />
+                                    </td>
+                                    {rubric.points.map((point, pointIndex) => (
                                         <td>
-                                            <input
-                                                className='rubric-inp-t'
-                                                type="text"
-                                                value={rubric.title}
-                                                onChange={(event) => handleTitleChange(event, index)}
-                                            />
+                                            <div className='rub-p-row' key={pointIndex}>
+
+                                                <input
+                                                    className='rub-p-inp'
+                                                    type="text"
+                                                    value={point}
+                                                    onChange={(event) => handlePointsChange(event, index, pointIndex)}
+
+                                                />
+                                            </div>
                                         </td>
-                                        {rubric.points.map((point, pointIndex) => (
-                                            <td>
-                                                <div className='rub-p-row' key={pointIndex}>
+                                    ))}
 
-                                                    <input
-                                                        className='rub-p-inp'
-                                                        type="text"
-                                                        value={point}
-                                                        onChange={(event) => handlePointsChange(event, index, pointIndex)}
-
-                                                    />
-                                                </div>
-                                            </td>
-                                        ))}
-                                    
                                 </tr>
                             ))}
 
@@ -243,7 +246,7 @@ function CreateMilestone() {
                         </tbody>
                     </Table>
 
-                
+
 
                     <div className='PC-btnHolder'>
                         <Button onClick={ClearForm} className='PC-btn1' variant="secondary" type="submit">

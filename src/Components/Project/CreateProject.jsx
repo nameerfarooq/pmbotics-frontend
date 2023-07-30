@@ -10,10 +10,10 @@ function CreateProject() {
 
     const { departments } = useContext(GlobalContext)
     // GET API, getting supervisors list from database
-    const {supervisors, refreshProjects} = useContext(MyContext)
-const navigate = useNavigate()
- 
-    
+    const { supervisors, refreshProjects } = useContext(MyContext)
+    const navigate = useNavigate()
+
+
 
 
 
@@ -28,7 +28,7 @@ const navigate = useNavigate()
         "domain": "",
         "no_of_group_members": '',
         "supervisor": '',
-        "department": 1
+        "department": localStorage.getItem("departmentId")
     })
 
 
@@ -36,7 +36,7 @@ const navigate = useNavigate()
     async function Submit(e) {
         e.preventDefault()
 
-       
+
         const response = await axios.post("createproject", project)
             .then(res => {
                 if (res.data.message === "Success") {
@@ -45,12 +45,12 @@ const navigate = useNavigate()
                     refreshProjects()
                     navigate('/fyp_panel/')
                 }
-                
-                
+                console.log(res)
+
             }
 
             )
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err)
             })
 
@@ -68,7 +68,7 @@ const navigate = useNavigate()
             "domain": "",
             "no_of_group_members": '',
             "supervisor": '',
-            "department": 1
+            "department": localStorage.getItem("departmentId")
         })
 
     }
@@ -125,7 +125,7 @@ const navigate = useNavigate()
 
                     <label >Assign Supervisor</label>
                     <Form.Select required name='supervisor' value={project.supervisor} onChange={handleChange} aria-label="Default select example">
-                    <option  value=''>select</option>
+                        <option value=''>select</option>
                         {
                             supervisors.map((value, key) => {
 
@@ -136,7 +136,7 @@ const navigate = useNavigate()
 
 
                     </Form.Select>
-                    <label >Department</label>
+                    {/* <label >Department</label>
                     <Form.Select required name='department' value={project.department} onChange={handleChange} aria-label="Default select example">
 
                         {
@@ -147,7 +147,7 @@ const navigate = useNavigate()
                         }
 
 
-                    </Form.Select>
+                    </Form.Select> */}
 
 
 

@@ -1,35 +1,35 @@
 import React, { useState, useContext } from 'react';
-import axios from '../../axiosConfig';
-import '../Project/projects.css'
+import axios from '../../../axiosConfig';
+import '../../Project/projects.css'
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
-import GlobalContext from '../../Context/GlobalContext';
-import MyContext from '../../Context/MyContext';
+import GlobalContext from '../../../Context/GlobalContext';
+import MyContext from '../../../Context/MyContext';
 
-function AllSupervisors() {
+function AllFYP_Panel() {
 
   const [selectedSupervisor, setselectedSupervisor] = useState('')
   const [show, setShow] = useState(false);
   const { departments } = useContext(GlobalContext)
-  const { supervisors, refreshSupervisors } = useContext(MyContext)
+  const { fypPanel, refreshfypPanel } = useContext(MyContext)
   const navigate = useNavigate()
   const gotoaddsupervisor = () => {
-    navigate('/fyp_panel/add-supervisor')
+    navigate('/fyp_panel/add-fyp-panel')
   }
 
   //  search filter
 
   const [searchQuery, setSearchQuery] = useState("");
-  const filteredSupervisors = supervisors ? supervisors.filter((supervisor) =>
+  const filteredfypPanel = fypPanel ? fypPanel.filter((supervisor) =>
     supervisor.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
     :
     null;
 
-  // deleting supervisors
+  // deleting fypPanel
 
 
   const DeleteSupervisor = async (e) => {
@@ -37,7 +37,7 @@ function AllSupervisors() {
       .then(res => {
         if (res.data.message === "Successfuly deleted") {
           alert('Supervisor deleted successfully');
-          refreshSupervisors()
+          refreshfypPanel()
         }
         else {
           alert(res.data.message)
@@ -70,7 +70,7 @@ function AllSupervisors() {
       .then(res => {
         if (res.data.message === "Success") {
           alert("Successfully updated")
-          refreshSupervisors()
+          refreshfypPanel()
           setselectedSupervisor({
             id: '',
             email: "",
@@ -79,7 +79,7 @@ function AllSupervisors() {
             faculty_no: "",
             field_of_interest: "",
             designation: "",
-            department: 1
+            department: localStorage.getItem("departmentId")
           }
           )
           handleClose()
@@ -120,14 +120,14 @@ function AllSupervisors() {
 
   return (
     <>
-      {supervisors ?
+      {fypPanel ?
 
         <div>
 
 
           {/* search bar  */}
           <div className="searchbar-container">
-            <input type="text" placeholder='Search Supervisors by name' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <input type="text" placeholder='Search fypPanel by name' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
 
           </div>
           <div className='MainContainerFP'>
@@ -136,7 +136,7 @@ function AllSupervisors() {
             {/* model started for editing selected supervisor */}
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
-                <Modal.Title>Edit Supervisor</Modal.Title>
+                <Modal.Title>Edit FYP Panel Member</Modal.Title>
               </Modal.Header>
 
 
@@ -168,7 +168,7 @@ function AllSupervisors() {
                     <label htmlFor="designation">Designation</label>
                     <input required type="text" className="form-control" id="designation" name="designation" value={selectedSupervisor.designation} onChange={handleChange} />
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label htmlFor="department">Department</label>
                     <Form.Select required id="department" name="department" value={selectedSupervisor.department} onChange={handleChange} aria-label="Default select example">
                       {departments.length > 0 ?
@@ -183,7 +183,7 @@ function AllSupervisors() {
 
 
                     </Form.Select>
-                  </div>
+                  </div> */}
 
 
 
@@ -212,7 +212,7 @@ function AllSupervisors() {
             {/* Model ended */}
 
             <h2 className='Heading BlueTxt'>
-              All Supervisors
+              All FYP Panel Members
             </h2>
             <div>
               <Table striped bordered variant="light">
@@ -220,26 +220,18 @@ function AllSupervisors() {
                   <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Faculty Id</th>
-                    <th>Actions</th>
+                    <th> Id</th>
                   </tr>
                 </thead>
                 <tbody>
 
-                  {filteredSupervisors.map((supervisor, Index) => (
+                  {filteredfypPanel.map((supervisor, Index) => (
 
                     <tr key={supervisor.id}>
                       <td>{Index + 1}</td>
                       <td>{supervisor.name}</td>
-                      <td>{supervisor.faculty_no}</td>
-                      <td>
-                        <button className='Icon-btn-EM'>
-                          <img alt='iconsimages' onClick={() => updateClicked(supervisor)} src={require('../../Images/pencil.png')} className="Icons-EM" />
-                        </button>
-                        <button className='Icon-btn-EM'>
-                          <img alt='iconsimages' onClick={() => DeleteSupervisor(supervisor.id)} src={require('../../Images/delete.png')} className="Icons-EM" />
-                        </button>
-                      </td>
+                      <td>{supervisor.id}</td>
+
                     </tr>
                   ))}
 
@@ -250,7 +242,7 @@ function AllSupervisors() {
                     </td>
                     <td colSpan={3}>
                       <button className='Icon-btn-EM' onClick={() => { gotoaddsupervisor() }}>
-                        Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../Images/plus.png')} className="Icons-EM" /></span>
+                        Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/plus.png')} className="Icons-EM" /></span>
 
                       </button>
                     </td>
@@ -274,5 +266,5 @@ function AllSupervisors() {
   )
 }
 
-export default AllSupervisors
+export default AllFYP_Panel
 

@@ -54,8 +54,8 @@ function AddDepartment({ setshowScreen }) {
         setDepartment({ ...department, [e.target.name]: e.target.value });
     };
     return (
-        <div>
-            <div className='CreateProjectScreen'>
+        <div className='Add-department-screen'>
+            <div >
 
                 <h2 className='CP-Title'>
                     Add Department

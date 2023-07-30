@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
-import axios from '../../axiosConfig';
-import '../Project/projects.css'
+import axios from '../../../axiosConfig';
+import '../../Project/projects.css'
 import Form from 'react-bootstrap/Form';
-import GlobalContext from '../../Context/GlobalContext';
+import GlobalContext from '../../../Context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
-import MyContext from '../../Context/MyContext';
-function AddSupervisor() {
+import MyContext from '../../../Context/MyContext';
+function AddFYP_Panel() {
 
   // Getting departments (GET API)
   const { refreshSupervisors } = useContext(MyContext)
@@ -13,40 +13,39 @@ function AddSupervisor() {
 
   const navigate = useNavigate()
   const gotoallsupervisors = () => {
-    navigate('/fyp_panel/all-supervisors')
+    navigate('/fyp_panel/all-fyp-panel')
   }
 
   // creating supervisors (POST API)
-  const [supervisorData, setSupervisorData] = useState({
-    role: "supervisor",
-    email: "",
-    password: "",
-    name: "",
-    phoneno: "",
-    faculty_no: "",
-    field_of_interest: "",
-    designation: "",
-    department: localStorage.getItem("departmentId"),
-    uni: localStorage.getItem("univeristyId")
-  });
+  const [supervisorData, setSupervisorData] = useState(
+    {
+      "email": "",
+      "password": "",
+      "name": "",
+      "facultyid": "",
+      "designation": "",
+      "phoneno": "",
+      "department": localStorage.getItem('departmentId'),
+      "uni": localStorage.getItem('univeristyId')
+    }
+
+  );
   const handleSubmit = async e => {
     e.preventDefault();
-    await axios.post('createUser', supervisorData)
+    await axios.post('registerpmo', supervisorData)
       .then(res => {
 
-        if (res.data.message === "Success") {
-          alert("supervisor created successfully")
+        if (res.data.message === "PMO Registration successful.") {
+          alert("FYP Panel member created successfully")
           setSupervisorData({
-            role: "supervisor",
-            email: "",
-            password: "",
-            name: "",
-            phoneno: "",
-            faculty_no: "",
-            field_of_interest: "",
-            designation: "",
-            department: localStorage.getItem("departmentId"),
-            uni: localStorage.getItem("univeristyId")
+            "email": "",
+            "password": "",
+            "name": "",
+            "facultyid": "",
+            "designation": "",
+            "phoneno": "",
+            "department": localStorage.getItem('departmentId'),
+            "uni": localStorage.getItem('univeristyId')
           });
           refreshSupervisors()
           gotoallsupervisors()
@@ -74,10 +73,10 @@ function AddSupervisor() {
         } else {
           alert(res.data.exception);
         }
+        console.log(res)
 
       })
       .catch(error => {
-        alert(error)
         console.log(error)
 
       });
@@ -101,10 +100,10 @@ function AddSupervisor() {
       <div className='CreateProjectScreen'>
 
         <h2 className='CP-Title'>
-          Add Supervisor
+          Add FYP Panel Member
         </h2>
         <h3 className='CP-Title2'>
-          Add Supervisor details
+          Add details
         </h3>
 
         <div className='FormMainContainer'>
@@ -122,30 +121,34 @@ function AddSupervisor() {
               <input required type="text" className="form-control" id="name" name="name" value={supervisorData.name} onChange={handleChange} />
             </div>
             <div className="form-group">
-              <label htmlFor="faculty_no">Faculty Number</label>
-              <input required type="text" className="form-control" id="faculty_no" name="faculty_no" value={supervisorData.faculty_no} onChange={handleChange} />
+              <label htmlFor="facultyid">Faculty Number</label>
+              <input required type="text" className="form-control" id="facultyid" name="facultyid" value={supervisorData.facultyid} onChange={handleChange} />
             </div>
-            <div className="form-group">
-              <label htmlFor="field_of_interest">Field of Interest</label>
-              <input required type="text" className="form-control" id="field_of_interest" name="field_of_interest" value={supervisorData.field_of_interest} onChange={handleChange} />
-            </div>
+
             <div className="form-group">
               <label htmlFor="field_of_interest">Designation</label>
               <input required type="text" className="form-control" id="designation" name="designation" value={supervisorData.designation} onChange={handleChange} />
             </div>
-
+            {/* <div className="form-group">
+              <label htmlFor="department">Department</label>
+              <Form.Select required id="department" name="department" value={supervisorData.department} onChange={handleChange} aria-label="Default select example">
+                {
+                  departments.map((depart) => {
+                    return <option key={depart.id} value={depart.id}>{depart.name}</option>
+                  })
+                }
+              </Form.Select>
+            </div> */}
             <div className="form-group">
               <label htmlFor="phoneno">Phone Number</label>
               <input required type="text" className="form-control" id="phoneno" name="phoneno" value={supervisorData.phoneno} onChange={handleChange} />
             </div>
             <button type="submit" className=" m-2 btn btn-primary">Submit</button>
-
           </form>
-
         </div>
       </div>
     </div>
   )
 }
 
-export default AddSupervisor
+export default AddFYP_Panel

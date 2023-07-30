@@ -1,40 +1,43 @@
-
-.active{
+.active {
     font-weight: bolder;
-    
+
 }
-.btnLogout{
+
+.btnLogout {
     width: 40px !important;
     background-color: transparent !important;
     border: none;
 
 }
-.Navbar-out{
+
+.Navbar-out {
     background-color: #05037C;
     color: rgb(226, 226, 226) !important;
     border-bottom: 1px solid rgb(255, 245, 245);
     /* position: sticky !important;
     top: 0; */
 }
-.Navbar-in{
+
+.Navbar-in {
     background-color: #05037C;
     color: white !important;
     text-decoration: none;
-    
+
 }
 
-.Sidebar{
+.Sidebar {
     background-color: #05037C;
     color: white;
     padding: 2%;
     width: 25% !important;
     height: 100%;
     /* position: fixed;  */
-     
-    
-    
+
+
+
 }
-.Sidebar-ul{
+
+.Sidebar-ul {
     list-style: none !important;
     margin-top: 5px;
     padding: 10%;
@@ -44,47 +47,54 @@
 
 
 }
-.Sidebar-ul>li>a{
+
+.Sidebar-ul>li>a {
     text-decoration: none;
-    color: #05037C ;
+    color: #05037C;
 }
-.Sidebar-ul>li{
+
+.Sidebar-ul>li {
     padding-bottom: 5px;
     border-bottom: 1px solid rgb(225, 225, 225);
     text-align: left;
-    font-weight: 500 ;
-    color: #05037C ;
+    font-weight: 500;
+    color: #05037C;
 
-    
+
 
 }
-*{
+
+* {
 
     /* border: greenyellow 1px solid; */
 }
-.Dashboard-panel{
+
+.Dashboard-panel {
     position: fixed;
     display: flex;
     flex-wrap: nowrap;
     width: 100% !important;
     height: 100% !important;
-    
-    
+
+
 }
-.DashboardMain{
+
+.DashboardMain {
     width: 100%;
     height: 100% !important;
     /* background-color: aqua; */
     padding: 0%;
     overflow: scroll;
     /* margin-left: 15.5vw; */
-    
+
 }
-.pmbotics-logo{
+
+.pmbotics-logo {
     height: auto;
     width: 180px !important;
 }
-.backButton{
+
+.backButton {
     /* text-align: center; */
     text-decoration: none;
     color: white;
@@ -95,7 +105,15 @@
     border-radius: 5px;
     font-size: 16px;
 }
-.backButton:hover{
+
+.backButton:hover {
     color: #08c076;
     cursor: pointer;
+}
+
+.Add-department-screen {
+    display: flex;
+    justify-content: center;
+    padding: 3%;
+    margin: 1%;
 }

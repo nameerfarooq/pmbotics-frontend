@@ -6,29 +6,30 @@ const PMOProvider = (props) => {
     const [accessTokenAvailable, setAccessTokenAvailable] = useState(false)
     const [accessToken] = useState(localStorage.getItem('access_token'))
     const [supervisors, setSupervisors] = useState('')
+    const [fypPanel, setFypPanel] = useState('')
     const [projects, setProjects] = useState('')
-    const refreshProjects = ()=>{
+    const refreshProjects = () => {
         getAllProjects()
     }
-    const refreshSupervisors = ()=>{
+    const refreshSupervisors = () => {
         getAllSupervisors()
     }
-    const getAllProjects = async ()=>{
+    const getAllProjects = async () => {
         await axios.get('projects')
-        .then((res) => {
-            if (res.data.message === "Success") {
-                setProjects(res.data.body)
-            }
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+            .then((res) => {
+                if (res.data.message === "Success") {
+                    setProjects(res.data.body)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
 
 
-    const getAllSupervisors = async ()=>{
-    await axios.get('alluser/?role=supervisor')
+    const getAllSupervisors = async () => {
+        await axios.get('alluser/?role=supervisor')
             .then((res) => {
                 if (res.data.message === "Success") {
                     setSupervisors(res.data.data)
@@ -37,7 +38,18 @@ const PMOProvider = (props) => {
             .catch((err) => {
                 console.log(err)
             })
-}
+    }
+    const getAllFYPPanel = async () => {
+        await axios.get(`allfyppanel?dep_id=${localStorage.getItem('departmentId')}`)
+            .then((res) => {
+                if (res.data.message === "Success") {
+                    setFypPanel(res.data.data)
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     const getAllMilestones = async () => {
         await axios.get('allmilestone')
@@ -56,6 +68,7 @@ const PMOProvider = (props) => {
             getAllMilestones()
             getAllSupervisors()
             getAllProjects()
+            getAllFYPPanel()
         }
     }, [accessToken, accessTokenAvailable])
 
@@ -68,7 +81,10 @@ const PMOProvider = (props) => {
     const refreshmilestone = () => {
         getAllMilestones()
     }
-    const state = { milestones, setMilestones, refreshmilestone, supervisors, projects ,refreshProjects,refreshSupervisors}
+    const refreshfypPanel = () => {
+        getAllFYPPanel()
+    }
+    const state = { fypPanel, refreshfypPanel, milestones, setMilestones, refreshmilestone, supervisors, projects, refreshProjects, refreshSupervisors }
 
     return (
         <MyContext.Provider value={state}>

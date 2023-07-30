@@ -127,12 +127,12 @@ function AllNotifications() {
                 <div>
                     {/* showing popup for updating student */}
 
-                   
+
 
 
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Edit Notification</Modal.Title>
+                            <Modal.Title>Edit Announcement</Modal.Title>
                         </Modal.Header>
 
 
@@ -172,10 +172,10 @@ function AllNotifications() {
 
                     <div className='ProjectHeader'>
                         <button className='New-Project-btn' onClick={() => { gotocreatenotification() }}>New</button>
-                        <h2 className='ProjectHeading'>Notifications</h2>
+                        <h2 className='ProjectHeading'>Announcements</h2>
                     </div>
                     <div className="searchbar-container">
-                        <input type="text" placeholder='Search notifications by title' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                        <input type="text" placeholder='Search Announcements by title' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
 
                     </div>
                     <div className='MainContainerDiv'>
