@@ -3,7 +3,7 @@ import axios from '../../axiosConfig'
 import { useState, useEffect } from 'react'
 function PMOBoard(props) {
     const id = props.id
-    const [tickets, setTickets] = useState('')
+    const [tickets, setTickets] = useState([])
 
     const getAlltickets = async () => {
         const response = await axios.get(`allticket?pro_id=${id}`)

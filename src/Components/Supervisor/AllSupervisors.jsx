@@ -79,7 +79,7 @@ function AllSupervisors() {
             faculty_no: "",
             field_of_interest: "",
             designation: "",
-            department: 1
+            department: localStorage.getItem('departmentId')
           }
           )
           handleClose()
@@ -168,7 +168,7 @@ function AllSupervisors() {
                     <label htmlFor="designation">Designation</label>
                     <input required type="text" className="form-control" id="designation" name="designation" value={selectedSupervisor.designation} onChange={handleChange} />
                   </div>
-                  <div className="form-group">
+                  {/* <div className="form-group">
                     <label htmlFor="department">Department</label>
                     <Form.Select required id="department" name="department" value={selectedSupervisor.department} onChange={handleChange} aria-label="Default select example">
                       {departments.length > 0 ?
@@ -183,7 +183,7 @@ function AllSupervisors() {
 
 
                     </Form.Select>
-                  </div>
+                  </div> */}
 
 
 

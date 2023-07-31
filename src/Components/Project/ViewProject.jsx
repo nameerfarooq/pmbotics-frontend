@@ -399,9 +399,7 @@ function ViewProject() {
                                     <td>
                                         <a href={milestone.document} target='_blank' >
                                             <img alt='iconsimages' src={require('../../Images/cloud.png')} className="Icons-EM" />
-
                                         </a>
-
                                     </td>
                                     <td>
                                         <input type="number" id='milestone-marks' name="milestone-marks" onChange={(e) => { setMilestone_marks(e.target.value) }} />

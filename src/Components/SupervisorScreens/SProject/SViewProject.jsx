@@ -8,6 +8,7 @@ import axios from '../../../axiosConfig';
 // import PMOBoard from './PMOBoard';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import PMOBoard from '../../Project/PMOBoard';
 
 
 function SViewProject() {
@@ -293,7 +294,7 @@ function SViewProject() {
                         </tbody>
                     </Table>
                     <h5 className='title-of-table'>Project Board</h5>
-                    {/* <PMOBoard id={id} /> */}
+                    <PMOBoard id={id} />
 
 
 

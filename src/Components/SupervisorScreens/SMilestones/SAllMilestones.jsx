@@ -7,7 +7,7 @@ import MyContext from '../../../Context/MyContext'
 import axios from '../../../axiosConfig'
 function SAllMilestones() {
 
-    const [milestones, setMilestones] = useState('')
+    const [milestones, setMilestones] = useState([])
 
     // navigation for create milestone screen
     const navigate = useNavigate()
@@ -16,17 +16,18 @@ function SAllMilestones() {
     // }
 
 
-const getAllMilestones = async ()=>{
-    await axios.get('getallmilestone')
-    .then((res)=>{
-        if(res.data.message){
-            setMilestones(res.data.body)
-        }
-    })
-}
-useEffect(() => {
-  getAllMilestones()
-}, [])
+    const getAllMilestones = async () => {
+        await axios.get('getallmilestone')
+            .then((res) => {
+                if (res.data.message) {
+                    console.log(res, "reds")
+                    setMilestones(res.data.body)
+                }
+            })
+    }
+    useEffect(() => {
+        getAllMilestones()
+    }, [])
 
 
     const viewMilestone = (e) => {
@@ -46,16 +47,16 @@ useEffect(() => {
                 <div className='MSHolder'>
 
                     {
-                        milestones? 
-                        milestones.map((milestone) => (
-                            <Milestone
-                                key={milestone.id}
-                                details={milestone}
-                                viewMilestone={viewMilestone}
-                            />
-                        ))
-                        :
-                        null
+                        milestones ?
+                            milestones.map((milestone) => (
+                                <Milestone
+                                    key={milestone.id}
+                                    details={milestone}
+                                    viewMilestone={viewMilestone}
+                                />
+                            ))
+                            :
+                            null
                     }
 
 

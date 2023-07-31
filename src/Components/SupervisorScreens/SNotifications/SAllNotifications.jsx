@@ -11,8 +11,8 @@ import { Table } from 'react-bootstrap'
 
 function SAllNotifications() {
 
-    
-    
+
+
 
     const [notifications, setNotifications] = useState('')
     useEffect(() => {
@@ -32,7 +32,7 @@ function SAllNotifications() {
             })
     }
 
-    
+
 
     // search
 
@@ -47,11 +47,11 @@ function SAllNotifications() {
         <>
             {notifications ?
                 <div>
-                  
+
 
 
                     <div className='ProjectHeader'>
-                        <h2 className='ProjectHeading'>Notifications</h2>
+                        <h2 className='ProjectHeading'>Announcements</h2>
                     </div>
                     <div className="searchbar-container">
                         <input type="text" placeholder='Search notifications by title' className="searchbar" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
@@ -73,7 +73,7 @@ function SAllNotifications() {
                             </thead>
                             <tbody>
                                 {filteredNotifications.map((notification, Index) => (
-                                    <Notification key={'Noti' + Index} Index={Index}  refreshnotifications={getAllnotifications} details={notification} />
+                                    <Notification key={'Noti' + Index} Index={Index} refreshnotifications={getAllnotifications} details={notification} />
                                 ))}
                             </tbody>
                         </Table>
