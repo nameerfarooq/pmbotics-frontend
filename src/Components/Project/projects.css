@@ -344,7 +344,11 @@
     float: right;
     width: 300px;
 }
-
+.float_none{
+    float: none !important;
+    width: 100% !important;
+    margin: 10px auto !important;
+}
 .searchbar:focus {
     outline: none;
 }

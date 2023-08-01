@@ -126,7 +126,7 @@ function PMOBoard(props) {
 
                         <div className='BacklogLane'>
                             <h3 className='HeadingBacklog Green' >
-                                Done !
+                                Completed !
                             </h3>
                             <div className='BacklogStream'>
 

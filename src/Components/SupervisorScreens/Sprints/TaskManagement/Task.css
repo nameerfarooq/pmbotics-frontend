@@ -1,0 +1,77 @@
+.TaskPageMain {
+    padding: 20px;
+}
+
+.Tabs-holder {
+    display: flex;
+    align-items: center;
+}
+
+.tabsForTask {
+    width: 200px;
+    height: 100px;
+    border-radius: 10px;
+    border: rgb(175, 175, 175) 3px solid;
+    color: rgb(175, 175, 175);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.tabsForTask:hover {
+    border: 3px solid #05037C;
+    color: #05037C;
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.39);
+}
+
+.activeTab {
+    scale: 1.05;
+    border: 3px solid #05037C;
+    color: #05037C;
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.39);
+
+}
+
+.no-float {
+    float: none !important;
+}
+
+.main-inner-for-tasks {
+    position: relative;
+}
+
+.main-inner-for-tasks .addTask {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-weight: 800;
+    font-size: 22px;
+    width: max-content;
+    cursor: pointer;
+    background-color: #05037C;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.473);
+    color: white;
+}
+
+.tintforTask {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+}
+.innerAddTask{
+    width: max-content;
+    background-color: white;
+    
+}
