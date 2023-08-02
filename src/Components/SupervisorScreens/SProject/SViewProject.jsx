@@ -108,6 +108,11 @@ function SViewProject() {
         }
     }, [id, projects]);
 
+
+    const FindMyProject = () => {
+
+    }
+
     useEffect(() => {
 
         if (myProject) {
@@ -128,7 +133,7 @@ function SViewProject() {
 
 
     const [ShowAddStudent, setShowAddStudent] = useState(false)
-    const [allStudents, setallStudents] = useState([{ name: "nameer", "roll": "abc", "id": 5 }, { name: "zayan", "roll": "abac", "id": 9 }])
+    const [allStudents, setallStudents] = useState([])
 
 
     const [searchQuery, setSearchQuery] = useState("");
@@ -147,8 +152,10 @@ function SViewProject() {
             .then((res) => {
                 if (res.data.status === 200) {
                     alert("Student Added in project Successfully")
+                    getAllProjects()
                     getAllAvailableStudents()
                     getProjectMembers()
+                    console.log("very important add", myProject)
                 }
             })
             .catch((err) => {
@@ -165,9 +172,11 @@ function SViewProject() {
                 console.log(res)
                 if (res.data.status === 200) {
                     alert("Student Removed from project Successfully")
+                    getAllProjects()
                     getAllAvailableStudents()
                     getProjectMembers()
-                    console.log("very important",myProject)
+                    console.log("very important remove", myProject)
+
                 }
             })
             .catch((err) => {
@@ -192,7 +201,7 @@ function SViewProject() {
 
     return (
         <>
-            {ShowAddStudent &&
+            {ShowAddStudent && myProject.current_no_of_group_members < myProject.no_of_group_members &&
                 <div className='addStudentsInProject'>
                     <div className='addStudentsInner'>
                         <div onClick={() => setShowAddStudent(false)} className='close-btn'>X</div>
@@ -396,18 +405,20 @@ function SViewProject() {
                                 :
                                 <tr><td colSpan={3}>no students assigned yet</td></tr>
                             }
-                            <tr>
-                                <td>
-                                    +
-                                </td>
-                                <td colSpan={3}>
-                                    <button className='Icon-btn-EM' onClick={() => { setShowAddStudent(true) }}>
-                                        Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/plus.png')} className="Icons-EM" /></span>
+                            {myProject.current_no_of_group_members < myProject.no_of_group_members &&
+                                <tr>
+                                    <td>
+                                        +
+                                    </td>
+                                    <td colSpan={3}>
+                                        <button className='Icon-btn-EM' onClick={() => { setShowAddStudent(true) }}>
+                                            Add new <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/plus.png')} className="Icons-EM" /></span>
 
-                                    </button>
-                                </td>
+                                        </button>
+                                    </td>
 
-                            </tr>
+                                </tr>
+                            }
                         </tbody>
                     </Table>
                     <h5 className='title-of-table'>Milestones work</h5>

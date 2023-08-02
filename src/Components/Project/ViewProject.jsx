@@ -137,7 +137,7 @@ function ViewProject() {
             "batch": myProject.batch,
             "description": myProject.description,
             "domain": myProject.domain,
-            "no_of_group_members": myProject.no_of_group_members,
+            "no_of_group_members": parseInt(myProject.no_of_group_members, 10),
             "supervisor": myProject.supervisor,
             "department": localStorage.getItem("departmentId")
         })
@@ -159,12 +159,28 @@ function ViewProject() {
             })
     }
     const updateProject = async () => {
-        await axios.patch('updateproject', selectedProject)
+        let data = {
+            "id": selectedProject.id,
+            "title": selectedProject.title,
+            "year": selectedProject.year,
+            "batch": selectedProject.batch,
+            "description": selectedProject.description,
+            "domain": selectedProject.domain,
+            "no_of_group_members": parseInt(selectedProject.no_of_group_members, 10),
+            "supervisor": selectedProject.supervisor,
+            "department": localStorage.getItem("departmentId")
+        }
+        console.log(selectedProject, "yeh tha asal masla")
+        await axios.patch('updateproject', data)
             .then((res) => {
+                console.log(res, "maslay ki jarr")
                 if (res.data.message == "Success") {
                     alert("Project updated successfully")
                     refreshProjects()
                     handleClose()
+                }
+                else if (res.data.message !== "Success") {
+                    alert(res.data.message)
                 }
                 else if (res.data.exception === "some exception") {
                     let errorMessages = [];

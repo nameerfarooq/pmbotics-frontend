@@ -1,8 +1,8 @@
-import './Task.css'
+import './TaskManagement/Task.css'
 import { useState, useEffect } from 'react'
-import TasksInner from './TasksInner'
-import axios from '../../../../axiosConfig'
-const TaskPage = () => {
+import axios from '../../../axiosConfig'
+import SprintInner from './SprintInner'
+const SprintPage = () => {
     const [selectedTab, setSelectedTab] = useState(0)
     const [myProjects, setmyProjects] = useState([])
 
@@ -30,7 +30,6 @@ const TaskPage = () => {
 
     useEffect(() => {
         setSelectedTab(myProjects[0]?.id)
-        console.log("first", myProjects, selectedTab)
     }, [myProjects])
 
 
@@ -51,10 +50,10 @@ const TaskPage = () => {
 
             </div>
             <div className="tasksInner">
-                <TasksInner projectId={selectedTab} />
+                <SprintInner projectId={selectedTab} />
             </div>
         </div>
     )
 }
 
-export default TaskPage
+export default SprintPage

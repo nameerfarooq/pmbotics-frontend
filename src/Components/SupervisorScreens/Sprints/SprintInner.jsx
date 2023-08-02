@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react'
 import { Table, Button, Form } from 'react-bootstrap'
 import { Modal } from 'react-bootstrap'
-import axios from '../../../../axiosConfig'
-const TasksInner = ({ projectId }) => {
-    const [newTask, setnewTask] = useState(
+import axios from '../../../axiosConfig'
+const SprintInner = ({ projectId }) => {
+    const [newSprint, setnewSprint] = useState(
         {
-            "sprint": "",
             "title": "",
-            "description": "",
             "start_date": "",
             "end_date": "",
-            "status": "todo",
-            "assignee": "",
-            "creator": localStorage.getItem('userId')
+            "project": projectId,
+            "milestone": ''
         }
     )
     const [availableMembers, setavailableMembers] = useState([])
@@ -32,16 +29,18 @@ const TasksInner = ({ projectId }) => {
         setselectedTask({ ...selectedTask, [e.target.name]: e.target.value })
     }
     const handlechange2 = (e) => {
-        setnewTask({ ...newTask, [e.target.name]: e.target.value })
+        setnewSprint({ ...newSprint, [e.target.name]: e.target.value })
     }
     const handleDelete = async (id) => {
 
-        await axios.delete(`deleteticket/${id}`)
+        await axios.delete(`deletesprint/${id}`)
             .then((res) => {
-                console.log(res, "all tasks")
-                if (res.data.status === 200) {
-                    alert("Task Deleted Successfully")
+                if (res.data.message === "Success") {
+                    alert("Sprint Deleted Successfully")
                     getAllTasks()
+                }
+                else {
+                    alert(res.data.message)
                 }
             })
             .catch((err) => {
@@ -51,15 +50,12 @@ const TasksInner = ({ projectId }) => {
 
     const hideCreateTask = () => {
         setShow2(false)
-        setnewTask({
-            "sprint": "",
+        setnewSprint({
             "title": "",
-            "description": "",
             "start_date": "",
             "end_date": "",
-            "status": "todo",
-            "assignee": "",
-            "creator": localStorage.getItem('userId')
+            "project": projectId,
+            "milestone": ''
         })
     }
 
@@ -67,7 +63,7 @@ const TasksInner = ({ projectId }) => {
     // API INTEGRATIONS
 
     const getAllTasks = async () => {
-        await axios.get(`ticket?pro_id=${projectId}`)
+        await axios.get(`/supervisorsprint?pro_id=${projectId}`)
             .then((res) => {
                 console.log(res, "all tasks")
                 if (res.data.status === 200) {
@@ -88,23 +84,20 @@ const TasksInner = ({ projectId }) => {
     }, [projectId])
 
 
-    const createNewTask = async () => {
+    const createnewSprint = async () => {
         let data = {
-            "sprint": Number(newTask.sprint),
-            "title": newTask.title,
-            "description": newTask.description,
-            "start_date": newTask.start_date,
-            "end_date": newTask.end_date,
-            "status": "todo",
-            "assignee": parseInt(newTask.assignee, 10),
-            "creator": Number(localStorage.getItem('userId'))
+            "title": newSprint.title,
+            "start_date": newSprint.start_date,
+            "end_date": newSprint.end_date,
+            "project": projectId,
+            "milestone": newSprint.milestone
         }
         console.log(data, "data")
-        await axios.post('createticket', data)
+        await axios.post('createsprint', data)
             .then((res) => {
                 console.log(res, "tasssssssss")
                 if (res.data.status === 200) {
-                    alert("Task Created Successfully")
+                    alert("Sprint Created Successfully")
                     hideCreateTask()
                     getAllTasks()
                 }
@@ -118,19 +111,19 @@ const TasksInner = ({ projectId }) => {
     const [selectedSprint2, setselectedSprint2] = useState('')
 
     useEffect(() => {
-        setselectedSprint2((availableSprints.filter((sprint) => sprint.id == selectedTask.sprint))[0])
+        setselectedSprint2((availableSprints.filter((sprint) => sprint.id == selectedTask.milestone))[0])
         console.log(selectedSprint2, "me agaya hun")
     }, [selectedTask])
     useEffect(() => {
-        setselectedSprint((availableSprints.filter((sprint) => sprint.id == newTask.sprint))[0])
+        setselectedSprint((availableSprints.filter((sprint) => sprint.id == newSprint.milestone))[0])
         console.log(selectedSprint, "me don hun")
-    }, [newTask])
+    }, [newSprint])
 
 
     useEffect(() => {
         if (availableSprints) {
             setselectedSprint(availableSprints[0]?.id)
-            setnewTask({ ...newTask, 'sprint': availableSprints[0]?.id })
+            setnewSprint({ ...newSprint, 'milestone': availableSprints[0]?.id })
         }
     }, [availableSprints])
 
@@ -138,17 +131,20 @@ const TasksInner = ({ projectId }) => {
     useEffect(() => {
         if (availableMembers) {
 
-            setnewTask({ ...newTask, 'assignee': availableMembers[0]?.u_id })
+            setnewSprint({ ...newSprint, 'assignee': availableMembers[0]?.u_id })
         }
     }, [availableMembers])
 
 
     const getSprints = async () => {
-        await axios.get(`supervisorsprint?pro_id=${projectId}`)
+        await axios.get(`getallmilestone`)
             .then((res) => {
-                console.log(res, "all sprints")
+                console.log(res, "all milestones")
                 if (res.data.status === 200) {
-                    setavailableSprints(res.data.data)
+                    let allMilestones = res.data.body
+                    let today = new Date().toISOString().split('T')[0]
+                    let ValidMilestones = allMilestones.filter((milestone) => milestone.document_submission_date >= today)
+                    setavailableSprints(ValidMilestones)
                 }
             })
             .catch((err) => {
@@ -176,11 +172,20 @@ const TasksInner = ({ projectId }) => {
 
 
     const updateThisTask = async () => {
-        await axios.patch('updateticket', selectedTask)
+        console.log("meri bari", selectedTask)
+        let data = {
+            "id": selectedTask.id,
+            "title": selectedTask.title,
+            "start_date": selectedTask.start_date,
+            "end_date": selectedTask.end_date,
+            "project": selectedTask.project,
+            "milestone": selectedTask.milestone
+        }
+        await axios.patch('updatesprint', data)
             .then((res) => {
-                console.log(res, "ticket data")
+                console.log(res, "sprints updated")
                 if (res.data.status === 200) {
-                    alert("Task Updated Successfully")
+                    alert("Sprint Updated Successfully")
                     handleClose()
                     getAllTasks()
                 }
@@ -196,7 +201,7 @@ const TasksInner = ({ projectId }) => {
     return (
         <div className='main-inner-for-tasks'>
             <br /><br />
-            <h2>All Tasks</h2>
+            <h2>All Sprints</h2>
 
 
             <Table striped hover>
@@ -220,10 +225,10 @@ const TasksInner = ({ projectId }) => {
                             <th>
                                 <span className='notispanright no-float'>
                                     <button onClick={() => selectThisTask(task.id)} className='Icon-btn-EM'>
-                                        <img alt='iconsimages' src={require('../../../../Images/pencil.png')} className="Icons-EM" />
+                                        <img alt='iconsimages' src={require('../../../Images/pencil.png')} className="Icons-EM" />
                                     </button>
                                     <button onClick={() => handleDelete(task.id)} className='Icon-btn-EM'>
-                                        <img alt='iconsimages' src={require('../../../../Images/delete.png')} className="Icons-EM" />
+                                        <img alt='iconsimages' src={require('../../../Images/delete.png')} className="Icons-EM" />
                                     </button>
                                 </span>
                             </th>
@@ -243,7 +248,7 @@ const TasksInner = ({ projectId }) => {
 
 
             <div onClick={() => setShow2(true)} className="addTask">
-                + Add Task
+                + Add Sprint
             </div>
 
 
@@ -260,7 +265,7 @@ const TasksInner = ({ projectId }) => {
             {/* edit current task */}
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Edit Task</Modal.Title>
+                    <Modal.Title>Edit Sprint</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form >
@@ -270,16 +275,14 @@ const TasksInner = ({ projectId }) => {
                             <input required type="title" className="form-control" id="title" name="title" value={selectedTask.title} onChange={handlechange} />
                         </div>
 
+
                         <div className="form-group">
-                            <label htmlFor="description">description</label>
-                            <input required type="text" className="form-control" id="description" name="description" value={selectedTask.description} onChange={handlechange} />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="sprint">Sprint</label>
-                            <Form.Select required id="sprint" name="sprint" value={selectedTask.sprint} onChange={handlechange} aria-label="Default select example">
+                            <label htmlFor="milestone">Milestones</label>
+                            <Form.Select required id="milestone" name="milestone" value={selectedTask.milestone} onChange={handlechange} aria-label="Default select example">
                                 {
                                     availableSprints?.length > 0 && availableSprints.map((sprint) => {
-                                        return <option key={sprint.id} value={sprint.id}>{sprint.title}</option>
+
+                                        return <option key={sprint.id} value={sprint.id}>{sprint.milestone_name}</option>
                                     })
 
                                 }
@@ -287,24 +290,14 @@ const TasksInner = ({ projectId }) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="rollno">start date</label>
-                            <input min={selectedSprint2?.start_date} max={selectedSprint2?.end_date} required type="date" className="form-control" id="start_date" name="start_date" value={selectedTask.start_date} onChange={handlechange} />
+                            <input min={new Date().toISOString().split('T')[0]} max={selectedSprint2?.document_submission_date} required type="date" className="form-control" id="start_date" name="start_date" value={selectedTask.start_date} onChange={handlechange} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="end_date">end date</label>
-                            <input min={selectedTask?.start_date} max={selectedSprint2?.end_date} required type="date" className="form-control" id="end_date" name="end_date" value={selectedTask.end_date} onChange={handlechange} />
+                            <input min={selectedTask?.start_date} max={selectedSprint2?.document_submission_date} required type="date" className="form-control" id="end_date" name="end_date" value={selectedTask.end_date} onChange={handlechange} />
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="sprint">Assign to</label>
-                            <Form.Select required id="assignee" name="assignee" value={selectedTask.assignee} onChange={handlechange} aria-label="Default select example">
-                                {
-                                    availableMembers?.length > 0 && availableMembers.map((member) => {
-                                        return <option key={member.u_id} value={member.u_id}>{member.name}</option>
-                                    })
 
-                                }
-                            </Form.Select>
-                        </div>
 
                     </form>
                 </Modal.Body>
@@ -332,26 +325,24 @@ const TasksInner = ({ projectId }) => {
             {/* Create new task */}
             <Modal show={show2} onHide={() => setShow2(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Create New Task</Modal.Title>
+                    <Modal.Title>Create New Sprint</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+
                     <form >
 
                         <div className="form-group">
                             <label htmlFor="title">title</label>
-                            <input required type="title" className="form-control" id="title" name="title" value={newTask.title} onChange={handlechange2} />
+                            <input required type="title" className="form-control" id="title" name="title" value={newSprint.title} onChange={handlechange2} />
                         </div>
 
+
                         <div className="form-group">
-                            <label htmlFor="description">description</label>
-                            <input required type="text" className="form-control" id="description" name="description" value={newTask.description} onChange={handlechange2} />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="sprint">Sprint</label>
-                            <Form.Select required id="sprint" name="sprint" value={newTask.sprint} onChange={handlechange2} aria-label="Default select example">
+                            <label htmlFor="milestone">Milestone</label>
+                            <Form.Select required id="milestone" name="milestone" value={newSprint.milestone} onChange={handlechange2} aria-label="Default select example">
                                 {
                                     availableSprints?.length > 0 && availableSprints.map((sprint) => {
-                                        return <option key={sprint.id} value={sprint.id}>{sprint.title}</option>
+                                        return <option key={sprint.id} value={sprint.id}>{sprint.milestone_name}</option>
                                     })
 
                                 }
@@ -359,24 +350,14 @@ const TasksInner = ({ projectId }) => {
                         </div>
                         <div className="form-group">
                             <label htmlFor="rollno">start_date</label>
-                            <input min={new Date().toISOString().split('T')[0] < selectedSprint?.start_date ? selectedSprint?.start_date : new Date().toISOString().split('T')[0]} max={selectedSprint?.end_date} required type="date" className="form-control" id="start_date" name="start_date" value={newTask.start_date} onChange={handlechange2} />
+                            <input min={new Date().toISOString().split('T')[0]} max={selectedSprint?.document_submission_date} required type="date" className="form-control" id="start_date" name="start_date" value={newSprint.start_date} onChange={handlechange2} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="end_date">end_date</label>
-                            <input min={newTask.start_date} max={selectedSprint?.end_date} required type="date" className="form-control" id="end_date" name="end_date" value={newTask.end_date} onChange={handlechange2} />
+                            <input min={newSprint.start_date} max={selectedSprint?.document_submission_date} required type="date" className="form-control" id="end_date" name="end_date" value={newSprint.end_date} onChange={handlechange2} />
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="sprint">Assign to</label>
-                            <Form.Select required id="assignee" name="assignee" value={newTask.assignee} onChange={handlechange2} aria-label="Default select example">
-                                {
-                                    availableMembers?.length > 0 && availableMembers.map((member) => {
-                                        return <option key={member.u_id} value={member.u_id}>{member.name}</option>
-                                    })
 
-                                }
-                            </Form.Select>
-                        </div>
 
                     </form>
                 </Modal.Body>
@@ -385,8 +366,8 @@ const TasksInner = ({ projectId }) => {
                     <Button variant="secondary" onClick={hideCreateTask}>
                         Close
                     </Button>
-                    <Button onClick={createNewTask} variant="primary">
-                        Create Task
+                    <Button onClick={createnewSprint} variant="primary">
+                        Create Sprint
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -395,4 +376,4 @@ const TasksInner = ({ projectId }) => {
     )
 }
 
-export default TasksInner
+export default SprintInner

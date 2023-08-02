@@ -16,6 +16,7 @@ import SupervisorSidebar from './SupervisorSidebar'
 import { Route, Routes } from 'react-router-dom';
 import SViewMilestone from '../SMilestones/SViewMilestone'
 import TaskPage from '../Sprints/TaskManagement/TaskPage'
+import SprintPage from '../Sprints/SprintPage'
 
 function SupervisorDashboardMain() {
   return (
@@ -32,7 +33,7 @@ function SupervisorDashboardMain() {
           <Route path='/all-milestones' element={<SAllMilestones />} />
           <Route path='/view-milestone/:id' element={<SViewMilestone />} />
 
-          <Route path='/all-sprints/:id' element={<Allsprints />} />
+          <Route path='/sprint-management' element={<SprintPage />} />
           <Route path='/create-sprint' element={<CreateSprint />} />
 
           <Route path='/task-management' element={<TaskPage />} />

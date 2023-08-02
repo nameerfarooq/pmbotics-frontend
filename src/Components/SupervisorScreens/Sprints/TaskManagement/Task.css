@@ -17,10 +17,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     margin: 15px;
     cursor: pointer;
+    text-align: center;
+    /* white-space: nowrap; */
+    overflow: hidden;
+    padding: 10px !important;
+    text-overflow: ellipsis !important;
     transition: all 0.3s ease-in-out;
 }
 
@@ -70,8 +75,9 @@
     top: 0px;
     left: 0px;
 }
-.innerAddTask{
+
+.innerAddTask {
     width: max-content;
     background-color: white;
-    
+
 }

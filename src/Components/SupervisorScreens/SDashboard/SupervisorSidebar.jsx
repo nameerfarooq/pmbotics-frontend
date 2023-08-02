@@ -14,6 +14,7 @@ function SupervisorSidebar() {
       <ul className='Sidebar-ul'>
         <li><NavLink to='/supervisor/'>Projects</NavLink></li>
         <li><NavLink to='/supervisor/all-milestones'>Milestones</NavLink></li>
+        <li><NavLink to='/supervisor/sprint-management'>Sprint Management</NavLink></li>
         <li><NavLink to='/supervisor/task-management'>Task Management</NavLink></li>
         <li><NavLink to='/supervisor/all-notifications'>Announcements</NavLink></li>
 
