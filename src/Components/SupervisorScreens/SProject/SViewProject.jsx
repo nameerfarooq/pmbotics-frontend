@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import PMOBoard from '../../Project/PMOBoard';
 import SBacklog from '../SBacklogScreen/SBacklog';
+import ProjectChart from '../../ProjectChart';
 
 
 function SViewProject() {
@@ -122,6 +123,7 @@ function SViewProject() {
         }
     }, [myProject]);
 
+    console.log(myProject, "this is my project")
 
     useEffect(() => {
         getAllProjects()
@@ -235,24 +237,23 @@ function SViewProject() {
                 <div className='ViewProjectMainDiv'>
 
 
+                    <div className='view-project-row1'>
+                        <div className="left">
+                            <h4 className="projectTitleClasshead">Project Title</h4>
+                            <h2 className='projectTitleClass'>{myProject.title}</h2>
+                        </div>
+                        <div className="right">
+                            <ProjectChart projectId={id} />
+                        </div>
+                    </div>
+
+                    <div className="line2">
+                        <h5 className='projectTitleClasshead'>Project Description</h5>
+                        {myProject.description}
+                    </div>
 
 
-                    <Table bordered style={{ backgroundColor: 'white' }} >
-                        <thead >
-                            <tr style={{ color: '#08c076', fontSize: '22px' }} className='tr-td-bold'>
-                                <td>Project name</td>
-                                <td>Description</td>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr >
-                                <td>{myProject.title}</td>
-                                <td>{myProject.description}</td>
-
-                            </tr>
-                        </tbody>
-                    </Table>
 
                     <h5 className='title-of-table'>Project details</h5>
 

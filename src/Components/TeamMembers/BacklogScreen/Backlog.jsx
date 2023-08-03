@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './Backlog.css'
 import axios from '../../../axiosConfig'
 
-function Backlog({ projectId }) {
+function Backlog({ projectStatus, projectId }) {
     const [tickets, setTickets] = useState([])
     const [selectedTodo, setselectedTodo] = useState('')
     const [selectedInprogress, setselectedInprogress] = useState('')
@@ -152,10 +152,12 @@ function Backlog({ projectId }) {
                                             <p>
                                                 {todo.ticket_name}
                                             </p>
-                                            <button onClick={() => {
+                                            {projectStatus === "ongoing" &&
+                                                <button onClick={() => {
 
-                                                selectForInprogress(todo.ticket_id)
-                                            }} className='BtnTask'>In Progress</button>
+                                                    selectForInprogress(todo.ticket_id)
+                                                }} className='BtnTask'>In Progress</button>
+                                            }
                                         </div>
                                     ))}
 
@@ -173,10 +175,12 @@ function Backlog({ projectId }) {
                                             <p>
                                                 {inprogress.ticket_name}
                                             </p>
-                                            <button onClick={() => {
+                                            {projectStatus === "ongoing" &&
+                                                <button onClick={() => {
 
-                                                selectForReview(inprogress.ticket_id)
-                                            }} className='BtnTask'>Review</button>
+                                                    selectForReview(inprogress.ticket_id)
+                                                }} className='BtnTask'>Review</button>
+                                            }
                                         </div>
                                     ))}
 
@@ -206,9 +210,11 @@ function Backlog({ projectId }) {
                                             <p>
                                                 {review.ticket_name}
                                             </p>
-                                            <button onClick={() => {
-                                                selectForComplete(review.ticket_id)
-                                            }} className='BtnTask'>Approve</button>
+                                            {projectStatus === "ongoing" &&
+                                                <button onClick={() => {
+                                                    selectForComplete(review.ticket_id)
+                                                }} className='BtnTask'>Approve</button>
+                                            }
                                         </div>
                                     ))}
 

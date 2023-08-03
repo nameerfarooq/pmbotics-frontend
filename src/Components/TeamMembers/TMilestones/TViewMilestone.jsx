@@ -4,7 +4,7 @@ import axios from "../../../axiosConfig";
 import { useNavigate } from "react-router-dom";
 import '../../Milestone/milestone.css'
 import { Table } from "react-bootstrap";
-function TViewMilestone({ projectId }) {
+function TViewMilestone({ projectStatus, projectId }) {
     const { id } = useParams();
     const [milestones, setMilestones] = useState('')
     const navigate = useNavigate()
@@ -151,24 +151,31 @@ function TViewMilestone({ projectId }) {
                             }
                         </tbody>
                     </table>
-                    <div className="uploadFileSection">
+                    {
+                        projectStatus === "ongoing" ?
 
-                        <div>
-                            <h4>Upload Milestone Work</h4>
-                            <p>Note: only upload a single file</p>
+                            <div className="uploadFileSection">
 
-                        </div>
-                        {milestone.document_submission_date > today ?
-                            <div className="uploadField">
-                                <input type="file" onChange={handleFileChange} />
-                                <button className="uploadbtn" onClick={handleUpload}>Upload</button>
+                                <div>
+                                    <h4>Upload Milestone Work</h4>
+                                    <p>Note: only upload a single file</p>
+
+                                </div>
+                                {milestone.document_submission_date > today ?
+                                    <div className="uploadField">
+                                        <input type="file" onChange={handleFileChange} />
+                                        <button className="uploadbtn" onClick={handleUpload}>Upload</button>
+                                    </div>
+                                    :
+                                    <p style={{ color: 'red' }}>Submissions Closed! Submission date has been passed</p>
+                                }
+
                             </div>
                             :
-                            <p style={{ color: 'red' }}>Submissions Closed! Submission date has been passed</p>
-                        }
-
-                    </div>
-
+                            <div>
+                                Project Marked as completed! Submissions closed
+                            </div>
+                    }
 
                 </div>
 

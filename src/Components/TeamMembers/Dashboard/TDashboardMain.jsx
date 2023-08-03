@@ -21,7 +21,7 @@ import TViewMilestone from '../TMilestones/TViewMilestone'
 function TDashboardMain(props) {
 
     const [projectId, setprojectId] = useState('')
-
+    const [projectStatus, setprojectStatus] = useState('')
     useEffect(() => {
         FindMyProject()
     }, []);
@@ -33,6 +33,7 @@ function TDashboardMain(props) {
                 console.log(res, "ppp")
                 if (res.data.status == 200) {
                     setprojectId(res.data.data.id)
+                    setprojectStatus(res.data.data.status)
                 }
             })
             .catch((err) => {
@@ -50,12 +51,12 @@ function TDashboardMain(props) {
 
             <Routes>
 
-                <Route path='/' element={<ProjectDetails />} />
-                <Route path='/Milestones' element={<TAllMilestones />} />
-                <Route path='/milestone/:id' element={<TViewMilestone projectId={projectId}/>} />
+                <Route path='/' element={<ProjectDetails projectId={projectId} />} />
+                <Route path='/Milestones' element={<TAllMilestones projectId={projectId} />} />
+                <Route path='/milestone/:id' element={<TViewMilestone projectStatus={projectStatus}  projectId={projectId} />} />
                 <Route path='/all-task' element={<AllTask projectId={projectId} />} />
                 <Route path='/announcements' element={<TAllNotifications />} />
-                <Route path='/my-task' element={<MyTasks projectId={projectId} />} />
+                <Route path='/my-task' element={<MyTasks projectStatus={projectStatus}  projectId={projectId} />} />
 
             </Routes>
         </div>
