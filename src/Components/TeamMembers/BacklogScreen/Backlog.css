@@ -14,7 +14,7 @@
     flex-wrap: nowrap;
     background-color: rgb(228, 228, 228);
     height: max-content !important;
-    
+
     padding: 2%;
     border-radius: 10px;
     box-shadow: 0px 0px 5px 5px #f0f0f0;
@@ -135,13 +135,16 @@
     background-color: #05037C;
     color: white;
 }
-.backlogtasktitle{
+
+.backlogtasktitle {
     font-weight: bold;
 }
-.backlogtasktitle2{
-margin: 3px;
+
+.backlogtasktitle2 {
+    margin: 3px;
 }
-.backlogtasktitle3{
+
+.backlogtasktitle3 {
     /* margin: 0; */
     background-color: white;
     font-weight: bold;
@@ -151,11 +154,16 @@ margin: 3px;
     border-radius: 5px;
 
 }
-.board-ticket-p2{
+
+.board-ticket-p2 {
     color: grey;
     background-color: white;
     padding: 2px;
     border-radius: 5px;
     font-size: 8px;
     margin: 2px;
+}
+
+.All-task-for-student {
+    padding: 30px;
 }

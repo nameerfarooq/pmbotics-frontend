@@ -234,108 +234,7 @@ function SViewProject() {
 
                 <div className='ViewProjectMainDiv'>
 
-                    {/* showing popup for editing a project */}
 
-                    {/* model started for editing selected project */}
-                    {/* <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Edit Project</Modal.Title>
-                        </Modal.Header>
-
-
-
-                        <Modal.Body>
-                            <form >
-                                <div className="form-group">
-                                    <label htmlFor="email">Title</label>
-                                    <input required type="email" className="form-control" id="title" name="title" value={selectedProject.title} onChange={handleChange} />
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="name">year</label>
-                                    <input required type="text" className="form-control" id="year" name="year" value={selectedProject.year} onChange={handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="rollno">batch</label>
-                                    <input required type="text" className="form-control" id="batch" name="batch" value={selectedProject.batch} onChange={handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="seatno">description</label>
-                                    <input required type="text" className="form-control" id="description" name="description" value={selectedProject.description} onChange={handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="enrollmentno">domain</label>
-                                    <input required type="text" className="form-control" id="domain" name="domain" value={selectedProject.domain} onChange={handleChange} />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="department">No of group members</label>
-                                    <Form.Select required id="department" name="no_of_group_members" value={selectedProject.no_of_group_members} onChange={handleChange} aria-label="Default select example">
-
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-
-
-                                    </Form.Select>
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="department">Supervisor</label>
-                                    <Form.Select required id="department" name="supervisor" value={selectedProject.supervisor} onChange={handleChange} aria-label="Default select example">
-
-                                        {
-                                            supervisors.map((supervisor) => {
-                                                return <option key={supervisor.id} value={supervisor.id}>{supervisor.name}</option>
-                                            })
-
-                                        }
-
-
-                                    </Form.Select>
-                                </div>
-
-                                <div className="form-group">
-                                    <label htmlFor="department">Department</label>
-                                    <Form.Select required id="department" name="department" value={selectedProject.department} onChange={handleChange} aria-label="Default select example">
-
-                                        {
-                                            departments.map((depart) => {
-                                                return <option key={depart.id} value={depart.id}>{depart.name}</option>
-                                            })
-
-                                        }
-
-
-                                    </Form.Select>
-                                </div>
-
-
-
-
-                            </form>
-
-
-
-
-
-                        </Modal.Body>
-
-
-
-
-
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Close
-                            </Button>
-                            <Button variant="primary" onClick={updateProject}>
-                                Save Changes
-                            </Button>
-                        </Modal.Footer>
-                    </Modal> */}
-
-                    {/* Model ended */}
 
 
                     <Table bordered style={{ backgroundColor: 'white' }} >
@@ -386,7 +285,9 @@ function SViewProject() {
                                 <td>S#</td>
                                 <td>Team members</td>
                                 <td>Roll #</td>
-                                <td>Remove</td>
+                                {myProject.status === "ongoing" &&
+                                    <td>Remove</td>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -395,10 +296,11 @@ function SViewProject() {
                                     <td>{Index + 1}</td>
                                     <td>{student.name}</td>
                                     <td>{student.rollno}</td>
-                                    <td><button className='Icon-btn-EM' onClick={() => { removeThisStudentInProject(student.id) }}>
-                                        <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/delete.png')} className="Icons-EM" /></span>
-
-                                    </button></td>
+                                    {myProject.status === "ongoing" &&
+                                        <td><button className='Icon-btn-EM' onClick={() => { removeThisStudentInProject(student.id) }}>
+                                            <span style={{ 'marginLeft': '5px' }}><img alt='iconsimages' src={require('../../../Images/delete.png')} className="Icons-EM" /></span>
+                                        </button></td>
+                                    }
                                 </tr>
                             ))
 
@@ -406,6 +308,7 @@ function SViewProject() {
                                 <tr><td colSpan={3}>no students assigned yet</td></tr>
                             }
                             {myProject.current_no_of_group_members < myProject.no_of_group_members &&
+                                myProject.status === "ongoing" &&
                                 <tr>
                                     <td>
                                         +
@@ -428,8 +331,9 @@ function SViewProject() {
                                 <td>S#</td>
                                 <td>Milestone Name</td>
                                 <td>Milestone Work</td>
-                                <td>Marks</td>
-
+                                {myProject.status === "ongoing" &&
+                                    <td>Marks</td>
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -443,13 +347,16 @@ function SViewProject() {
                                             <img alt='iconsimages' src={require('../../../Images/cloud.png')} className="Icons-EM" />
                                         </a>
                                     </td>
-                                    <td>
-                                        <input type="number" id='milestone-marks' name="milestone-marks" onChange={(e) => { setMilestone_marks(e.target.value) }} />
-                                        <a onClick={() => assignMarks(milestone.milestone)} target='_blank' >
-                                            <img alt='iconsimages' src={require('../../../Images/check-mark.png')} className="Icons-EM" />
 
-                                        </a>
-                                    </td>
+                                    {myProject.status === "ongoing" &&
+                                        <td>
+                                            <input type="number" id='milestone-marks' name="milestone-marks" onChange={(e) => { setMilestone_marks(e.target.value) }} />
+                                            <a onClick={() => assignMarks(milestone.milestone)} target='_blank' >
+                                                <img alt='iconsimages' src={require('../../../Images/check-mark.png')} className="Icons-EM" />
+
+                                            </a>
+                                        </td>
+                                    }
                                 </tr>
                             ))
                                 :

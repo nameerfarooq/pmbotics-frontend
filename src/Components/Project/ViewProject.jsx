@@ -218,7 +218,24 @@ function ViewProject() {
         setSelectedProject({ ...selectedProject, [e.target.name]: e.target.value });
     };
 
+    const MarkAsCompleted = async (e) => {
+        let data = {
+            "pro_id": id,
+            "status": e
+        }
 
+        await axios.patch(`markasCompleted`, data)
+            .then((res) => {
+                console.log(res, 'kkkkk')
+                if (res.data.status === 200) {
+                    alert("Project Status Updated")
+                    refreshProjects()
+                }
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
 
     return (
         <>
@@ -357,7 +374,7 @@ function ViewProject() {
                                 <td>Year</td>
                                 <td>Batch</td>
                                 <td>Status</td>
-                                <td>Grade</td>
+                                <td>Total Marks</td>
                                 <td>Domain</td>
                             </tr>
                         </thead>
@@ -402,7 +419,10 @@ function ViewProject() {
                                 <td>S#</td>
                                 <td>Milestone Name</td>
                                 <td>Milestone Work</td>
-                                <td>Marks</td>
+                                {myProject.status === "ongoing"
+                                    &&
+                                    <td>Marks</td>
+                                }
 
                             </tr>
                         </thead>
@@ -417,13 +437,16 @@ function ViewProject() {
                                             <img alt='iconsimages' src={require('../../Images/cloud.png')} className="Icons-EM" />
                                         </a>
                                     </td>
-                                    <td>
-                                        <input type="number" id='milestone-marks' name="milestone-marks" onChange={(e) => { setMilestone_marks(e.target.value) }} />
-                                        <a onClick={() => assignMarks(milestone.milestone)} target='_blank' >
-                                            <img alt='iconsimages' src={require('../../Images/check-mark.png')} className="Icons-EM" />
+                                    {myProject.status === "ongoing"
+                                        &&
+                                        <td>
+                                            <input type="number" id='milestone-marks' name="milestone-marks" onChange={(e) => { setMilestone_marks(e.target.value) }} />
+                                            <a onClick={() => assignMarks(milestone.milestone)} target='_blank' >
+                                                <img alt='iconsimages' src={require('../../Images/check-mark.png')} className="Icons-EM" />
 
-                                        </a>
-                                    </td>
+                                            </a>
+                                        </td>
+                                    }
                                 </tr>
                             ))
                                 :
@@ -465,9 +488,20 @@ function ViewProject() {
                         <button className="dangerbtn" onClick={() => deleteProject()} >
                             Delete project
                         </button>
-                        <button className="MS-Card-btn3" onClick={() => updateClicked()} >
-                            Edit
-                        </button>
+                        {myProject.status === "ongoing" &&
+                            <button className="MS-Card-btn3" onClick={() => updateClicked()} >
+                                Edit
+                            </button>
+                        }
+                        {myProject.status === "ongoing" ?
+                            <button className="MS-Card-btn3" onClick={() => MarkAsCompleted("completed")} >
+                                Mark as Completed
+                            </button>
+                            :
+                            <button className="MS-Card-btn3" onClick={() => MarkAsCompleted("ongoing")} >
+                                Mark as Ongoing
+                            </button>
+                        }
                     </div>
                 </div>
 

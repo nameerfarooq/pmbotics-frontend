@@ -1,35 +1,37 @@
-
-.btnLogout{
+.btnLogout {
     width: 40px !important;
     background-color: transparent !important;
     border: none;
 
 }
-.Navbar-out{
+
+.Navbar-out {
     background-color: #05037C;
     color: rgb(226, 226, 226) !important;
     border-bottom: 1px solid rgb(255, 245, 245);
     /* position: sticky !important;
     top: 0; */
 }
-.Navbar-in{
+
+.Navbar-in {
     background-color: #05037C;
     color: white !important;
     text-decoration: none;
 }
 
-.Sidebar{
+.Sidebar {
     background-color: #05037C;
     color: white;
     padding: 2%;
     width: fit-content;
     height: 100%;
     /* position: fixed;  */
-     
-    
-    
+
+
+
 }
-.Sidebar-ul{
+
+.Sidebar-ul {
     list-style: none;
     margin-top: 5px;
     padding: 10%;
@@ -39,35 +41,42 @@
 
 
 }
-.Sidebar-ul>li{
-    padding-bottom: 5px;
+
+.Sidebar-ul>li {
+    padding: 10px 0px;
     border-bottom: 1px solid rgb(225, 225, 225);
     text-align: left;
     font-weight: 500;
     color: #05037C;
+}
 
-    
+.Sidebar-ul>li:nth-last-child(1) {
+    border-bottom: none;
 
 }
-*{
+
+
+* {
 
     /* border: greenyellow 1px solid; */
 }
-.Dashboard-panel{
+
+.Dashboard-panel {
     position: fixed;
     display: flex;
     flex-wrap: nowrap;
     width: 100% !important;
     height: 100% !important;
-    
-    
+
+
 }
-.DashboardMain{
+
+.DashboardMain {
     width: 100%;
     height: 100% !important;
     /* background-color: aqua; */
     padding: 0%;
     overflow: scroll;
     /* margin-left: 15.5vw; */
-    
+
 }

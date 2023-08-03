@@ -1,4 +1,4 @@
-import { useContext, useEffect,useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 // import '../Dashboard/style.css'
 import './projects.css'
 import ProjectsCards from './ProjectsCards.jsx'
@@ -34,6 +34,10 @@ function MainProjectScreen() {
   )
     :
     null;
+
+  const CurrentProjects = filteredProjects?.filter((project) => project?.status === "ongoing")
+  const PreviousProjects = filteredProjects?.filter((project) => project?.status === "completed")
+
   return (
     <>
 
@@ -55,14 +59,17 @@ function MainProjectScreen() {
               <br />
               <div className="ProjectsHolder">
 
-                {filteredProjects.map((project, Index) => (
-                  project.status === 'ongoing' ?
-                    <div className='project-cards-container' key={Index} onClick={() => { ClikedProject(project.id) }}>
-                      <ProjectsCards details={project} />
-                    </div>
+                {
+                  CurrentProjects.length > 0 ?
+                    CurrentProjects.map((project, Index) => (
+
+                      <div className='project-cards-container' key={Index} onClick={() => { ClikedProject(project.id) }}>
+                        <ProjectsCards details={project} />
+                      </div>
+
+                    ))
                     :
-                    null
-                ))}
+                    <h5>No Current projects to show</h5>}
 
 
               </div>
@@ -70,14 +77,16 @@ function MainProjectScreen() {
               <h3>Previous Projects</h3>
               <br />
               <div className="ProjectsHolder">
-                {filteredProjects.map((project, Index) => (
-                  project.status === 'completed' ?
-                    <div className='project-cards-container' key={Index} onClick={() => { ClikedProject(project.id) }}>
-                      <ProjectsCards details={project} />
-                    </div>
+                {
+                  PreviousProjects.length > 0 ?
+                    PreviousProjects.map((project, Index) => (
+                      <div className='project-cards-container' key={Index} onClick={() => { ClikedProject(project.id) }}>
+                        <ProjectsCards details={project} />
+                      </div>
+                    ))
                     :
-                    null
-                ))}
+                    <h5>No previous projects to show</h5>
+                }
 
 
               </div>

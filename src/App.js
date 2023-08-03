@@ -28,8 +28,7 @@ function App() {
     <div className="App">
 
       <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/' element={<Loginpage />} />
         <Route path='/login' element={<Loginpage />} />
         {LoginStatus && userRole === "admin" ?
           (

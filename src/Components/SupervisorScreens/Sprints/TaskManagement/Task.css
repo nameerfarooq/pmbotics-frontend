@@ -5,6 +5,7 @@
 .Tabs-holder {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .tabsForTask {

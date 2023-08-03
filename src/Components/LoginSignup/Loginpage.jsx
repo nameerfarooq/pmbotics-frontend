@@ -105,9 +105,9 @@ function Loginpage() {
         <div>
           <Header />
           <h2 className='Heading1'>
-            <a className='backButton' onClick={() => navigate(-1)}>
+            {/* <a className='backButton' onClick={() => navigate(-1)}>
               <img alt='iconsimages' src={require('../../Images/arrow (1).png')} className="Icons-EM" /> go back
-            </a>
+            </a> */}
             Login to dashboard
           </h2>
           <div className="formsHolder">

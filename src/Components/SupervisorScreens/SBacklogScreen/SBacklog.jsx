@@ -29,7 +29,11 @@ function SBacklog(props) {
                 tickets.todo?.length > 0 || tickets.inprogress?.length > 0 || tickets.review?.length > 0 || tickets.completed?.length > 0 ?
                     (
                         <div className='MainDiv'>
-
+                            <div className='download-task-log-btn'>
+                                <a href={`https://pmbotics.herokuapp.com/ticketlog?id=${id}`}>
+                                    <button className='btn'>Download Tasks Log</button>
+                                </a>
+                            </div>
                             <div className='BacklogArea'>
 
 
@@ -44,24 +48,8 @@ function SBacklog(props) {
 
 
                                         {tickets?.todo.map((todo, Index) => (
-                                            // <div key={Index} className={`backlogTasks ${tickets.todo ? 'Yellow' : ''}`}>
-                                            //     <p>
-                                            //         {todo.ticket_name}
-                                            //     </p>
-                                            //     <p className='board-ticket-p2'>
-                                            //         <b> Created by </b>{todo.creator_name.length > 7 ? todo.creator_name.slice(0, 7) + '...' : todo.creator_name}
-                                            //     </p>
-                                            //     <p className='board-ticket-p2'>
-                                            //         <b> Assigned to </b>{todo.assignee_name.length > 7 ? todo.assignee_name.slice(0, 7) + '...' : todo.assignee_name}
-                                            //     </p>
-
-                                            // </div>
                                             <SBTask key={Index} details={[todo.ticket_name, todo.assignee_name, "Yellow"]} />
-                                            // <SBTask details={["Documentation", "Ushna Karim", "Yellow"]} />
                                         ))}
-                                        {/* <SBTask details={["UI/UX", "Ushna Karim", "Yellow"]} />
-                                        <SBTask details={["Frontend", "Muhammad Nameer", "Yellow"]} /> */}
-
 
                                     </div>
                                 </div>
@@ -127,7 +115,7 @@ function SBacklog(props) {
                         </div>
                     )
                     :
-                    <h1>a</h1>
+                    <h5>This Project Doesnt have any tasks created till now.</h5>
             }
         </>
     )

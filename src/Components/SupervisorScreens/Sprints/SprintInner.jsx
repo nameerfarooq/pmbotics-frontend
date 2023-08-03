@@ -33,7 +33,7 @@ const SprintInner = ({ projectId }) => {
     }
     const handleDelete = async (id) => {
 
-        await axios.delete(`deletesprint/${id}`)
+        await axios.delete(`deletesprint?sprint_id=${id}`)
             .then((res) => {
                 if (res.data.message === "Success") {
                     alert("Sprint Deleted Successfully")
@@ -216,24 +216,33 @@ const SprintInner = ({ projectId }) => {
                 </thead>
                 <tbody>
 
-                    {allTasks.length > 0 && allTasks.map((task, Index) => (
-                        <tr>
-                            <th>{Index + 1}</th>
-                            <th>{task.title.length > 40 ? `${(task.title).slice(0, 40)}...` : task.title}</th>
-                            <th>{task.start_date}</th>
-                            <th>{task.end_date}</th>
-                            <th>
-                                <span className='notispanright no-float'>
-                                    <button onClick={() => selectThisTask(task.id)} className='Icon-btn-EM'>
-                                        <img alt='iconsimages' src={require('../../../Images/pencil.png')} className="Icons-EM" />
-                                    </button>
-                                    <button onClick={() => handleDelete(task.id)} className='Icon-btn-EM'>
-                                        <img alt='iconsimages' src={require('../../../Images/delete.png')} className="Icons-EM" />
-                                    </button>
-                                </span>
-                            </th>
-                        </tr>
-                    ))}
+
+                    {
+
+                        allTasks.length > 0 ? allTasks.map((task, Index) => (
+                            <tr>
+                                <th>{Index + 1}</th>
+                                <th>{task.title.length > 40 ? `${(task.title).slice(0, 40)}...` : task.title}</th>
+                                <th>{task.start_date}</th>
+                                <th>{task.end_date}</th>
+                                <th>
+                                    <span className='notispanright no-float'>
+                                        <button onClick={() => selectThisTask(task.id)} className='Icon-btn-EM'>
+                                            <img alt='iconsimages' src={require('../../../Images/pencil.png')} className="Icons-EM" />
+                                        </button>
+                                        <button onClick={() => handleDelete(task.id)} className='Icon-btn-EM'>
+                                            <img alt='iconsimages' src={require('../../../Images/delete.png')} className="Icons-EM" />
+                                        </button>
+                                    </span>
+                                </th>
+                            </tr>
+                        ))
+                            :
+                            <tr>
+                                <td colSpan={5}>there are no sprints created yet !</td>
+                            </tr>
+
+                    }
                 </tbody>
             </Table>
 
@@ -311,11 +320,6 @@ const SprintInner = ({ projectId }) => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-
-
-
-
 
 
 

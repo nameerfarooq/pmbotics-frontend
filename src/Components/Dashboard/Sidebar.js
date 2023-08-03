@@ -13,12 +13,12 @@ const Sidebar = () => {
       </a>
 
       <ul className='Sidebar-ul'>
-        <li><NavLink to='/fyp_panel/'>Projects</NavLink></li>
-        <li><NavLink to='/fyp_panel/all-milestones'>Milestones</NavLink></li>
-        <li><NavLink to='/fyp_panel/all-notifications'>Announcements</NavLink></li>
-        <li><NavLink to='/fyp_panel/all-fyp-panel'>Fyp Panel</NavLink></li>
-        <li><NavLink to='/fyp_panel/all-supervisors'>Supervisors</NavLink></li>
-        <li><NavLink to='/fyp_panel/all-students'>Students</NavLink></li>
+        <li><NavLink activeClassName="active" to='/fyp_panel/'>Projects</NavLink></li>
+        <li><NavLink activeClassName="active" to='/fyp_panel/all-milestones'>Milestones</NavLink></li>
+        <li><NavLink activeClassName="active" to='/fyp_panel/all-notifications'>Announcements</NavLink></li>
+        <li><NavLink activeClassName="active" to='/fyp_panel/all-fyp-panel'>Fyp Panel</NavLink></li>
+        <li><NavLink activeClassName="active" to='/fyp_panel/all-supervisors'>Supervisors</NavLink></li>
+        <li><NavLink activeClassName="active" to='/fyp_panel/all-students'>Students</NavLink></li>
         {/* <li><NavLink to='/fyp_panel/all-departments'>Departments</NavLink></li> */}
       </ul>
     </aside>

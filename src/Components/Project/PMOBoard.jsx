@@ -27,7 +27,11 @@ function PMOBoard(props) {
             {tickets.todo?.length > 0 || tickets.inprogress?.length > 0 || tickets.review?.length > 0 || tickets.completed?.length > 0 ?
 
                 <div className='MainDiv'>
-
+                    <div className='download-task-log-btn'>
+                        <a href={`https://pmbotics.herokuapp.com/ticketlog?id=${id}`}>
+                            <button className='btn'>Download Tasks Log</button>
+                        </a>
+                    </div>
                     <div className='BacklogArea'>
 
 
@@ -150,7 +154,7 @@ function PMOBoard(props) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
                 :
                 <p>There are no Tasks created in this project yet...</p>
             }
