@@ -24,7 +24,7 @@ const AllTask = ({ projectId }) => {
         <div className='All-task-for-student'>
             <h3>All Tasks</h3>
             <div className='download-task-log-btn'>
-                <a href={`https://pmbotics.herokuapp.com/ticketlog?id=${projectId}`}>
+                <a href={`https://usamaali.pythonanywhere.com/ticketlog?id=${projectId}`}>
                     <button className='btn'>Download Tasks Log</button>
                 </a>
             </div>

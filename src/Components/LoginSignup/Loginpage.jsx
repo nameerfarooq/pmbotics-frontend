@@ -32,7 +32,7 @@ function Loginpage() {
       "password": Password
     }
     e.preventDefault()
-    const response = await axios.post("https://pmbotics.herokuapp.com/login", item)
+    const response = await axios.post("https://usamaali.pythonanywhere.com/login", item)
       .then(res => {
         if (res.data.message === "OTP successfully sent to your registered email.") {
           alert(res.data.message)
@@ -70,7 +70,7 @@ function Loginpage() {
       "otp": otp
     }
     e.preventDefault()
-    const response = await axios.post("https://pmbotics.herokuapp.com/valotp", item)
+    const response = await axios.post("https://usamaali.pythonanywhere.com/valotp", item)
       .then(res => {
         if (res.data.status === 200) {
           alert(res.data.message)
